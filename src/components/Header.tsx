@@ -31,6 +31,15 @@ export default function Header() {
             Projects
           </Link>
           <Link 
+            href="/experience" 
+            className={clsx(
+              "font-medium text-sm transition-colors",
+              pathname === "/experience" ? "text-stone-900 dark:text-stone-100" : "text-stone-500 hover:text-stone-900 dark:hover:text-stone-100"
+            )}
+          >
+            Experience
+          </Link>
+          <Link 
             href="/about" 
             className={clsx(
               "font-medium text-sm transition-colors",

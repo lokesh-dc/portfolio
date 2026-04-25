@@ -59,6 +59,15 @@ export default function Home() {
                 </span>
               </div>
             </div>
+            <div className="mt-6">
+              <Link 
+                href="/experience" 
+                className="inline-flex items-center gap-1 text-sm font-medium text-stone-400 hover:text-emerald-600 transition-colors group"
+              >
+                View full journey
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
           </section>
 
           {/* Selected Projects */}
