@@ -4,6 +4,7 @@ export type Project = {
   title: string;
   description: string;
   technologies: string[];
+  detailImage: string;
   link?: string;
   slug?: string;
 };
@@ -37,10 +38,11 @@ export const workExperienceData: Job[] = portfolioData.experience.map(job => ({
   description: job.description
 }));
 
-export const projectsData: Project[] = Object.entries(portfolioData.projects).map(([slug, project]) => ({
+export const projectsData: Project[] = Object.entries(portfolioData.projects).map(([slug, project]: [string, any]) => ({
   title: project.title,
   description: project.description,
   technologies: project.technologies,
+  detailImage: project.detailImage,
   link: `/projects/${slug}`,
   slug: slug
 }));

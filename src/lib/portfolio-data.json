@@ -80,6 +80,7 @@
 			"year": "2023",
 			"role": "Lead Frontend Engineer",
 			"thumbnail": "/fitness-tracker/thumbnail.png",
+			"detailImage": "/fitness-tracker/details.png",
 			"technologies": [
 				"React Native",
 				"Expo",
@@ -149,7 +150,8 @@
 			"description": "Command-driven personal portfolio built with Next.js App Router and Framer Motion—replacing infinite scroll with a contextual AI chat interface that surfaces projects, skills, and experience on demand.",
 			"year": "2024",
 			"role": "Full Stack Developer",
-			"thumbnail": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop",
+			"thumbnail": "/portfolio/thumbnail.png",
+			"detailImage": "/portfolio/detail.png",
 			"technologies": [
 				"Next.js",
 				"Tailwind CSS",
@@ -192,7 +194,7 @@
 				},
 				{
 					"type": "image",
-					"url": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=600&fit=crop",
+					"url": "/portfolio/detail.png",
 					"alt": "Command interface aesthetic"
 				}
 			]
@@ -202,7 +204,8 @@
 			"description": "Full-stack media discovery platform built on Next.js with SSR/ISR, a TypeScript normalization layer across TMDB's Movie & TV APIs, and sub-second TTFB via parallel server-side data fetching.",
 			"year": "2024",
 			"role": "Lead Full-Stack Developer",
-			"thumbnail": "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&h=600&fit=crop",
+			"thumbnail": "/hookedonmovies/thumbnail.png",
+			"detailImage": "/hookedonmovies/details.png",
 			"technologies": [
 				"Next.js",
 				"TypeScript",
@@ -256,7 +259,7 @@
 				},
 				{
 					"type": "image",
-					"url": "https://images.unsplash.com/photo-1594908900066-3f47337549d8?w=1200&h=600&fit=crop",
+					"url": "/hookedonmovies/details.png",
 					"alt": "Cinematic interface showcase"
 				},
 				{
