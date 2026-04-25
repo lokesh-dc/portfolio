@@ -22,7 +22,7 @@ export default function Header() {
         >
           LC.
         </Link>
-        <nav className="flex gap-6">
+        <nav className="hidden md:flex gap-6">
           <Link 
             href="/projects" 
             className={clsx(
@@ -70,7 +70,7 @@ export default function Header() {
           className="flex items-center gap-2 group px-4 py-2 rounded-full border border-stone-200 dark:border-stone-800 bg-[#fafafa] dark:bg-[#111] hover:bg-stone-100 dark:hover:bg-[#1a1a1a] transition-all shadow-sm"
         >
           <Sparkles className="w-4 h-4 text-emerald-500 group-hover:text-emerald-600 transition-colors" />
-          <span className="text-sm font-medium tracking-wide dark:text-stone-200">Ask AI</span>
+          <span className="hidden sm:inline text-sm font-medium tracking-wide dark:text-stone-200">Ask AI</span>
         </button>
       </div>
     </header>

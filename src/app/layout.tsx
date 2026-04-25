@@ -22,6 +22,7 @@ import GlobalSidebar from "@/components/GlobalSidebar";
 import Header from "@/components/Header";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
+import MobileNav from "@/components/MobileNav";
 
 export default function RootLayout({
   children,
@@ -43,7 +44,10 @@ export default function RootLayout({
         >
           <ChatProvider>
             <Header />
-            {children}
+            <main className="flex-1 flex flex-col pb-24 md:pb-0">
+              {children}
+            </main>
+            <MobileNav />
             <GlobalSidebar />
           </ChatProvider>
         </ThemeProvider>

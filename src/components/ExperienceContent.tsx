@@ -143,7 +143,7 @@ export default function ExperienceContent() {
               Currently based in Gurgaon, India. Open to remote opportunities or hybrid roles in high-growth product teams.
             </p>
             <a 
-              href="mailto:hello@example.com"
+              href="mailto:lokesh.cdewanand@gmail.com"
               className="inline-flex items-center justify-center w-full py-3 px-4 bg-stone-900 dark:bg-white text-white dark:text-stone-900 rounded-xl font-medium hover:opacity-90 transition-opacity"
             >
               Get in touch
