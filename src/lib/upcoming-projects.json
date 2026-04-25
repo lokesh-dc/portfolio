@@ -1,0 +1,170 @@
+{
+	"clinical-ai-scribe": {
+		"title": "Clinical AI Scribe",
+		"description": "HIPAA-aware clinical documentation assistant that transcribes doctor-patient conversations in real-time and generates structured SOAP notes using LLMs—reducing documentation overhead for healthcare providers by up to 70%.",
+		"year": "2025",
+		"role": "Lead Full-Stack Engineer",
+		"status": "upcoming",
+		"thumbnail": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=600&fit=crop",
+		"technologies": [
+			"Next.js",
+			"TypeScript",
+			"Vercel AI SDK",
+			"OpenAI Whisper",
+			"Claude API",
+			"PostgreSQL",
+			"pgvector",
+			"Tailwind CSS"
+		],
+		"features": [
+			"Real-time audio transcription via OpenAI Whisper API with speaker diarization to separate doctor and patient turns",
+			"LLM-powered SOAP note generation (Subjective, Objective, Assessment, Plan) structured from raw conversation transcript",
+			"RAG pipeline over patient history using pgvector — notes are contextually grounded in prior visit data, not generated blind",
+			"Clinician review interface with inline edit, approve, and reject flows before any note is committed to record"
+		],
+		"upcomingIdeas": [
+			{
+				"title": "ICD-10 code auto-suggestion",
+				"description": "Automatically surface relevant diagnosis codes from the generated note, reducing manual coding time per consultation."
+			},
+			{
+				"title": "EHR integration via FHIR R4",
+				"description": "Push approved notes directly into Electronic Health Record systems via HL7 FHIR API — making the tool a zero-friction add-on to existing clinical workflows."
+			},
+			{
+				"title": "Multilingual support",
+				"description": "Extend Whisper transcription to support Hindi, Tamil, and other regional languages — critical for India's primary care context."
+			}
+		],
+		"content": [
+			{
+				"type": "heading",
+				"text": "Why this exists"
+			},
+			{
+				"type": "paragraph",
+				"text": "Doctors in India spend an estimated 35-40% of their consultation time on documentation. Clinical AI Scribe is a Next.js + Vercel AI SDK application that sits in the background during a consultation, transcribes the conversation, and drafts a structured SOAP note — ready for clinician review and one-click approval."
+			},
+			{
+				"type": "heading",
+				"text": "Technical architecture"
+			},
+			{
+				"type": "paragraph",
+				"text": "Audio is streamed from the browser to OpenAI Whisper for real-time transcription with speaker labels. The transcript is chunked and passed to Claude via the Vercel AI SDK with a structured output prompt. Patient history embeddings stored in pgvector are retrieved via semantic search and injected as context — ensuring notes reflect the patient's full picture, not just today's session."
+			}
+		]
+	},
+	"devpulse": {
+		"title": "DevPulse — Engineering Productivity Dashboard",
+		"description": "Real-time developer productivity and code health dashboard that aggregates GitHub PRs, CI/CD pipeline status, Lighthouse scores, and bundle size trends into a single team-facing view — making frontend engineering work visible to non-technical stakeholders.",
+		"year": "2025",
+		"role": "Full-Stack Developer",
+		"status": "upcoming",
+		"thumbnail": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+		"technologies": [
+			"Next.js",
+			"TypeScript",
+			"GitHub API",
+			"Recharts",
+			"Vercel AI SDK",
+			"PostgreSQL",
+			"Redis",
+			"Tailwind CSS"
+		],
+		"features": [
+			"GitHub API integration — surfaces PR cycle time, review bottlenecks, and merge frequency per engineer and per repository",
+			"Automated Lighthouse CI score tracking over time with per-page CWV breakdowns (LCP, CLS, TBT) plotted as trend charts",
+			"Bundle size regression alerts — flags any PR that increases JS bundle weight beyond a configurable threshold before it ships",
+			"AI-generated weekly engineering digest: plain-English summary of team velocity, top issues, and performance regressions"
+		],
+		"upcomingIdeas": [
+			{
+				"title": "Slack / Teams alert integration",
+				"description": "Push real-time alerts for Lighthouse regressions, failed CI pipelines, or stale PRs directly into team channels."
+			},
+			{
+				"title": "DORA metrics tracking",
+				"description": "Implement the four DORA engineering metrics (deployment frequency, lead time, change failure rate, MTTR) as first-class dashboard widgets."
+			},
+			{
+				"title": "Per-PR performance budget enforcement",
+				"description": "Block merges via GitHub status checks when a PR violates defined Core Web Vitals or bundle size budgets."
+			}
+		],
+		"content": [
+			{
+				"type": "heading",
+				"text": "The problem"
+			},
+			{
+				"type": "paragraph",
+				"text": "Frontend engineering work is invisible. Lighthouse scores degrade silently, bundle sizes creep up unnoticed, and PRs stall in review without anyone realizing. DevPulse makes the health of a frontend codebase observable — for the team shipping it and the stakeholders funding it."
+			},
+			{
+				"type": "heading",
+				"text": "Stack rationale"
+			},
+			{
+				"type": "paragraph",
+				"text": "Next.js App Router handles the dashboard shell with React Server Components. GitHub and CI data is pulled on a cron schedule, normalized, and stored in PostgreSQL with Redis caching for the high-frequency polling endpoints. Recharts renders all trend visualizations client-side with memoized data selectors to avoid unnecessary re-renders on live-updating dashboards."
+			}
+		]
+	},
+	"hexahealth-patient-copilot": {
+		"title": "HexaHealth Patient Copilot",
+		"description": "AI-powered pre-consultation assistant embedded in the HexaHealth patient journey — helping users articulate symptoms, understand procedure options, and arrive at appointments better prepared through a guided conversational interface.",
+		"year": "2025",
+		"role": "Senior Frontend Engineer",
+		"status": "upcoming",
+		"thumbnail": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&h=600&fit=crop",
+		"technologies": [
+			"Next.js",
+			"React Server Components",
+			"Vercel AI SDK",
+			"Claude API",
+			"TypeScript",
+			"Tailwind CSS",
+			"Framer Motion",
+			"Redis"
+		],
+		"features": [
+			"Streaming conversational UI powered by Vercel AI SDK useChat hook — responses stream token-by-token with no perceived latency",
+			"Symptom intake flow that structures free-text patient input into a structured pre-consultation summary delivered to the doctor",
+			"Procedure explainer module: patients can ask plain-language questions about surgeries (e.g. 'what happens during a knee replacement') and receive medically accurate, Claude-generated explanations with source citations",
+			"Appointment context injection — the assistant is grounded in the patient's booked procedure and doctor specialization via RAG over HexaHealth's content CMS"
+		],
+		"upcomingIdeas": [
+			{
+				"title": "Post-consultation recovery tracker",
+				"description": "Extend the assistant into the post-op period — daily check-ins, medication reminders, and recovery milestone tracking delivered via the same chat interface."
+			},
+			{
+				"title": "Insurance eligibility lookup",
+				"description": "Integrate insurance APIs to answer 'will my plan cover this?' in real time during the pre-consultation flow, removing a major patient anxiety point."
+			},
+			{
+				"title": "Voice-first mobile experience",
+				"description": "Web Speech API integration for patients who are uncomfortable typing — particularly valuable for older demographics navigating elective surgery decisions."
+			}
+		],
+		"content": [
+			{
+				"type": "heading",
+				"text": "Context"
+			},
+			{
+				"type": "paragraph",
+				"text": "Most patients arrive at specialist consultations underprepared — they can't articulate their symptom timeline, don't know what questions to ask, and leave confused about next steps. The Patient Copilot bridges that gap with a pre-consultation AI assistant embedded directly into HexaHealth's existing patient portal."
+			},
+			{
+				"type": "heading",
+				"text": "Architecture"
+			},
+			{
+				"type": "paragraph",
+				"text": "The assistant runs on Claude via the Vercel AI SDK's streaming primitives, with a system prompt grounded in HexaHealth's procedure content retrieved via RAG. Patient inputs are never stored beyond the session unless explicitly consented. The frontend uses React Server Components for the page shell and a client-side useChat hook for the streaming conversation — keeping the bundle minimal while delivering a fluid chat experience."
+			}
+		]
+	}
+}

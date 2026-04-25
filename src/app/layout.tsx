@@ -17,6 +17,10 @@ export const metadata: Metadata = {
   description: "Minimalist portfolio with an AI assistant",
 };
 
+import { ChatProvider } from "@/context/ChatContext";
+import GlobalSidebar from "@/components/GlobalSidebar";
+import Header from "@/components/Header";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,7 +31,13 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <ChatProvider>
+          <Header />
+          {children}
+          <GlobalSidebar />
+        </ChatProvider>
+      </body>
     </html>
   );
 }

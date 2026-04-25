@@ -1,5 +1,6 @@
+import Link from "next/link";
 import { aboutData, projectsData, workExperienceData } from "@/lib/data";
-import { Link2, ExternalLink } from "lucide-react";
+import { Link2, ExternalLink, ArrowRight } from "lucide-react";
 
 export function AboutResponse() {
   return (
@@ -77,7 +78,11 @@ export function ProjectsResponse() {
               <h3 className="font-semibold text-lg text-stone-900 dark:text-stone-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                 {project.title}
               </h3>
-              {project.link !== "#" && (
+              {project.link && project.link.startsWith("/") ? (
+                <Link href={project.link} className="text-stone-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+                  <ArrowRight size={18} />
+                </Link>
+              ) : project.link !== "#" && (
                 <a href={project.link} target="_blank" rel="noreferrer" className="text-stone-400 hover:text-stone-900 dark:hover:text-stone-100">
                   <ExternalLink size={18} />
                 </a>

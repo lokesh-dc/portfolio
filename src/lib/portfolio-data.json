@@ -1,0 +1,273 @@
+{
+	"personal": {
+		"name": "Lokesh Choudhary",
+		"title": "Senior Frontend Engineer",
+		"bio": "Senior Frontend Engineer with 3+ years of production experience building high-performance, scalable web applications in React and Next.js. Specializing in Core Web Vitals optimization, frontend architecture, and shipping LLM-integrated features in fast-paced product environments.",
+		"skills": [
+			"React",
+			"Next.js",
+			"TypeScript",
+			"Tailwind CSS",
+			"Node.js",
+			"MongoDB",
+			"Framer Motion",
+			"AWS Elastic Beanstalk",
+			"CloudFront",
+			"Redis",
+			"CI/CD",
+			"React Server Components",
+			"REST APIs",
+			"SEO & Core Web Vitals",
+			"Lighthouse Optimization"
+		],
+		"heroStatement": "Senior Frontend Engineer specializing in React, Next.js, and performance-first web applications—turning complex product requirements into fast, scalable, and measurably better interfaces.",
+		"longBio": [
+			"I architect and ship production-grade frontend systems with a focus on performance, scalability, and developer experience. My work spans Core Web Vitals optimization, React Server Components, and building infrastructure-aware frontends on AWS—with a track record of reducing LCP, eliminating 4xx storms, and cutting bundle weight without sacrificing feature velocity.",
+			"Currently building at the intersection of healthcare and high-scale web—integrating LLM-powered features into Next.js App Router apps, managing CloudFront CDN pipelines, Redis caching layers, and CI/CD workflows that ship confidently to millions of users."
+		],
+		"hobbies": [
+			"Frontend architecture & design systems",
+			"Core Web Vitals & LCP optimization",
+			"AI-integrated UX & LLM tooling",
+			"Developer tooling & DX improvements",
+			"Performance profiling & bundle analysis"
+		],
+		"socialImages": [
+			{
+				"url": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500&h=500&fit=crop",
+				"alt": "Coding setup"
+			},
+			{
+				"url": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&h=500&fit=crop",
+				"alt": "Laptop code"
+			},
+			{
+				"url": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&h=500&fit=crop",
+				"alt": "Workspace"
+			}
+		]
+	},
+	"experience": [
+		{
+			"year": "2023 - Present",
+			"company": "HexaHealth, Gurgaon",
+			"link": "https://hexahealth.com/",
+			"role": "Senior Software Engineer",
+			"description": [
+				"Architected and optimized Next.js doctor profile pages—diagnosing LCP preload mismatches, render-blocking CSS, and high TBT from hydration; drove measurable Lighthouse score improvements across key landing pages.",
+				"Resolved a production 4xx storm caused by stale chunk references across AWS Elastic Beanstalk deployments, implementing a CDN cache invalidation strategy via CloudFront that eliminated the error class entirely.",
+				"Integrated Redis caching layer into the data-fetching pipeline, reducing redundant API calls and improving server response times for high-traffic healthcare content pages.",
+				"Built and maintained CI/CD pipelines for continuous delivery of frontend features to a large-scale production user base, ensuring zero-downtime deploys."
+			]
+		}
+	],
+	"education": [
+		{
+			"year": "2017 - 2021",
+			"school": "SBPU, Pune University",
+			"degree": "B.Tech, Computer Science"
+		},
+		{
+			"year": "2022",
+			"school": "Masai School",
+			"degree": "Full Stack Web Development — intensive bootcamp covering DSA, React, Node.js, and system design"
+		}
+	],
+	"projects": {
+		"fittrack-mobile": {
+			"title": "FitTrack Mobile",
+			"description": "Cross-platform React Native fitness app featuring optimistic UI, offline-first data sync, and AI-personalized workout plans—reducing user drop-off by 40% through friction-free mid-workout logging.",
+			"year": "2023",
+			"role": "Lead Frontend Engineer",
+			"thumbnail": "/fitness-tracker/thumbnail.png",
+			"technologies": [
+				"React Native",
+				"Expo",
+				"Zustand",
+				"Reanimated 2",
+				"AsyncStorage",
+				"TypeScript"
+			],
+			"features": [
+				"Optimistic UI architecture with local-first caching via AsyncStorage — all workout logs persist instantly with zero visible latency",
+				"Background sync engine that reconciles offline mutations with the server, handling conflict resolution gracefully",
+				"Shared Zustand store with selector memoization, preventing unnecessary re-renders across heavy workout screens",
+				"Custom Reanimated 2 gesture handlers for swipe-to-complete sets, matching native app interaction feel"
+			],
+			"upcomingIdeas": [
+				{
+					"title": "AI workout coach",
+					"description": "LLM-powered rep-counting and real-time form correction using device camera and MediaPipe pose estimation—no additional hardware required."
+				},
+				{
+					"title": "Wearable sync",
+					"description": "Apple HealthKit and Google Fit integration to auto-import heart rate, sleep, and step data—eliminating all manual logging for passive metrics."
+				},
+				{
+					"title": "Social accountability layer",
+					"description": "Streak leaderboards, shared workout challenges, and friend-activity feeds to drive retention through social accountability loops."
+				},
+				{
+					"title": "Adaptive periodization engine",
+					"description": "ML model that adjusts progressive overload week-over-week based on fatigue signals, missed sessions, and personal performance trends."
+				}
+			],
+			"content": [
+				{
+					"type": "heading",
+					"text": "The challenge"
+				},
+				{
+					"type": "paragraph",
+					"text": "The fitness app market is saturated. To differentiate, FitTrack needed a mid-workout experience with near-zero friction—no loading spinners, no manual data entry with sweaty hands, and no UX dead ends between sets. The primary drop-off point was the logging screen itself."
+				},
+				{
+					"type": "metrics",
+					"stats": [
+						{ "label": "Retention increase", "value": "+40%" },
+						{ "label": "Session speed improvement", "value": "2.5x" },
+						{ "label": "App Store rating", "value": "4.9" }
+					]
+				},
+				{
+					"type": "heading",
+					"text": "Architecture: optimistic UI + offline-first sync"
+				},
+				{
+					"type": "paragraph",
+					"text": "Built on Zustand with an optimistic update pattern—every user action writes to AsyncStorage immediately and syncs to the backend silently. Reanimated 2 powers gesture-driven interactions that feel indistinguishable from native iOS/Android components, keeping perceived performance high even on mid-range devices."
+				},
+				{
+					"type": "image",
+					"url": "/fitness-tracker/details.png",
+					"alt": "Workout interface showing analytics"
+				}
+			]
+		},
+		"portfolio-redesign": {
+			"title": "Conversational Developer Portfolio",
+			"description": "Command-driven personal portfolio built with Next.js App Router and Framer Motion—replacing infinite scroll with a contextual AI chat interface that surfaces projects, skills, and experience on demand.",
+			"year": "2024",
+			"role": "Full Stack Developer",
+			"thumbnail": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop",
+			"technologies": [
+				"Next.js",
+				"Tailwind CSS",
+				"Framer Motion",
+				"Lucide React",
+				"TypeScript"
+			],
+			"features": [
+				"Command-palette-style interface with slash-command routing — visitors type intent, not keywords",
+				"Framer Motion layout animations for seamless content transitions between project detail views",
+				"Server-rendered shell with client-side hydration — fast initial load with no layout shift (zero CLS)",
+				"JSON-driven content architecture — all portfolio data decoupled from UI components for easy updates"
+			],
+			"upcomingIdeas": [
+				{
+					"title": "Live Claude API integration",
+					"description": "Replace simulated responses with real Claude API calls—making the portfolio genuinely answer recruiter and client questions about specific projects, stack choices, and availability."
+				},
+				{
+					"title": "RAG over resume & projects",
+					"description": "Embed resume, project write-ups, and GitHub READMEs into a pgvector store so the chat can retrieve and cite specific achievements in context."
+				},
+				{
+					"title": "Visitor analytics dashboard",
+					"description": "Track which projects and questions visitors ask most — feeding insights back into which work to feature or expand in the portfolio."
+				},
+				{
+					"title": "Voice input via Web Speech API",
+					"description": "Let mobile visitors speak queries naturally — further differentiating the experience from every static portfolio in the market."
+				}
+			],
+			"content": [
+				{
+					"type": "heading",
+					"text": "Rethinking the portfolio as a product"
+				},
+				{
+					"type": "paragraph",
+					"text": "Traditional portfolios force visitors to navigate a predetermined structure. This portfolio inverts that model — the visitor drives the conversation. Using Next.js App Router for SSR performance and Framer Motion for layout-aware transitions, the interface feels like a premium AI product rather than a developer resume."
+				},
+				{
+					"type": "image",
+					"url": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=600&fit=crop",
+					"alt": "Command interface aesthetic"
+				}
+			]
+		},
+		"hooked-on-movies": {
+			"title": "HookedOnMovies",
+			"description": "Full-stack media discovery platform built on Next.js with SSR/ISR, a TypeScript normalization layer across TMDB's Movie & TV APIs, and sub-second TTFB via parallel server-side data fetching.",
+			"year": "2024",
+			"role": "Lead Full-Stack Developer",
+			"thumbnail": "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&h=600&fit=crop",
+			"technologies": [
+				"Next.js",
+				"TypeScript",
+				"Framer Motion",
+				"TMDB API",
+				"SSR/ISR",
+				"Swiper.js",
+				"Promise.all",
+				"Open Graph / SEO"
+			],
+			"features": [
+				"TypeScript data normalization layer that reconciles inconsistent TMDB Movie vs TV Show field schemas into a single unified interface—eliminating runtime type errors across the entire app",
+				"Parallel server-side data fetching with Promise.all across multiple TMDB endpoints, cutting TTFB significantly versus sequential waterfall requests",
+				"ISR (Incremental Static Regeneration) on detail pages — content stays fresh without per-request SSR cost, ideal for high-traffic title pages",
+				"Full SEO implementation: dynamic Open Graph tags, structured metadata per page, and canonical URLs for discoverability on search engines"
+			],
+			"upcomingIdeas": [
+				{
+					"title": "Personalized recommendation engine",
+					"description": "Replace TMDB's basic 'similar' endpoint with an embedding-based recommender (OpenAI embeddings + cosine similarity) that learns from a user's watch history and ratings."
+				},
+				{
+					"title": "User accounts + persistent watchlists",
+					"description": "Add NextAuth.js with Google OAuth, PostgreSQL-backed watchlists, and per-user recommendation personalization that persists across sessions."
+				},
+				{
+					"title": "Streaming availability via JustWatch API",
+					"description": "Show which platform (Netflix, Prime, Hotstar, etc.) each title is currently available on — bridging discovery to instant action."
+				},
+				{
+					"title": "Redis edge caching for TMDB responses",
+					"description": "Cache API responses at the CDN edge with configurable Redis TTLs to eliminate redundant TMDB calls and achieve sub-100ms global response times."
+				}
+			],
+			"content": [
+				{
+					"type": "heading",
+					"text": "Project overview"
+				},
+				{
+					"type": "paragraph",
+					"text": "HookedOnMovies is a production-quality media discovery platform with a focus on performance, type safety, and cinematic UX. Users can explore trending content, view rich metadata, watch trailers, and surface recommendations—with a UI that competes visually with commercial streaming platforms."
+				},
+				{
+					"type": "heading",
+					"text": "Engineering: type safety & fetch architecture"
+				},
+				{
+					"type": "paragraph",
+					"text": "TMDB's API returns fundamentally different shapes for movies versus TV shows. A custom TypeScript normalization layer maps both into a single shared interface consumed across all components—eliminating defensive nullchecks throughout the codebase. Combined with Promise.all parallel fetching on the server, page data is assembled in a single round-trip rather than a waterfall."
+				},
+				{
+					"type": "image",
+					"url": "https://images.unsplash.com/photo-1594908900066-3f47337549d8?w=1200&h=600&fit=crop",
+					"alt": "Cinematic interface showcase"
+				},
+				{
+					"type": "heading",
+					"text": "Impact"
+				},
+				{
+					"type": "paragraph",
+					"text": "Demonstrates end-to-end ownership of a full-stack Next.js product: API integration architecture, TypeScript system design, ISR caching strategy, SEO implementation, and a polished Framer Motion UI—all shipped as a cohesive, performant application."
+				}
+			]
+		}
+	}
+}
