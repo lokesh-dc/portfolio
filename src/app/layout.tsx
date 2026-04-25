@@ -21,6 +21,8 @@ import { ChatProvider } from "@/context/ChatContext";
 import GlobalSidebar from "@/components/GlobalSidebar";
 import Header from "@/components/Header";
 
+import { ThemeProvider } from "@/components/ThemeProvider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -30,13 +32,21 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
-        <ChatProvider>
-          <Header />
-          {children}
-          <GlobalSidebar />
-        </ChatProvider>
+      <body className="min-h-full flex flex-col bg-white dark:bg-[#0a0a0a] text-stone-900 dark:text-stone-100 transition-colors duration-300">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ChatProvider>
+            <Header />
+            {children}
+            <GlobalSidebar />
+          </ChatProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

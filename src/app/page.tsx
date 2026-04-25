@@ -16,7 +16,7 @@ export default function Home() {
         <div className="lg:col-span-7 space-y-8">
           <h2 className="font-sans text-5xl md:text-7xl font-semibold leading-[1.1] tracking-tight">
             Hi, I'm {aboutData.name.split(" ")[0]}.<br />
-            <span className="text-stone-400 dark:text-stone-600 font-normal">
+            <span className="text-stone-500 dark:text-stone-400 font-normal">
               {aboutData.title}
             </span>
           </h2>
@@ -26,13 +26,13 @@ export default function Home() {
           </p>
 
           <div className="flex items-center gap-4 pt-4">
-            <a href="#" className="p-2 text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
+            <a href="#" className="p-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
               <FileText className="w-5 h-5" />
             </a>
-            <a href="#" className="p-2 text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
+            <a href="#" className="p-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
               <Link2 className="w-5 h-5" />
             </a>
-            <a href="#" className="p-2 text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
+            <a href="#" className="p-2 text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100 transition-colors">
               <Mail className="w-5 h-5" />
             </a>
           </div>
@@ -43,7 +43,7 @@ export default function Home() {
           
           {/* Experience preview */}
           <section>
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-6">
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-stone-500 dark:text-stone-500 mb-6">
               Current Role
             </h3>
             <div className="space-y-4">
@@ -54,7 +54,7 @@ export default function Home() {
                   </p>
                   <p className="text-sm text-stone-500">{workExperienceData[0].company}</p>
                 </div>
-                <span className="text-sm text-stone-400 tabular-nums">
+                <span className="text-sm text-stone-500 dark:text-stone-400 tabular-nums">
                   {workExperienceData[0].duration.split(" - ")[0]} — Present
                 </span>
               </div>
@@ -62,7 +62,7 @@ export default function Home() {
             <div className="mt-6">
               <Link 
                 href="/experience" 
-                className="inline-flex items-center gap-1 text-sm font-medium text-stone-400 hover:text-emerald-600 transition-colors group"
+                className="inline-flex items-center gap-1 text-sm font-medium text-stone-500 dark:text-stone-400 hover:text-emerald-600 transition-colors group"
               >
                 View full journey
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -72,7 +72,7 @@ export default function Home() {
 
           {/* Selected Projects */}
           <section>
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-6">
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-stone-500 dark:text-stone-500 mb-6">
               Selected Work
             </h3>
             <div className="space-y-6">
@@ -89,7 +89,7 @@ export default function Home() {
             </div>
             <button 
               onClick={openSidebar}
-              className="mt-6 flex items-center gap-1 text-sm font-medium text-stone-400 hover:text-emerald-600 transition-colors group"
+              className="mt-6 flex items-center gap-1 text-sm font-medium text-stone-500 dark:text-stone-400 hover:text-emerald-600 transition-colors group"
             >
               Ask AI for more details 
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

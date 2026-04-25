@@ -6,6 +6,8 @@ import { useChat } from "@/context/ChatContext";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
+import { ThemeToggle } from "./ThemeToggle";
+
 export default function Header() {
   const { openSidebar } = useChat();
   const pathname = usePathname();
@@ -16,7 +18,7 @@ export default function Header() {
       <div className="flex items-center gap-8">
         <Link 
           href="/" 
-          className="font-sans font-bold text-xl tracking-tight hover:opacity-70 transition-opacity"
+          className="font-sans font-bold text-xl tracking-tight hover:opacity-70 transition-opacity text-stone-900 dark:text-white"
         >
           LC.
         </Link>
@@ -51,22 +53,24 @@ export default function Header() {
         </nav>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3">
         {!isHome && (
           <Link 
             href="/" 
-            className="hidden md:flex items-center gap-1.5 text-sm font-medium text-stone-500 hover:text-stone-900 dark:hover:text-white transition-colors mr-4"
+            className="hidden lg:flex items-center gap-1.5 text-sm font-medium text-stone-500 hover:text-stone-900 dark:hover:text-white transition-colors mr-2"
           >
             <ArrowLeft size={16} /> Back Home
           </Link>
         )}
+        
+        <ThemeToggle />
         
         <button
           onClick={openSidebar}
           className="flex items-center gap-2 group px-4 py-2 rounded-full border border-stone-200 dark:border-stone-800 bg-[#fafafa] dark:bg-[#111] hover:bg-stone-100 dark:hover:bg-[#1a1a1a] transition-all shadow-sm"
         >
           <Sparkles className="w-4 h-4 text-emerald-500 group-hover:text-emerald-600 transition-colors" />
-          <span className="text-sm font-medium tracking-wide">Ask AI</span>
+          <span className="text-sm font-medium tracking-wide dark:text-stone-200">Ask AI</span>
         </button>
       </div>
     </header>

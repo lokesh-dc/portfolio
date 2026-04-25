@@ -23,13 +23,13 @@ export default function ProjectsPage() {
               />
             </div>
             <div>
-              <p className="text-sm font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-2">
+              <p className="text-sm font-semibold uppercase tracking-widest text-stone-500 dark:text-stone-500 mb-2">
                 {project.role} • {project.year}
               </p>
               <h2 className="text-2xl font-sans font-medium text-stone-900 dark:text-stone-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-500 transition-colors">
                 {project.title}
               </h2>
-              <p className="text-stone-500 dark:text-stone-400 mt-2 line-clamp-2 leading-relaxed">
+              <p className="text-stone-600 dark:text-stone-400 mt-2 line-clamp-2 leading-relaxed">
                 {project.description}
               </p>
             </div>

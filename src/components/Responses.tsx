@@ -20,7 +20,7 @@ export function AboutResponse() {
           {aboutData.skills.map((skill) => (
             <span
               key={skill}
-              className="px-3 py-1 text-sm bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-300 rounded-lg border border-stone-200 dark:border-stone-700 font-medium tracking-wide"
+              className="px-3 py-1 text-sm bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 rounded-lg border border-stone-200 dark:border-stone-700 font-medium tracking-wide"
             >
               {skill}
             </span>
@@ -44,7 +44,7 @@ export function ExperienceResponse() {
             <h3 className="text-lg font-bold text-stone-900 dark:text-stone-100">
               {job.role}
             </h3>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-1 mb-3 text-sm text-stone-500 dark:text-stone-400">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-1 mb-3 text-sm text-stone-600 dark:text-stone-400">
               <span className="font-medium text-blue-600 dark:text-blue-400">
                 {job.company}
               </span>
@@ -79,16 +79,16 @@ export function ProjectsResponse() {
                 {project.title}
               </h3>
               {project.link && project.link.startsWith("/") ? (
-                <Link href={project.link} className="text-stone-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
+                <Link href={project.link} className="text-stone-500 dark:text-stone-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">
                   <ArrowRight size={18} />
                 </Link>
               ) : project.link !== "#" && (
-                <a href={project.link} target="_blank" rel="noreferrer" className="text-stone-400 hover:text-stone-900 dark:hover:text-stone-100">
+                <a href={project.link} target="_blank" rel="noreferrer" className="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-100">
                   <ExternalLink size={18} />
                 </a>
               )}
             </div>
-            <p className="text-stone-600 dark:text-stone-400 text-sm mb-4 leading-relaxed">
+            <p className="text-stone-700 dark:text-stone-400 text-sm mb-4 leading-relaxed">
               {project.description}
             </p>
             <div className="flex flex-wrap gap-1.5 mt-auto">

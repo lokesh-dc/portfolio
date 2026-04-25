@@ -20,7 +20,7 @@ export default function AboutPage() {
             </p>
           ))}
           <div className="pt-4">
-            <h3 className="text-sm font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-3">
+            <h3 className="text-sm font-semibold uppercase tracking-widest text-stone-500 dark:text-stone-500 mb-3">
               When I'm not coding
             </h3>
             <ul className="space-y-1">
@@ -42,7 +42,7 @@ export default function AboutPage() {
           <div className="space-y-6 md:space-y-4">
             {experience.map((job, i) => (
               <div key={i} className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 items-baseline group hover:opacity-100 opacity-90 transition-opacity">
-                <div className="sm:col-span-2 text-stone-400 dark:text-stone-500 text-sm font-mono tracking-tight">
+                <div className="sm:col-span-2 text-stone-500 dark:text-stone-500 text-sm font-mono tracking-tight">
                   {job.year}
                 </div>
                 <div className="sm:col-span-4">
@@ -54,7 +54,7 @@ export default function AboutPage() {
                     <span className="font-medium text-stone-900 dark:text-white">{job.company}</span>
                   )}
                 </div>
-                <div className="sm:col-span-6 text-stone-500 dark:text-stone-400 text-sm sm:text-base">
+                <div className="sm:col-span-6 text-stone-600 dark:text-stone-400 text-sm sm:text-base">
                   {job.role}
                 </div>
               </div>
@@ -67,13 +67,13 @@ export default function AboutPage() {
           <div className="space-y-6 md:space-y-4">
             {education.map((edu, i) => (
               <div key={i} className="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-6 items-baseline group hover:opacity-100 opacity-90 transition-opacity">
-                <div className="sm:col-span-2 text-stone-400 dark:text-stone-500 text-sm font-mono tracking-tight">
+                <div className="sm:col-span-2 text-stone-500 dark:text-stone-500 text-sm font-mono tracking-tight">
                   {edu.year}
                 </div>
                 <div className="sm:col-span-4 font-medium text-stone-900 dark:text-white">
                   {edu.school}
                 </div>
-                <div className="sm:col-span-6 text-stone-500 dark:text-stone-400 text-sm sm:text-base">
+                <div className="sm:col-span-6 text-stone-600 dark:text-stone-400 text-sm sm:text-base">
                   {edu.degree}
                 </div>
               </div>

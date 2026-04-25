@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { workExperienceData } from "@/lib/data";
 import { ExternalLink, Briefcase, Calendar, MapPin } from "lucide-react";
 import portfolioData from "@/lib/portfolio-data.json";
@@ -8,7 +8,7 @@ import portfolioData from "@/lib/portfolio-data.json";
 export default function ExperienceContent() {
   const { education } = portfolioData;
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -18,7 +18,7 @@ export default function ExperienceContent() {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -39,7 +39,7 @@ export default function ExperienceContent() {
         className="mb-16 md:mb-24"
       >
         <h1 className="font-sans text-4xl md:text-6xl font-bold tracking-tight text-stone-900 dark:text-white mb-6">
-          Professional <span className="text-stone-400 dark:text-stone-600">Journey</span>
+          Professional <span className="text-stone-500 dark:text-stone-400">Journey</span>
         </h1>
         <p className="text-lg md:text-xl text-stone-600 dark:text-stone-400 font-light max-w-2xl leading-relaxed">
           A timeline of my professional experience, spanning senior frontend roles, full-stack development, and performance optimization at scale.
@@ -49,7 +49,7 @@ export default function ExperienceContent() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
         {/* Experience Timeline */}
         <div className="lg:col-span-8">
-          <h2 className="text-sm font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-10 flex items-center gap-2">
+          <h2 className="text-sm font-semibold uppercase tracking-widest text-stone-500 dark:text-stone-500 mb-10 flex items-center gap-2">
             <Briefcase size={16} /> Work Experience
           </h2>
 
@@ -86,7 +86,7 @@ export default function ExperienceContent() {
                             href={portfolioData.experience[index].link} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-stone-400 hover:text-stone-900 dark:hover:text-white transition-colors"
+                            className="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition-colors"
                           >
                             <ExternalLink size={14} />
                           </a>
@@ -116,7 +116,7 @@ export default function ExperienceContent() {
         {/* Education & Other Info */}
         <div className="lg:col-span-4 space-y-16">
           <section>
-            <h2 className="text-sm font-semibold uppercase tracking-widest text-stone-400 dark:text-stone-500 mb-8 flex items-center gap-2">
+            <h2 className="text-sm font-semibold uppercase tracking-widest text-stone-500 dark:text-stone-500 mb-8 flex items-center gap-2">
               Education
             </h2>
             <div className="space-y-8">

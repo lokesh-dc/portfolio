@@ -56,11 +56,11 @@ export default function ChatInput({ onOptionSelect, disabled }: ChatInputProps) 
           rows={1}
           disabled
         />
-        <div className="absolute right-2 bottom-2 flex items-center justify-center h-7 w-7 rounded-lg bg-stone-100 dark:bg-stone-800 text-stone-400 dark:text-stone-500 cursor-not-allowed">
+        <div className="absolute right-2 bottom-2 flex items-center justify-center h-7 w-7 rounded-lg bg-stone-100 dark:bg-stone-800 text-stone-500 dark:text-stone-500 cursor-not-allowed">
           <ArrowUp size={16} strokeWidth={2.5} />
         </div>
       </div>
-      <p className="mt-2 text-center text-[10px] uppercase tracking-wider text-stone-400 dark:text-stone-500">
+      <p className="mt-2 text-center text-[10px] uppercase tracking-wider text-stone-500 dark:text-stone-500">
         AI simulated responses
       </p>
     </div>
