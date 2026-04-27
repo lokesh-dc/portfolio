@@ -1,8 +1,8 @@
 {
 	"personal": {
 		"name": "Lokesh Choudhary",
-		"title": "Senior Frontend Engineer",
-		"bio": "Senior Frontend Engineer with 3+ years of production experience building high-performance, scalable web applications in React and Next.js. Specializing in Core Web Vitals optimization, frontend architecture, and shipping LLM-integrated features in fast-paced product environments.",
+		"title": "Senior Software Engineer",
+		"bio": "Senior Software Engineer with 3+ years of production experience building high-performance, scalable web applications. Led end-to-end platform migrations to Next.js, reduced page load times by 40%, and scaled organic traffic by 500% through Core Web Vitals and SEO optimization.",
 		"skills": [
 			"React",
 			"Next.js",
@@ -18,12 +18,14 @@
 			"React Server Components",
 			"REST APIs",
 			"SEO & Core Web Vitals",
-			"Lighthouse Optimization"
+			"Lighthouse Optimization",
+			"A/B Testing (Firebase/GTM)",
+			"CMS Architecture"
 		],
-		"heroStatement": "Senior Frontend Engineer specializing in React, Next.js, and performance-first web applications—turning complex product requirements into fast, scalable, and measurably better interfaces.",
+		"heroStatement": "Senior Software Engineer specializing in high-scale Next.js architectures—reducing page load times by 40% and driving 3M+ quarterly users through performance-first engineering.",
 		"longBio": [
-			"I architect and ship production-grade frontend systems with a focus on performance, scalability, and developer experience. My work spans Core Web Vitals optimization, React Server Components, and building infrastructure-aware frontends on AWS—with a track record of reducing LCP, eliminating 4xx storms, and cutting bundle weight without sacrificing feature velocity.",
-			"Currently building at the intersection of healthcare and high-scale web—integrating LLM-powered features into Next.js App Router apps, managing CloudFront CDN pipelines, Redis caching layers, and CI/CD workflows that ship confidently to millions of users."
+			"I architect and ship production-grade frontend systems with a focus on measurable impact. Most recently, I led a full-scale migration from .NET/jQuery to Next.js, resulting in a 40% reduction in page load times and a 60% improvement in campaign rollout velocity through a custom CMS-driven system.",
+			"My expertise spans Core Web Vitals optimization (improving PageSpeed scores from 50 to 90+), scalable SEO strategies that 5x organic traffic, and integrating complex systems like Razorpay and conversational AI chatbots to drive business conversions."
 		],
 		"hobbies": [
 			"Frontend architecture & design systems",
@@ -54,10 +56,14 @@
 			"link": "https://hexahealth.com/",
 			"role": "Senior Software Engineer",
 			"description": [
-				"Architected and optimized Next.js doctor profile pages—diagnosing LCP preload mismatches, render-blocking CSS, and high TBT from hydration; drove measurable Lighthouse score improvements across key landing pages.",
-				"Resolved a production 4xx storm caused by stale chunk references across AWS Elastic Beanstalk deployments, implementing a CDN cache invalidation strategy via CloudFront that eliminated the error class entirely.",
-				"Integrated Redis caching layer into the data-fetching pipeline, reducing redundant API calls and improving server response times for high-traffic healthcare content pages.",
-				"Built and maintained CI/CD pipelines for continuous delivery of frontend features to a large-scale production user base, ensuring zero-downtime deploys."
+				"Led end-to-end migration of the entire web platform from .NET & jQuery to Next.js and React, reducing page load times by 40% and enabling a modular, component-driven frontend architecture",
+				"Engineered a CMS-driven marketing page system supporting 35+ campaign variants, cutting rollout time by 60% and increasing lead form submission rates from 8% to 20%",
+				"Optimised Core Web Vitals and page performance, pushing Google PageSpeed scores from 50 to 90+, directly lowering paid marketing spend by 30% through improved ad quality scores",
+				"Implemented scalable on-page SEO strategy (meta tags, structured schema, keyword targeting), scaling organic traffic from 5K to 25K daily visitors and driving 3M+ quarterly users",
+				"Integrated Razorpay payment gateway end-to-end, driving a 20% uplift in Premium plan conversions through faster, more reliable checkout experience",
+				"Established frontend code review standards and enforced DRY principles across the team, reducing code redundancy by 15% and improving sprint velocity by 10%",
+				"Architected and executed A/B testing infrastructure using Firebase and Google Tag Manager for DOM-level experiments on landing pages and CTAs, directly informing conversion rate optimisation decisions",
+				"Built a multi-flow conversational chatbot handling appointment booking, doctor discovery, and real-time consultation improving self-serve appointment booking completion and reducing dependency on manual support channels"
 			]
 		}
 	],
@@ -78,7 +84,7 @@
 			"title": "FitTrack Mobile",
 			"description": "Cross-platform React Native fitness app featuring optimistic UI, offline-first data sync, and AI-personalized workout plans—reducing user drop-off by 40% through friction-free mid-workout logging.",
 			"year": "2023",
-			"role": "Lead Frontend Engineer",
+			"role": "Lead Software Engineer",
 			"thumbnail": "/fitness-tracker/thumbnail.png",
 			"detailImage": "/fitness-tracker/details.png",
 			"technologies": [

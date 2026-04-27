@@ -14,6 +14,7 @@ export type Job = {
   role: string;
   duration: string;
   description: string[];
+  link?: string;
 };
 
 export type AboutInfo = {
@@ -35,7 +36,8 @@ export const workExperienceData: Job[] = portfolioData.experience.map(job => ({
   company: job.company,
   role: job.role,
   duration: job.year,
-  description: job.description
+  description: job.description,
+  link: job.link
 }));
 
 export const projectsData: Project[] = Object.entries(portfolioData.projects).map(([slug, project]: [string, any]) => ({

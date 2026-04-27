@@ -58,6 +58,12 @@ a, button, input, div, span, p, h1, h2, h3, h4, h5, h6 {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+@media (min-width: 768px) {
+  *, body, a, button, [role="button"], input, textarea, select {
+    cursor: none !important;
+  }
+}
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;

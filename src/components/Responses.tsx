@@ -68,7 +68,7 @@ export function ProjectsResponse() {
       <p className="text-stone-800 dark:text-stone-200 font-medium">
         I've worked on a variety of projects. Here are a few notable ones:
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-4">
         {projectsData.map((project, idx) => (
           <div
             key={idx}

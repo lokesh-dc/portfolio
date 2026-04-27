@@ -77,7 +77,10 @@ export default function Home() {
 							Current Role
 						</h3>
 						<div className="space-y-4">
-							<div className="flex items-baseline justify-between group cursor-pointer">
+							<Link 
+								href="/experience" 
+								className="flex items-baseline justify-between group cursor-pointer"
+							>
 								<div>
 									<p className="font-medium text-stone-900 dark:text-stone-100 group-hover:text-emerald-600 transition-colors">
 										{workExperienceData[0].role}
@@ -89,7 +92,7 @@ export default function Home() {
 								<span className="text-sm text-stone-500 dark:text-stone-400 tabular-nums">
 									{workExperienceData[0].duration.split(" - ")[0]} — Present
 								</span>
-							</div>
+							</Link>
 						</div>
 						<div className="mt-6">
 							<Link

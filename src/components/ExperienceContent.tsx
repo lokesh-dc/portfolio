@@ -74,22 +74,38 @@ export default function ExperienceContent() {
                 <div className="flex flex-col gap-4">
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
                     <div>
-                      <h3 className="text-xl md:text-2xl font-bold text-stone-900 dark:text-stone-100">
-                        {job.role}
-                      </h3>
+                      {job.link ? (
+                        <a 
+                          href={job.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="group/link block"
+                        >
+                          <h3 className="text-xl md:text-2xl font-bold text-stone-900 dark:text-stone-100 group-hover/link:text-emerald-600 transition-colors flex items-center gap-2">
+                            {job.role}
+                            <ExternalLink size={18} className="opacity-0 group-hover/link:opacity-100 transition-opacity text-stone-400" />
+                          </h3>
+                        </a>
+                      ) : (
+                        <h3 className="text-xl md:text-2xl font-bold text-stone-900 dark:text-stone-100">
+                          {job.role}
+                        </h3>
+                      )}
+                      
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-emerald-600 dark:text-emerald-400 font-medium hover:underline cursor-pointer">
-                          {job.company}
-                        </span>
-                        {portfolioData.experience[index].link && (
+                        {job.link ? (
                           <a 
-                            href={portfolioData.experience[index].link} 
+                            href={job.link} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white transition-colors"
+                            className="text-emerald-600 dark:text-emerald-400 font-medium hover:underline"
                           >
-                            <ExternalLink size={14} />
+                            {job.company}
                           </a>
+                        ) : (
+                          <span className="text-emerald-600 dark:text-emerald-400 font-medium">
+                            {job.company}
+                          </span>
                         )}
                       </div>
                     </div>
