@@ -24,6 +24,7 @@ import Header from "@/components/Header";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import MobileNav from "@/components/MobileNav";
 import CustomCursor from "@/components/CustomCursor";
+import LayoutWrapper from "@/components/LayoutWrapper";
 
 export default function RootLayout({
   children,
@@ -45,10 +46,12 @@ export default function RootLayout({
         >
           <ChatProvider>
             <CustomCursor />
-            <Header />
-            <main className="flex-1 flex flex-col pb-24 md:pb-0">
-              {children}
-            </main>
+            <LayoutWrapper>
+              <Header />
+              <main className="flex-1 flex flex-col pb-24 md:pb-0">
+                {children}
+              </main>
+            </LayoutWrapper>
             <MobileNav />
             <GlobalSidebar />
           </ChatProvider>

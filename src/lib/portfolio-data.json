@@ -80,74 +80,138 @@
 		}
 	],
 	"projects": {
-		"fittrack-mobile": {
-			"title": "FitTrack Mobile",
-			"description": "Cross-platform React Native fitness app featuring optimistic UI, offline-first data sync, and AI-personalized workout plans—reducing user drop-off by 40% through friction-free mid-workout logging.",
-			"year": "2023",
+		"fitness-tracker": {
+			"title": "FitTrack Fitness Tracker",
+			"description": "A premium, mobile-first workout companion built for serious lifters — not a step counter. Plan your training, execute sessions, track every set, and turn raw gym data into actionable insights.",
+			"year": "2024",
 			"role": "Lead Software Engineer",
+			"github": "https://github.com/lokesh-dc/fitness-tracker",
+			"live": "https://workouts-logger.vercel.app?demo=true",
 			"thumbnail": "/fitness-tracker/thumbnail.png",
 			"detailImage": "/fitness-tracker/details.png",
 			"technologies": [
-				"React Native",
-				"Expo",
-				"Zustand",
-				"Reanimated 2",
-				"AsyncStorage",
-				"TypeScript"
+				"Next.js 15",
+				"TypeScript",
+				"MongoDB Atlas",
+				"Tailwind CSS 4.0",
+				"NextAuth.js",
+				"Recharts",
+				"Framer Motion",
+				"PWA",
+				"App Router",
+				"Server Actions"
 			],
 			"features": [
-				"Optimistic UI architecture with local-first caching via AsyncStorage — all workout logs persist instantly with zero visible latency",
-				"Background sync engine that reconciles offline mutations with the server, handling conflict resolution gracefully",
-				"Shared Zustand store with selector memoization, preventing unnecessary re-renders across heavy workout screens",
-				"Custom Reanimated 2 gesture handlers for swipe-to-complete sets, matching native app interaction feel"
+				{
+					"title": "Three-Mode Workout Logging",
+					"description": "Live Session with real-time rest timers, Manual History Log for past sessions, and Plan Designer for programming. Each mode has distinct behavior — rest timer only fires in Live Session, warm-up sets never persist.",
+					"icon": "🏋️"
+				},
+				{
+					"title": "Intelligent PR Detection",
+					"description": "Automated detection of Weight PRs and Rep PRs using a materialized ExerciseRecords collection. O(1) lookups on the gym floor — no scan, no lag. Atomic $max/$set updates preserve data integrity.",
+					"icon": "⚡"
+				},
+				{
+					"title": "PR Timeline & 1RM Tracking",
+					"description": "Per-exercise progress chart with max weight line, Epley estimated 1RM curve (server-side), and volume bars. Time-range selector: 1M / 3M / 6M / 1Y / Custom — filtered client-side after a single fetch.",
+					"icon": "📊"
+				},
+				{
+					"title": "Warm-up Set Generator",
+					"description": "Rep-aware scheme selection: STRENGTH (4 sets at 30–90%) down to ENDURANCE (1 set at 60%). Pure client-side calculation — zero DB calls. Warm-up sets are never saved to WorkoutLog.",
+					"icon": "🔥"
+				},
+				{
+					"title": "Plan vs Actual Adherence",
+					"description": "Weekly schedule tracking with real adherence scores. Missed workouts are only flagged for past days — future planned sessions stay open. Sessions matched to plans by date, not foreign key.",
+					"icon": "📅"
+				},
+				{
+					"title": "Shareable Workout Snapshots",
+					"description": "Custom image generation via html2canvas creates Instagram-ready cards with PR badges, volume stats, and session highlights — ready to share directly from the completion screen.",
+					"icon": "📸"
+				},
+				{
+					"title": "Consistency Heatmap",
+					"description": "GitHub-style 52-week training frequency grid with sticky day labels and auto-scroll to current week. High visual impact — turns habit data into a motivating, at-a-glance streak visualization.",
+					"icon": "🧱"
+				},
+				{
+					"title": "Smart Rest Timer",
+					"description": "Auto-starts after each completed set with useRef-based interval (never inside useState). Custom rest duration per exercise in Plan Designer. Haptic + audio alerts at countdown end.",
+					"icon": "⏱️"
+				}
 			],
 			"upcomingIdeas": [
 				{
-					"title": "AI workout coach",
-					"description": "LLM-powered rep-counting and real-time form correction using device camera and MediaPipe pose estimation—no additional hardware required."
+					"title": "AI Session Debrief",
+					"description": "After completing a workout, the Anthropic API synthesizes WorkoutLog + ExerciseRecords to generate a post-session summary — PRs hit, volume compared to last session, and a focused recommendation for what to improve next time.",
+					"icon": "🤖",
+					"tags": ["Anthropic API", "WorkoutLog", "ExerciseRecords"]
 				},
 				{
-					"title": "Wearable sync",
-					"description": "Apple HealthKit and Google Fit integration to auto-import heart rate, sleep, and step data—eliminating all manual logging for passive metrics."
-				},
-				{
-					"title": "Social accountability layer",
-					"description": "Streak leaderboards, shared workout challenges, and friend-activity feeds to drive retention through social accountability loops."
-				},
-				{
-					"title": "Adaptive periodization engine",
-					"description": "ML model that adjusts progressive overload week-over-week based on fatigue signals, missed sessions, and personal performance trends."
+					"title": "AI Program Generator",
+					"description": "Input your goal (strength / hypertrophy / endurance), training days per week, and available equipment — the model generates a full multi-week periodized plan, directly saved to the Plans collection.",
+					"icon": "📋",
+					"tags": ["Anthropic API", "Plan Designer", "Periodization"]
 				}
 			],
 			"content": [
 				{
-					"type": "heading",
-					"text": "The challenge"
-				},
-				{
-					"type": "paragraph",
-					"text": "The fitness app market is saturated. To differentiate, FitTrack needed a mid-workout experience with near-zero friction—no loading spinners, no manual data entry with sweaty hands, and no UX dead ends between sets. The primary drop-off point was the logging screen itself."
-				},
-				{
 					"type": "metrics",
 					"stats": [
-						{ "label": "Retention increase", "value": "+40%" },
-						{ "label": "Session speed improvement", "value": "2.5x" },
-						{ "label": "App Store rating", "value": "4.9" }
+						{ "label": "PR lookups", "value": "O(1)" },
+						{ "label": "logging modes", "value": "3" },
+						{ "label": "heatmap grid", "value": "52-wk" },
+						{ "label": "DB calls for warmups", "value": "0" }
 					]
-				},
-				{
-					"type": "heading",
-					"text": "Architecture: optimistic UI + offline-first sync"
-				},
-				{
-					"type": "paragraph",
-					"text": "Built on Zustand with an optimistic update pattern—every user action writes to AsyncStorage immediately and syncs to the backend silently. Reanimated 2 powers gesture-driven interactions that feel indistinguishable from native iOS/Android components, keeping perceived performance high even on mid-range devices."
 				},
 				{
 					"type": "image",
 					"url": "/fitness-tracker/details.png",
-					"alt": "Workout interface showing analytics"
+					"alt": "FitTrack Technical Overview"
+				},
+				{
+					"type": "heading",
+					"text": "Technical Highlights"
+				},
+				{
+					"type": "techHighlights",
+					"items": [
+						{
+							"title": "Materialized View Pattern",
+							"sub": "ExerciseRecords acts as a denormalized cache for current PRs — eliminates full WorkoutLog scans on every set completion."
+						},
+						{
+							"title": "MongoDB Aggregation Pipelines",
+							"sub": "Complex $unwind → $group → $sort pipelines for analytics. Zero-weight sets filtered at the DB layer, never client-side."
+						},
+						{
+							"title": "Server-first Data Fetching",
+							"sub": "All sidebar data fetched in page Server Components via Promise.all. No client-side useEffect waterfalls. Each fetch independently try/catch'd."
+						},
+						{
+							"title": "Glassmorphism Design System",
+							"sub": "GlassCard primitive with consistent backdrop-filter, dark surface tokens, and orange-500 accent throughout. Mobile-first, one-hand usable between sets."
+						},
+						{
+							"title": "PWA + Service Workers",
+							"sub": "Background rest timer notifications via Web Notifications API. Offline-resilient architecture planned for gym environments with no signal."
+						},
+						{
+							"title": "Custom useSessionStats Hook",
+							"sub": "Unified live session state — volume, sets, estimated time remaining, PR feed — shared between sidebar and mobile variants via a single hook."
+						},
+						{
+							"title": "Epley 1RM (Server-only)",
+							"sub": "weight × (1 + reps/30) always computed in a Server Action. Architecture rule enforced to avoid stale client-side estimates in charts."
+						},
+						{
+							"title": "Work-based Calorie Estimation",
+							"sub": "Custom algorithm using total volume moved + sets completed. Accurate regardless of rest duration or timer fluctuations — not a generic MET calculation."
+						}
+					]
 				}
 			]
 		},

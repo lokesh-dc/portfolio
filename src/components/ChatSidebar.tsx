@@ -93,22 +93,13 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
 		<AnimatePresence>
 			{isOpen && (
 				<>
-					{/* Backdrop on mobile */}
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-						onClick={onClose}
-						className="fixed inset-0 bg-black/20 dark:bg-black/40 z-40 lg:hidden backdrop-blur-sm"
-					/>
-
 					{/* Sidebar */}
 					<motion.aside
 						initial={{ x: "100%" }}
 						animate={{ x: 0 }}
 						exit={{ x: "100%" }}
 						transition={{ type: "spring", damping: 25, stiffness: 200 }}
-						className="fixed top-0 right-0 z-50 h-full w-full max-w-[420px] bg-[#fafafa] dark:bg-[#0c0c0c] border-l border-stone-200 dark:border-stone-800 shadow-2xl flex flex-col">
+						className="fixed top-0 right-0 z-50 h-full w-full lg:max-w-[420px] bg-[#fafafa] dark:bg-[#0c0c0c] border-l border-stone-200 dark:border-stone-800 shadow-2xl flex flex-col">
 						{/* Header */}
 						<header className="flex-none flex items-center justify-between p-4 border-b border-stone-100 dark:border-stone-800/50 bg-[#fafafa]/80 dark:bg-[#0c0c0c]/80 backdrop-blur-md">
 							<div className="flex items-center gap-2">
