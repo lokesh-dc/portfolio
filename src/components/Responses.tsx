@@ -6,7 +6,7 @@ export function AboutResponse() {
   return (
     <div className="space-y-4 text-stone-700 dark:text-stone-300">
       <p className="text-xl font-semibold text-stone-900 dark:text-white">
-        Hi there! I'm {aboutData.name}. 👋
+        Hi there! I&apos;m {aboutData.name}. 👋
       </p>
       <p className="text-lg text-emerald-600 dark:text-emerald-400 font-medium">
         {aboutData.title}
@@ -66,7 +66,7 @@ export function ProjectsResponse() {
   return (
     <div className="space-y-6">
       <p className="text-stone-800 dark:text-stone-200 font-medium">
-        I've worked on a variety of projects. Here are a few notable ones:
+        I&apos;ve worked on a variety of projects. Here are a few notable ones:
       </p>
       <div className="grid grid-cols-1 gap-4">
         {projectsData.map((project, idx) => (

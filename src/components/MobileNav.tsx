@@ -45,8 +45,15 @@ export default function MobileNav() {
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}
-              <item.icon size={18} className="mb-0.5" />
-              <span className="text-[10px] font-medium uppercase tracking-wider">{item.label}</span>
+              <motion.div
+                whileTap={{ scale: 0.85 }}
+                whileHover={{ y: -2 }}
+                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                className="flex flex-col items-center"
+              >
+                <item.icon size={18} className="mb-0.5" />
+                <span className="text-[10px] font-bold uppercase tracking-wider">{item.label}</span>
+              </motion.div>
             </Link>
           );
         })}
