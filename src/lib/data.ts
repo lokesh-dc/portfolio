@@ -7,6 +7,10 @@ export type Project = {
   detailImage: string;
   link?: string;
   slug?: string;
+  problem?: string;
+  solution?: string;
+  year?: string;
+  role?: string;
 };
 
 export type Job = {

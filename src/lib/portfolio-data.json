@@ -89,6 +89,8 @@
 			"live": "https://workouts-logger.vercel.app?demo=true",
 			"thumbnail": "/fitness-tracker/thumbnail.png",
 			"detailImage": "/fitness-tracker/details.png",
+			"problem": "Generic fitness apps often focus on step counting or cardio, leaving serious lifters with clunky spreadsheets or basic notes. They lack specialized features like rep-aware warm-up generators, real-time rest timers that don't reset when switching apps, and instant access to PR history during a live session. Existing solutions often feel sluggish or require too many taps in a high-intensity gym environment.",
+			"solution": "FitTrack was built as a performance-first PWA that prioritizes speed and data density. It features a specialized 'Live Session' mode with persistent timers, an intelligent PR detection engine that provides O(1) lookups for any exercise, and a server-rendered architecture that ensures sub-second load times even on weak gym Wi-Fi.",
 			"technologies": [
 				"Next.js 15",
 				"TypeScript",
@@ -222,6 +224,8 @@
 			"role": "Full Stack Developer",
 			"thumbnail": "/portfolio/thumbnail.png",
 			"detailImage": "/portfolio/detail.png",
+			"problem": "Traditional portfolios are often static, linear, and force recruiters to dig through buried links to find relevant info. They lack engagement and don't demonstrate a developer's ability to build truly interactive, product-like experiences. In a market flooded with 'infinite scroll' resumes, it's hard to stand out without a unique interaction model.",
+			"solution": "I designed a conversational UI that inverts the browsing experience. Instead of searching, visitors 'ask' for what they need via a command palette or chat interface. Built with Next.js App Router and Framer Motion, it provides sub-second transitions and a premium, tool-like feel that mirrors modern AI applications.",
 			"technologies": [
 				"Next.js",
 				"Tailwind CSS",
@@ -274,8 +278,12 @@
 			"description": "Full-stack media discovery platform built on Next.js with SSR/ISR, a TypeScript normalization layer across TMDB's Movie & TV APIs, and sub-second TTFB via parallel server-side data fetching.",
 			"year": "2024",
 			"role": "Lead Full-Stack Developer",
+			"github": "https://github.com/lokesh-dc/streamXplore",
+			"live": "https://onscreen-movie.vercel.app/",
 			"thumbnail": "/hookedonmovies/thumbnail.png",
 			"detailImage": "/hookedonmovies/details.png",
+			"problem": "Many movie discovery apps suffer from 'data fragmentation'—fetching from multiple endpoints leads to inconsistent UI states and slow loading (waterfalls). Additionally, TMDB's API returns different schemas for Movies vs TV Shows, often causing runtime errors if not handled with rigorous type safety.",
+			"solution": "I implemented a custom TypeScript normalization layer that reconciles all TMDB entities into a single unified interface. To solve the performance issue, I architected a parallel fetching strategy using Promise.all on the server side, combined with ISR to keep trending content fresh without sacrificing speed.",
 			"technologies": [
 				"Next.js",
 				"TypeScript",
