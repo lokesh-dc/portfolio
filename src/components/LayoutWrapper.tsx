@@ -16,16 +16,14 @@ export default function LayoutWrapper({ children }: { children: React.ReactNode 
   }, []);
 
   return (
-    <div className="flex-1 flex overflow-hidden relative">
-      <motion.div
-        animate={{ 
-          paddingRight: isSidebarOpen && isDesktop ? "420px" : "0px" 
-        }}
-        transition={{ type: "spring", damping: 25, stiffness: 200 }}
-        className="flex-1 flex flex-col overflow-y-auto w-full"
-      >
-        {children}
-      </motion.div>
-    </div>
+    <motion.div
+      animate={{ 
+        paddingRight: isSidebarOpen && isDesktop ? "420px" : "0px" 
+      }}
+      transition={{ type: "spring", damping: 25, stiffness: 200 }}
+      className="flex-1 flex flex-col w-full"
+    >
+      {children}
+    </motion.div>
   );
 }

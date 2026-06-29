@@ -34,10 +34,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-white dark:bg-[#0a0a0a] text-stone-900 dark:text-stone-100 transition-colors duration-300">
+      <body className="bg-white dark:bg-[#0a0a0a] text-stone-900 dark:text-stone-100 transition-colors duration-300">
+        <div className="mesh-gradient" aria-hidden="true" />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -46,8 +47,8 @@ export default function RootLayout({
         >
           <ChatProvider>
             <CustomCursor />
+            <Header />
             <LayoutWrapper>
-              <Header />
               <main className="flex-1 flex flex-col pb-24 md:pb-0">
                 {children}
               </main>

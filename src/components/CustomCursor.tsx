@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { motion, useSpring, useMotionValue } from "framer-motion";
+import { motion, useSpring, useMotionValue, AnimatePresence } from "framer-motion";
 
 export default function CustomCursor() {
   const [mounted, setMounted] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [cursorText, setCursorText] = useState("");
 
   // Position of the mouse
   const mouseX = useMotionValue(0);
@@ -24,18 +25,16 @@ export default function CustomCursor() {
     };
 
     const handleMouseOver = (e: MouseEvent) => {
-      // Check if the element or its parent is a link or button
       const target = e.target as HTMLElement;
-      if (
-        target.tagName === "A" || 
-        target.tagName === "BUTTON" || 
-        target.closest("a") || 
-        target.closest("button") ||
-        target.classList.contains("cursor-pointer")
-      ) {
+      const interactiveEl = target.closest("a, button, .cursor-pointer") as HTMLElement;
+      
+      if (interactiveEl) {
         setIsHovering(true);
+        const text = interactiveEl.getAttribute("data-cursor-text");
+        setCursorText(text || "");
       } else {
         setIsHovering(false);
+        setCursorText("");
       }
     };
 
@@ -52,9 +51,12 @@ export default function CustomCursor() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[9999] hidden md:block">
-      {/* The Dot (Inner) - Follows instantly */}
+      {/* The Dot (Inner) - Hidden when we have cursor text */}
       <motion.div
         className="fixed w-1.5 h-1.5 bg-emerald-500 rounded-full"
+        animate={{
+          opacity: cursorText ? 0 : 1
+        }}
         style={{
           x: mouseX,
           y: mouseY,
@@ -63,13 +65,20 @@ export default function CustomCursor() {
         }}
       />
 
-      {/* The Circle (Outer) - Follows with lag */}
+      {/* The Circle (Outer) - Expands for text */}
       <motion.div
-        className="fixed w-8 h-8 border border-emerald-500/50 rounded-full"
+        className="fixed flex items-center justify-center border border-emerald-500/30 rounded-full overflow-hidden whitespace-nowrap backdrop-blur-lg"
         animate={{
-          scale: isHovering ? 1.5 : 1,
-          backgroundColor: isHovering ? "rgba(16, 185, 129, 0.1)" : "rgba(16, 185, 129, 0)",
-          borderColor: isHovering ? "rgba(16, 185, 129, 0.8)" : "rgba(16, 185, 129, 0.4)",
+          width: cursorText ? "auto" : (isHovering ? 48 : 32),
+          height: cursorText ? 32 : (isHovering ? 48 : 32),
+          padding: cursorText ? "0 16px" : "0",
+          backgroundColor: isHovering 
+            ? (cursorText ? "rgba(16, 185, 129, 0.15)" : "rgba(16, 185, 129, 0.1)") 
+            : "rgba(16, 185, 129, 0)",
+          borderColor: isHovering 
+            ? (cursorText ? "rgba(16, 185, 129, 0.4)" : "rgba(16, 185, 129, 0.6)") 
+            : "rgba(16, 185, 129, 0.2)",
+          borderRadius: cursorText ? "100px" : "50%",
         }}
         style={{
           x: circleX,
@@ -78,7 +87,21 @@ export default function CustomCursor() {
           translateY: "-50%",
         }}
         transition={{ type: "spring", stiffness: 250, damping: 30 }}
-      />
+      >
+        <AnimatePresence mode="wait">
+          {cursorText && (
+            <motion.span
+              key={cursorText}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              className="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-600 dark:text-emerald-400 drop-shadow-sm"
+            >
+              {cursorText}
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </motion.div>
     </div>
   );
 }

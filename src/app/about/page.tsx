@@ -21,7 +21,7 @@ export default function AboutPage() {
           ))}
           <div className="pt-4">
             <h3 className="text-sm font-semibold uppercase tracking-widest text-stone-500 dark:text-stone-500 mb-3">
-              When I'm not coding
+              When I&apos;m not coding
             </h3>
             <ul className="space-y-1">
               {about.hobbies.map((hobby, i) => (
