@@ -7,12 +7,12 @@ import Image from "next/image";
 import { Mail, ArrowRight, Sparkles, Phone } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/SocialIcons";
 import { aboutData, projectsData, workExperienceData } from "@/lib/data";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 export default function Home() {
 	const { openSidebar } = useChat();
 
-	const containerVariants = {
+	const containerVariants: Variants = {
 		hidden: { opacity: 0 },
 		visible: {
 			opacity: 1,
@@ -23,13 +23,13 @@ export default function Home() {
 		},
 	};
 
-	const itemVariants = {
+	const itemVariants: Variants = {
 		hidden: { opacity: 0, y: 20 },
 		visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 	};
 
 	return (
-		<motion.div 
+		<motion.div
 			className="flex-1 w-full"
 			initial="hidden"
 			animate="visible"
@@ -107,7 +107,7 @@ export default function Home() {
 							</a>
 						</div>
 						<div className="h-8 w-[1px] bg-stone-200 dark:bg-stone-800 hidden sm:block"></div>
-						<button 
+						<button
 							onClick={() => document.getElementById('selected-work')?.scrollIntoView({ behavior: 'smooth' })}
 							className="group hidden sm:flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-stone-500 hover:text-stone-900 dark:hover:text-stone-100 transition-colors"
 						>
@@ -123,7 +123,7 @@ export default function Home() {
 				<div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
 					{/* Sidebar Experience info */}
 					<div className="lg:col-span-4 space-y-16">
-						<motion.section 
+						<motion.section
 							initial={{ opacity: 0, x: -20 }}
 							whileInView={{ opacity: 1, x: 0 }}
 							viewport={{ once: true }}
@@ -134,8 +134,8 @@ export default function Home() {
 									<span className="w-8 h-[1px] bg-stone-300 dark:bg-stone-800"></span>
 									Current Role
 								</h3>
-								<Link 
-									href="/experience" 
+								<Link
+									href="/experience"
 									className="group block p-6 rounded-2xl bg-[#fafafa] dark:bg-stone-900/40 border border-stone-200 dark:border-stone-800 hover:border-emerald-500/30 transition-all"
 								>
 									<p className="font-bold text-xl text-stone-900 dark:text-stone-100 group-hover:text-emerald-600 transition-colors">
@@ -174,7 +174,7 @@ export default function Home() {
 
 					{/* Main Content: Projects */}
 					<div className="lg:col-span-8">
-						<motion.section 
+						<motion.section
 							initial={{ opacity: 0, y: 20 }}
 							whileInView={{ opacity: 1, y: 0 }}
 							viewport={{ once: true }}
@@ -223,7 +223,7 @@ export default function Home() {
 									</Link>
 								))}
 							</div>
-							
+
 							<Link
 								href="/projects"
 								className="mt-12 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-stone-500 hover:text-emerald-600 transition-colors group">
