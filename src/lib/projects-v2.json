@@ -1,0 +1,344 @@
+{
+	"fitness-tracker": {
+		"slug": "fitness-tracker",
+		"meta": {
+			"title": "FitTrack",
+			"tagline": "A workout companion built for the gym floor, not the couch. Log sets, track PRs, and visualize progress — all in under three taps.",
+			"role": "Lead Software Engineer",
+			"timeline": "8 weeks · 2024",
+			"platform": ["PWA", "Web"],
+			"users": "25+ active lifters",
+			"status": "live",
+			"year": "2024"
+		},
+		"hero": {
+			"mockupType": "phone",
+			"image": "/fitness-tracker/muscle-group-laptop-mockup.png",
+			"alt": "FitTrack live session running with rest timer active and current set highlighted"
+		},
+		"links": {
+			"live": "https://workouts-logger.vercel.app?demo=true",
+			"github": "https://github.com/lokesh-dc/fitness-tracker"
+		},
+		"quickFacts": [
+			{ "label": "Role", "value": "Lead Software Engineer" },
+			{ "label": "Timeline", "value": "8 weeks" },
+			{ "label": "Platform", "value": "PWA · Web" },
+			{ "label": "Users", "value": "25+" },
+			{ "label": "Status", "value": "Live" }
+		],
+		"problem": {
+			"headline": "Fitness apps treat lifting like an afterthought.",
+			"body": "Most fitness apps are built for step counters and casual joggers. Serious lifters are left hacking together spreadsheets, Notes app lists, or apps that require 15 taps to log a single set. Rest timers reset when you switch apps. PR history requires digging through pages of old sessions. Warm-ups? You're on your own."
+		},
+		"solution": {
+			"headline": "A lifter-first experience, from setup to cooldown.",
+			"body": "FitTrack strips away everything a lifter doesn't need and optimises every interaction for the gym environment — one hand, between sets, sometimes with low signal. Three distinct logging modes, persistent timers that survive app switches, instant PR detection with zero database scans, and a warm-up generator that never touches the server. It's the tool I wish existed when I started lifting.",
+			"image": "/fitness-tracker/thumbnail.png"
+		},
+		"productHighlights": [
+			{
+				"id": "live-session",
+				"title": "Live Workout Mode",
+				"description": "Start a session, complete sets, and watch your volume accumulate in real time.",
+				"image": "/fitness-tracker/details.png",
+				"benefit": "Never break your rhythm. Log a set with two taps during your rest period.",
+				"technicalNote": "Three logging modes share a single useSessionStats hook that derives volume, set count, and time remaining from a unified state machine."
+			},
+			{
+				"id": "smart-rest-timer",
+				"title": "Smart Rest Timer",
+				"description": "Auto-starts after every completed set. Custom durations per exercise. Survives app switches.",
+				"image": "/fitness-tracker/details.png",
+				"benefit": "Rest intentionally, not accidentally. The timer is always visible and always counting.",
+				"technicalNote": "useRef-based interval (never useState) to avoid stale closures. Web Notifications API for background alerts. Duration per-exercise stored in Plan schema."
+			},
+			{
+				"id": "pr-detection",
+				"title": "PR Detection Engine",
+				"description": "Automatically flags Weight PRs and Rep PRs the moment you complete a set.",
+				"image": "/fitness-tracker/details.png",
+				"benefit": "Instant feedback loop. No need to remember your old max.",
+				"technicalNote": "O(1) lookup via materialized ExerciseRecords collection. Atomic $max / $set operators ensure read-after-write consistency."
+			},
+			{
+				"id": "progress-charts",
+				"title": "Progress Timeline",
+				"description": "Per-exercise charts showing max weight, Epley estimated 1RM, and volume over time.",
+				"image": "/fitness-tracker/details.png",
+				"benefit": "See the trajectory of your strength gains, not just today's number.",
+				"technicalNote": "Epley 1RM computed exclusively in Server Actions. 1M / 3M / 6M / 1Y filters applied client-side after a single fetch."
+			},
+			{
+				"id": "heatmap",
+				"title": "Consistency Heatmap",
+				"description": "A 52-week GitHub-style grid showing every training day at a glance.",
+				"image": "/fitness-tracker/details.png",
+				"benefit": "One glance tells you if you're showing up. Streaks are motivating.",
+				"technicalNote": "Grid computed server-side from WorkoutLog timestamps. Sticky day labels with scrollIntoView to current week."
+			},
+			{
+				"id": "warmup-generator",
+				"title": "Warm-up Set Generator",
+				"description": "Enter your working weight and get a rep- and percentage-based warm-up scheme in one tap.",
+				"image": "/fitness-tracker/details.png",
+				"benefit": "Never skip warm-ups again — one tap, not a mental calculation.",
+				"technicalNote": "Pure client-side computation — zero DB calls. WarmupSet type excluded from all write operations at the type level."
+			},
+			{
+				"id": "workout-plans",
+				"title": "Plan Designer & Adherence",
+				"description": "Design multi-week training plans and track adherence with real scores.",
+				"image": "/fitness-tracker/details.png",
+				"benefit": "Follow a program, not a guess. See exactly how consistently you execute.",
+				"technicalNote": "Plans matched to completed sessions by date, not foreign key. Adherence = completed / scheduled per week."
+			}
+		],
+		"engineeringHighlights": [
+			{
+				"id": "materialized-view",
+				"title": "Materialized View Pattern",
+				"problem": "Full WorkoutLog scans on every set to check for PRs would kill performance as the dataset grows.",
+				"solution": "Created a denormalized ExerciseRecords collection storing only the current PR per exercise per user. Updated atomically via $max / $set on each set completion.",
+				"result": "O(1) PR lookups. Zero scans. No race conditions under concurrent sessions."
+			},
+			{
+				"id": "mongo-aggregation",
+				"title": "MongoDB Aggregation Pipelines",
+				"problem": "Dashboard widgets needed complex multi-stage computations (volume per week, 1RM trends, adherence scores).",
+				"solution": "Single purpose-built aggregation pipeline per widget: $unwind → $group → $sort → $project. Zero-weight sets filtered at DB layer.",
+				"result": "Analytics load in under 200ms for users with 6+ months of data. Zero client-side computation."
+			},
+			{
+				"id": "server-components",
+				"title": "Server-first Data Architecture",
+				"problem": "Client-side fetching waterfalls caused loading spinners for every dashboard section on initial load.",
+				"solution": "All dashboard data fetched in parallel via Promise.all inside the top-level Server Component. Each fetch independently try/catch'd.",
+				"result": "Zero client waterfalls. Every page paints with all data present. One failing fetch never blocks the rest."
+			},
+			{
+				"id": "custom-hooks",
+				"title": "Custom Hooks Architecture",
+				"problem": "Session state was duplicated across mobile and sidebar variants, causing drift.",
+				"solution": "Extracted a single useSessionStats hook consuming a shared context. Every UI variant subscribes to the same source of truth.",
+				"result": "Zero state duplication. Adding a new UI variant requires zero state logic changes."
+			},
+			{
+				"id": "pwa-service-worker",
+				"title": "PWA + Service Workers",
+				"problem": "Gym environments often have weak or no cellular signal. The app needed to feel native regardless.",
+				"solution": "Service worker with cache-first strategy for static assets. Web Notifications API for background rest timer alerts.",
+				"result": "Instant loads on repeat visits. Rest timer notifications work with phone locked or app switched."
+			},
+			{
+				"id": "server-actions",
+				"title": "Server Actions for Mutations",
+				"problem": "API routes for set logging introduced latency and required separate error handling on every mutation.",
+				"solution": "All mutations handled via Next.js Server Actions with useActionState. Form-based progressive enhancement degrades gracefully without JS.",
+				"result": "Mutations complete in a single round-trip. Error handling is declarative. Works without JavaScript."
+			}
+		],
+		"architecture": {
+			"caption": "FitTrack follows a server-first architecture — the initial page is composed entirely on the server, and client interactivity is layered on top only where needed.",
+			"layers": [
+				{
+					"label": "Server Components",
+					"description": "Every page renders on the server. Dashboard data, user identity, and computed aggregates are fetched in parallel within the top-level Server Component and passed down as props."
+				},
+				{
+					"label": "Server Actions",
+					"description": "Every mutation — log a set, create a plan, update a timer — is a Server Action invoked from a client form. No API routes. No client-side fetch calls for writes."
+				},
+				{
+					"label": "MongoDB Atlas",
+					"description": "Four collections: WorkoutLog (raw sets), ExerciseRecords (materialized PRs), Plans (training programs), Users (auth + preferences). Aggregation pipelines run at the DB layer."
+				},
+				{
+					"label": "Materialized Records",
+					"description": "ExerciseRecords is written on every set completion via atomic $max/$set. Eliminates scans entirely — PR lookups always hit a single document."
+				},
+				{
+					"label": "Browser APIs",
+					"description": "Service Worker for offline asset serving. Web Notifications for persistent timers. localStorage for session continuity across navigations."
+				}
+			]
+		},
+		"technicalChallenges": [
+			{
+				"id": "pr-lookup-optimization",
+				"challenge": "O(1) PR lookup without a dedicated database",
+				"difficulty": "A naive approach scans all past sets for the same exercise every time a set completes — O(n) per completion, degrading linearly with workout history.",
+				"solution": "Introduced a materialized ExerciseRecords collection. On every set completion, a single atomic update uses $max to compare against the stored PR and $set to update if exceeded.",
+				"outcome": "PR detection is O(1) regardless of whether the user has 10 or 10,000 logged sets. The materialized view also serves progress charts — no additional queries needed."
+			},
+			{
+				"id": "persistent-timers",
+				"challenge": "Rest timers that survive app switch",
+				"difficulty": "Browsers throttle setTimeout when the tab is backgrounded. On mobile, switching to Spotify kills the timer entirely.",
+				"solution": "Used Web Notifications API to schedule an alert at timer end. Service Worker receives the event even if the tab is closed. Timer state serialized to localStorage on every tick for accurate restoration.",
+				"outcome": "Rest timers work reliably when users switch apps, lock their phone, or close the browser tab — a critical UX requirement for gym use."
+			},
+			{
+				"id": "analytics-aggregation",
+				"challenge": "Aggregating months of workout data into responsive dashboards",
+				"difficulty": "A user with 6+ months of daily training has thousands of set records. Computing aggregates client-side would freeze the UI.",
+				"solution": "All aggregation runs in MongoDB. Each dashboard widget executes a purpose-built pipeline ($match → $group → $sort) at the database level. The server fetches pre-computed arrays.",
+				"outcome": "Dashboards load pre-computed analytics in under 200ms. The client maps data — it never computes it."
+			},
+			{
+				"id": "data-modeling",
+				"challenge": "Three workout modes sharing one schema",
+				"difficulty": "Live, Manual, and Plan modes have overlapping but distinct behaviors. Warm-up sets must never persist. Using a single schema risked nullable fields everywhere.",
+				"solution": "TypeScript discriminated union: Session = LiveSession | ManualSession | PlannedSession. Shared base with mode-specific payloads. Write path narrows the type before persisting.",
+				"outcome": "Single WorkoutLog collection stores all three modes without nullable fields. TypeScript enforces warm-up sets are never written. Adding a fourth mode means adding a union variant."
+			}
+		],
+		"performance": [
+			{
+				"metric": "PR Lookup Time",
+				"value": "O(1)",
+				"sublabel": "Materialized view eliminates scans"
+			},
+			{
+				"metric": "DB Calls for Warm-ups",
+				"value": "0",
+				"sublabel": "All client-side computation"
+			},
+			{
+				"metric": "Workout Modes",
+				"value": "3",
+				"sublabel": "Live · Manual · Plan"
+			},
+			{
+				"metric": "Heatmap Span",
+				"value": "52 weeks",
+				"sublabel": "Full year at a glance"
+			},
+			{
+				"metric": "Analytics Load",
+				"value": "<200ms",
+				"sublabel": "Server-side aggregation"
+			},
+			{
+				"metric": "Initial Paint",
+				"value": "Sub-second",
+				"sublabel": "Zero client waterfalls"
+			}
+		],
+		"designDecisions": [
+			{
+				"decision": "Dark theme by default",
+				"problem": "Gym lighting ranges from harsh fluorescents to dim basements. Light theme causes glare between sets.",
+				"rationale": "Dark surfaces with high-contrast orange accents remain readable in every lighting condition. Orange (HSL 24°) was chosen for visibility against dark backgrounds."
+			},
+			{
+				"decision": "Bottom navigation on mobile",
+				"problem": "One-handed use between sets. Reaching the top screen with a thumb is uncomfortable mid-workout.",
+				"rationale": "Bottom nav places every primary action within thumb reach. Desktop uses a persistent sidebar mirroring the same structure."
+			},
+			{
+				"decision": "Large touch targets (min 48px)",
+				"problem": "Sweaty fingers, gym gloves, and elevated heart rates reduce tap accuracy.",
+				"rationale": "All interactive elements exceed 48x48px. The 'Complete Set' button takes 60% of the bottom area during a live session."
+			},
+			{
+				"decision": "Glassmorphism cards",
+				"problem": "High information density during sessions (timer, current set, volume) — flat cards feel cluttered.",
+				"rationale": "Backdrop-blur cards create depth without distracting borders. Content floats on translucent surfaces, letting the dark background breathe through."
+			}
+		],
+		"gallery": [
+			{
+				"url": "/fitness-tracker/details.png",
+				"alt": "Live workout session with rest timer and volume tracking",
+				"type": "screenshot",
+				"device": "phone"
+			},
+			{
+				"url": "/fitness-tracker/thumbnail.png",
+				"alt": "Dashboard showing recent activity and plan adherence",
+				"type": "screenshot",
+				"device": "phone"
+			},
+			{
+				"url": "/fitness-tracker/muscle-group-laptop-mockup.png",
+				"alt": "Progress charts with 1RM curve over 6 months",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/fitness-tracker/details.png",
+				"alt": "52-week consistency heatmap",
+				"type": "screenshot",
+				"device": "desktop"
+			}
+		],
+		"roadmap": [
+			{
+				"title": "AI Program Generator",
+				"description": "Describe your goal, frequency, and equipment — get a periodized multi-week plan saved to your Plans collection.",
+				"status": "planned",
+				"icon": "sparkles"
+			},
+			{
+				"title": "AI Session Debrief",
+				"description": "Post-workout AI summary: PRs hit, volume delta vs last session, and a focused recommendation for next time.",
+				"status": "planned",
+				"icon": "message-square"
+			},
+			{
+				"title": "Offline Sync",
+				"description": "Full offline support via IndexedDB. Queue sets locally and sync when connectivity returns.",
+				"status": "exploring",
+				"icon": "wifi-off"
+			},
+			{
+				"title": "Apple Watch App",
+				"description": "Start sessions, view current exercise, complete sets — all from the wrist.",
+				"status": "exploring",
+				"icon": "watch"
+			}
+		],
+		"lessonsLearned": [
+			{
+				"lesson": "Materialized view was the single best architectural decision.",
+				"whatWentWell": "O(1) PR lookups eliminated the performance bottleneck before it existed. It also naturally became the chart data source.",
+				"rebuild": "Build every read-heavy path this way from day one, not as a performance fix."
+			},
+			{
+				"lesson": "Three logging modes are one too many for initial launch.",
+				"whatWentWell": "Live Mode was the clear killer feature. Manual and Plan modes saw far less use initially.",
+				"rebuild": "Ship with one mode (Live) and add the others based on user requests. Building three modes slowed the MVP by 2 weeks."
+			},
+			{
+				"lesson": "Server Actions eliminated an entire class of bugs.",
+				"whatWentWell": "No API routes means no fetch boilerplate, no error boundary duplication, no stale client cache.",
+				"rebuild": "Colocate data fetching inside Server Components using the same pattern rather than the abstraction layer I initially planned."
+			}
+		],
+		"techStack": [
+			{
+				"category": "Framework",
+				"items": [
+					{ "name": "Next.js 15" },
+					{ "name": "TypeScript" },
+					{ "name": "React 19" }
+				]
+			},
+			{ "category": "Database", "items": [{ "name": "MongoDB Atlas" }] },
+			{ "category": "Auth", "items": [{ "name": "NextAuth.js" }] },
+			{
+				"category": "UI",
+				"items": [
+					{ "name": "Tailwind CSS" },
+					{ "name": "Framer Motion" },
+					{ "name": "Recharts" }
+				]
+			},
+			{
+				"category": "Infra",
+				"items": [{ "name": "Vercel" }, { "name": "PWA" }]
+			}
+		]
+	}
+}

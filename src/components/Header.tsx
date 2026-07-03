@@ -29,21 +29,21 @@ export default function Header() {
     <header className={clsx(
       "sticky top-0 w-full z-50 transition-all duration-500",
       "backdrop-blur-md bg-white/30 dark:bg-[#0a0a0a]/30",
-      scrolled 
-        ? "border-b border-stone-200/50 dark:border-stone-800/50 py-4 shadow-sm" 
-        : "border-b border-transparent py-6 md:py-10"
+      scrolled
+        ? "border-b border-stone-200/50 dark:border-stone-800/50 py-4 shadow-sm"
+        : "border-b border-transparent py-4"
     )}>
       <div className="flex items-center justify-between px-6 md:px-10 max-w-7xl mx-auto">
         <div className="flex items-center gap-8">
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="font-sans font-bold text-xl tracking-tight hover:opacity-70 transition-opacity text-stone-900 dark:text-white"
           >
             LC.
           </Link>
           <nav className="hidden md:flex gap-6">
-            <Link 
-              href="/projects" 
+            <Link
+              href="/projects"
               className={clsx(
                 "font-medium text-sm transition-colors",
                 pathname.startsWith("/projects") ? "text-stone-900 dark:text-stone-100" : "text-stone-500 hover:text-stone-900 dark:hover:text-stone-100"
@@ -51,8 +51,8 @@ export default function Header() {
             >
               Projects
             </Link>
-            <Link 
-              href="/experience" 
+            <Link
+              href="/experience"
               className={clsx(
                 "font-medium text-sm transition-colors",
                 pathname === "/experience" ? "text-stone-900 dark:text-stone-100" : "text-stone-500 hover:text-stone-900 dark:hover:text-stone-100"
@@ -60,8 +60,8 @@ export default function Header() {
             >
               Experience
             </Link>
-            <Link 
-              href="/about" 
+            <Link
+              href="/about"
               className={clsx(
                 "font-medium text-sm transition-colors",
                 pathname === "/about" ? "text-stone-900 dark:text-stone-100" : "text-stone-500 hover:text-stone-900 dark:hover:text-stone-100"
@@ -74,16 +74,16 @@ export default function Header() {
 
         <div className="flex items-center gap-3">
           {!isHome && (
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="hidden lg:flex items-center gap-1.5 text-sm font-medium text-stone-500 hover:text-stone-900 dark:hover:text-white transition-colors mr-2"
             >
               <ArrowLeft size={16} /> Back Home
             </Link>
           )}
-          
+
           <ThemeToggle />
-          
+
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={openSidebar}

@@ -1,28 +1,99 @@
 import { notFound } from "next/navigation";
 import portfolioData from "@/lib/portfolio-data.json";
+import projectsV2Data from "@/lib/projects-v2.json";
 import { BlockRenderer, Block } from "@/components/BlockRenderer";
 import { ExternalLink } from "lucide-react";
 import { GithubIcon as Github } from "@/components/SocialIcons";
+import { ProjectHero } from "@/components/projects/ProjectHero";
+import { QuickFactsBar } from "@/components/projects/QuickFactsBar";
+import { ProblemSolution } from "@/components/projects/ProblemSolution";
+import { ProductHighlights } from "@/components/projects/ProductHighlights";
+import { PerformanceDashboard } from "@/components/projects/PerformanceDashboard";
+import { ArchitectureSection } from "@/components/projects/ArchitectureSection";
+import { EngineeringHighlights } from "@/components/projects/EngineeringHighlights";
+import { TechnicalChallenges } from "@/components/projects/TechnicalChallenges";
+import { DesignDecisions } from "@/components/projects/DesignDecisions";
+import { Gallery } from "@/components/projects/Gallery";
+import { Roadmap } from "@/components/projects/Roadmap";
+import { LessonsLearned } from "@/components/projects/LessonsLearned";
+import { TechStackGrid } from "@/components/projects/TechStackGrid";
 
 export async function generateStaticParams() {
-  return Object.keys(portfolioData.projects).map((slug) => ({
-    slug,
-  }));
+  const slugs = new Set<string>();
+  Object.keys(portfolioData.projects).forEach((s) => slugs.add(s));
+  Object.keys(projectsV2Data).forEach((s) => slugs.add(s));
+  return Array.from(slugs).map((slug) => ({ slug }));
 }
 
 export default async function ProjectDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const project = (portfolioData.projects as Record<string, any>)[slug];
 
-  if (!project) {
+  const v2Project = (projectsV2Data as Record<string, any>)[slug];
+  const legacyProject = (portfolioData.projects as Record<string, any>)[slug];
+
+  if (!v2Project && !legacyProject) {
     notFound();
   }
 
+  if (v2Project) {
+    return <ProjectV2Page project={v2Project} />;
+  }
+
+  return <LegacyProjectPage project={legacyProject} />;
+}
+
+function ProjectV2Page({ project }: { project: any }) {
+  return (
+    <div className="relative">
+      <div className="mesh-gradient" />
+      <div className="relative z-10 space-y-24 md:space-y-32 pb-32">
+        <ProjectHero
+          title={project.meta.title}
+          tagline={project.meta.tagline}
+          image={project.hero.image}
+          alt={project.hero.alt}
+          liveUrl={project.links.live}
+          githubUrl={project.links.github}
+        />
+
+        <QuickFactsBar facts={project.quickFacts} />
+
+        <ProblemSolution
+          problem={project.problem}
+          solution={project.solution}
+        />
+
+        <ProductHighlights items={project.productHighlights} />
+
+        <PerformanceDashboard metrics={project.performance} />
+
+        <ArchitectureSection
+          caption={project.architecture.caption}
+          layers={project.architecture.layers}
+        />
+
+        <EngineeringHighlights items={project.engineeringHighlights} />
+
+        <TechnicalChallenges items={project.technicalChallenges} />
+
+        <DesignDecisions items={project.designDecisions} />
+
+        <Gallery items={project.gallery} />
+
+        <Roadmap items={project.roadmap} />
+
+        <LessonsLearned items={project.lessonsLearned} />
+
+        <TechStackGrid groups={project.techStack} />
+      </div>
+    </div>
+  );
+}
+
+function LegacyProjectPage({ project }: { project: any }) {
   return (
     <div className="flex-1 w-full max-w-4xl mx-auto px-6 md:px-10 mt-12 md:mt-24 space-y-24 pb-32">
-      {/* Article Content */}
       <article className="space-y-24">
-        {/* Project Header */}
         <header className="space-y-10 border-b border-stone-200 dark:border-stone-800 pb-16">
           <div className="space-y-4">
             <div className="flex flex-wrap items-center gap-3">
@@ -62,7 +133,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
                 )}
               </div>
             </div>
-            
+
             <div className="space-y-6 pt-2 md:pt-0">
               {project.role && (
                 <div>
@@ -82,14 +153,13 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
           </div>
         </header>
 
-        {/* Problem & Solution */}
         {(project.problem || project.solution) && (
           <section className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24">
             {project.problem && (
               <div className="space-y-6">
                 <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">The Challenge</h2>
                 <p className="text-xl text-stone-900 dark:text-stone-100 font-light leading-relaxed italic border-l-2 border-stone-200 dark:border-stone-800 pl-6">
-                  "{project.problem}"
+                  &ldquo;{project.problem}&rdquo;
                 </p>
               </div>
             )}
@@ -104,12 +174,10 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
           </section>
         )}
 
-        {/* Dynamic Blocks */}
         <section className="space-y-24">
           <BlockRenderer blocks={(project.content || []) as Block[]} />
         </section>
 
-        {/* Features Grid */}
         {project.features && (
           <section className="space-y-16">
             <div className="space-y-4">
@@ -137,7 +205,6 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
           </section>
         )}
 
-        {/* Roadmap */}
         {project.upcomingIdeas && (
           <section className="space-y-12 bg-stone-50 dark:bg-stone-900/30 p-10 md:p-16 rounded-[3rem] border border-stone-200 dark:border-stone-800">
             <div className="flex items-center gap-4 mb-8">
