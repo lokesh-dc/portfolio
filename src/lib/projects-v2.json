@@ -2,7 +2,7 @@
 	"fitness-tracker": {
 		"slug": "fitness-tracker",
 		"meta": {
-			"title": "FitTrack",
+			"title": "Fitness That<br /> Understands You",
 			"tagline": "A workout companion built for the gym floor, not the couch. Log sets, track PRs, and visualize progress — all in under three taps.",
 			"role": "Lead Software Engineer",
 			"timeline": "8 weeks · 2024",
@@ -13,7 +13,7 @@
 		},
 		"hero": {
 			"mockupType": "phone",
-			"image": "/fitness-tracker/muscle-group-laptop-mockup.png",
+			"image": "/fitness-tracker/hero-mobile.png",
 			"alt": "FitTrack live session running with rest timer active and current set highlighted"
 		},
 		"links": {
@@ -49,7 +49,7 @@
 				"id": "smart-rest-timer",
 				"title": "Smart Rest Timer",
 				"description": "Auto-starts after every completed set. Custom durations per exercise. Survives app switches.",
-				"image": "/fitness-tracker/details.png",
+				"image": "/fitness-tracker/rest-timer.png",
 				"benefit": "Rest intentionally, not accidentally. The timer is always visible and always counting.",
 				"technicalNote": "useRef-based interval (never useState) to avoid stale closures. Web Notifications API for background alerts. Duration per-exercise stored in Plan schema."
 			},
@@ -65,7 +65,7 @@
 				"id": "progress-charts",
 				"title": "Progress Timeline",
 				"description": "Per-exercise charts showing max weight, Epley estimated 1RM, and volume over time.",
-				"image": "/fitness-tracker/details.png",
+				"image": "/fitness-tracker/progress-timeline.png",
 				"benefit": "See the trajectory of your strength gains, not just today's number.",
 				"technicalNote": "Epley 1RM computed exclusively in Server Actions. 1M / 3M / 6M / 1Y filters applied client-side after a single fetch."
 			},
@@ -73,7 +73,7 @@
 				"id": "heatmap",
 				"title": "Consistency Heatmap",
 				"description": "A 52-week GitHub-style grid showing every training day at a glance.",
-				"image": "/fitness-tracker/details.png",
+				"image": "/fitness-tracker/volume-set.png",
 				"benefit": "One glance tells you if you're showing up. Streaks are motivating.",
 				"technicalNote": "Grid computed server-side from WorkoutLog timestamps. Sticky day labels with scrollIntoView to current week."
 			},

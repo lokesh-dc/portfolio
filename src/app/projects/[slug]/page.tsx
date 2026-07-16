@@ -56,7 +56,7 @@ function ProjectV2Page({ project }: { project: any }) {
           githubUrl={project.links.github}
         />
 
-        <QuickFactsBar facts={project.quickFacts} />
+        {/* <QuickFactsBar facts={project.quickFacts} /> */}
 
         <ProblemSolution
           problem={project.problem}

@@ -31,11 +31,10 @@ export function Gallery({ items }: GalleryProps) {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.1 }}
-            className={`relative rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-900 border border-stone-200 dark:border-stone-800/50 group ${
-              item.device === "phone" ? "max-w-[280px] mx-auto md:mx-0" : ""
-            } ${item.device === "desktop" ? "md:col-span-2" : ""}`}
+            className={`relative rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-900 border border-stone-200 dark:border-stone-800/50 group ${item.device === "phone" ? "max-w-[280px] mx-auto md:mx-0" : ""
+              } ${item.device === "desktop" ? "md:col-span-2" : ""}`}
           >
-            <div className={`relative ${item.device === "phone" ? "aspect-[9/19]" : "aspect-[16/10]"}`}>
+            <div className={`relative ${item.device === "phone" ? "aspect-[19/19]" : "aspect-[16/10]"}`}>
               <Image
                 src={item.url}
                 alt={item.alt}
