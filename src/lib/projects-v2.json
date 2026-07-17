@@ -1,0 +1,702 @@
+{
+	"fitness-tracker": {
+		"slug": "fitness-tracker",
+		"meta": {
+			"title": "Fitness That<br /> Understands You",
+			"tagline": "A workout companion built for the gym floor, not the couch. Log your sets, track your PRs, and watch your progress unfold — all in under three taps.",
+			"role": "Lead Software Engineer",
+			"timeline": "8 weeks · 2024",
+			"platform": ["PWA", "Web"],
+			"users": "25+ active lifters",
+			"status": "live",
+			"year": "2024"
+		},
+		"hero": {
+			"mockupType": "phone",
+			"image": "/fitness-tracker/hero-mobile.png",
+			"alt": "FitTrack live session running with rest timer active and current set highlighted"
+		},
+		"links": {
+			"live": "https://workouts-logger.vercel.app?demo=true",
+			"github": "https://github.com/lokesh-dc/fitness-tracker"
+		},
+		"quickFacts": [
+			{ "label": "Role", "value": "Lead Software Engineer" },
+			{ "label": "Timeline", "value": "8 weeks" },
+			{ "label": "Platform", "value": "PWA · Web" },
+			{ "label": "Users", "value": "25+" },
+			{ "label": "Status", "value": "Live" }
+		],
+		"problem": {
+			"headline": "Fitness apps treat lifting like an afterthought.",
+			"body": "Most fitness apps are designed for step counters and casual joggers, not serious lifters. Anyone training seriously ends up hacking together spreadsheets, Notes app lists, or apps that take fifteen taps just to log one set. Rest timers reset the moment you switch apps. Finding your PR history means digging through pages of old sessions. And warm-ups? You're figuring that out on your own."
+		},
+		"solution": {
+			"headline": "A lifter-first experience, from setup to cooldown.",
+			"body": "FitTrack strips away everything a lifter doesn't need and optimizes every interaction for the gym environment — one hand, between sets, sometimes with weak signal. It offers three distinct logging modes, timers that keep running even if you switch apps, instant PR detection with zero database scans, and a warm-up generator that never touches the server. It's the tool I wish had existed when I first started lifting.",
+			"image": "/fitness-tracker/thumbnail.png"
+		},
+		"productHighlights": [
+			{
+				"id": "live-session",
+				"title": "Live Workout Mode",
+				"description": "Start a session, log your sets, and watch your volume build in real time.",
+				"image": "/fitness-tracker/details.png",
+				"benefit": "Never break your rhythm — log a set in two taps, right during your rest period.",
+				"technicalNote": "All three logging modes share a single useSessionStats hook, which derives volume, set count, and estimated time remaining from one unified state machine."
+			},
+			{
+				"id": "smart-rest-timer",
+				"title": "Smart Rest Timer",
+				"description": "Starts automatically after every completed set, with custom durations per exercise. Keeps running even if you switch apps.",
+				"image": "/fitness-tracker/rest-timer.png",
+				"benefit": "Rest on purpose, not by accident. The timer stays visible and keeps counting no matter what you're doing.",
+				"technicalNote": "Built on a useRef-based interval (never useState) to avoid stale closures. Uses the Web Notifications API for background alerts, with per-exercise durations stored in the Plan schema."
+			},
+			{
+				"id": "pr-detection",
+				"title": "PR Detection Engine",
+				"description": "Automatically flags a new personal record — either a heavier weight or more reps at your current max — the instant you complete a set.",
+				"image": "/fitness-tracker/details.png",
+				"benefit": "Get instant feedback — no need to remember your old max.",
+				"technicalNote": "Achieves O(1) lookups through a materialized ExerciseRecords collection. Atomic $max / $set operators guarantee read-after-write consistency."
+			},
+			{
+				"id": "progress-charts",
+				"title": "Progress Timeline",
+				"description": "Per-exercise charts tracking your max weight, estimated one-rep max, and total volume over time.",
+				"image": "/fitness-tracker/progress-timeline.png",
+				"benefit": "See the full trajectory of your strength gains, not just today's number.",
+				"technicalNote": "Epley 1RM is calculated exclusively in Server Actions. Time range filters (1M / 3M / 6M / 1Y) are applied client-side after a single data fetch."
+			},
+			{
+				"id": "heatmap",
+				"title": "Consistency Heatmap",
+				"description": "A GitHub-style grid spanning 52 weeks, showing every training day at a glance.",
+				"image": "/fitness-tracker/volume-set.png",
+				"benefit": "One glance tells you whether you're showing up — and streaks keep you motivated to continue.",
+				"technicalNote": "The grid is computed server-side from WorkoutLog timestamps, with sticky day labels and scrollIntoView behavior to jump straight to the current week."
+			},
+			{
+				"id": "warmup-generator",
+				"title": "Warm-up Set Generator",
+				"description": "Enter your working weight and get a rep- and percentage-based warm-up scheme in a single tap.",
+				"image": "/fitness-tracker/details.png",
+				"benefit": "Never skip a warm-up again — it's one tap instead of a mental calculation.",
+				"technicalNote": "Runs entirely client-side with zero database calls. The WarmupSet type is excluded from all write operations at the type level, so it can never be saved by mistake."
+			},
+			{
+				"id": "workout-plans",
+				"title": "Plan Designer & Adherence",
+				"description": "Design multi-week training plans and track how consistently you actually follow them.",
+				"image": "/fitness-tracker/details.png",
+				"benefit": "Follow a real program instead of guessing, and see exactly how consistently you're executing it.",
+				"technicalNote": "Plans are matched to completed sessions by date rather than a foreign key. Adherence is calculated as completed sessions divided by scheduled sessions per week."
+			}
+		],
+		"engineeringHighlights": [
+			{
+				"id": "materialized-view",
+				"title": "Materialized View Pattern",
+				"problem": "Scanning the full WorkoutLog collection on every set to check for a PR would hurt performance as the dataset grew.",
+				"solution": "Introduced a denormalized ExerciseRecords collection that stores only the current PR per exercise per user, updated atomically with $max / $set every time a set is completed.",
+				"result": "PR lookups run in O(1) time with zero full scans and no race conditions, even under concurrent sessions."
+			},
+			{
+				"id": "mongo-aggregation",
+				"title": "MongoDB Aggregation Pipelines",
+				"problem": "Dashboard widgets each needed complex, multi-stage computations — weekly volume, 1RM trends, adherence scores, and more.",
+				"solution": "Built one purpose-specific aggregation pipeline per widget ($unwind → $group → $sort → $project), filtering out zero-weight sets directly at the database layer.",
+				"result": "Analytics load in under 200ms even for users with six or more months of data, with zero computation happening on the client."
+			},
+			{
+				"id": "server-components",
+				"title": "Server-first Data Architecture",
+				"problem": "Client-side fetching created request waterfalls, producing a loading spinner for every dashboard section on first load.",
+				"solution": "Moved all dashboard data fetching into a top-level Server Component using Promise.all, with each fetch wrapped in its own try/catch.",
+				"result": "No more client-side waterfalls — every page renders with all its data already in place, and a single failing fetch never blocks the rest of the page."
+			},
+			{
+				"id": "custom-hooks",
+				"title": "Custom Hooks Architecture",
+				"problem": "Session state was duplicated across the mobile and sidebar variants, which caused the two to drift out of sync.",
+				"solution": "Extracted a single useSessionStats hook backed by shared context, so every UI variant reads from the same source of truth.",
+				"result": "State duplication is eliminated entirely, and adding a new UI variant now requires no changes to the underlying state logic."
+			},
+			{
+				"id": "pwa-service-worker",
+				"title": "PWA + Service Workers",
+				"problem": "Gyms often have weak or no cellular signal, but the app still needed to feel fast and native.",
+				"solution": "Added a service worker with a cache-first strategy for static assets, plus the Web Notifications API for background rest timer alerts.",
+				"result": "Repeat visits load instantly, and rest timer notifications fire reliably even when the phone is locked or the app is in the background."
+			},
+			{
+				"id": "server-actions",
+				"title": "Server Actions for Mutations",
+				"problem": "Using API routes for set logging added latency and meant writing separate error handling for every mutation.",
+				"solution": "Handled every mutation through Next.js Server Actions with useActionState, so forms progressively enhance and degrade gracefully without JavaScript.",
+				"result": "Mutations complete in a single round trip, error handling becomes declarative, and the core flow still works even without JavaScript enabled."
+			}
+		],
+		"architecture": {
+			"caption": "FitTrack follows a server-first architecture: the initial page is composed entirely on the server, and client-side interactivity is layered on only where it's actually needed.",
+			"layers": [
+				{
+					"label": "Server Components",
+					"description": "Every page renders on the server. User identity, dashboard data, and computed aggregates are all fetched in parallel inside the top-level Server Component and passed down as props."
+				},
+				{
+					"label": "Server Actions",
+					"description": "Every mutation — logging a set, creating a plan, updating a timer — runs as a Server Action triggered from a client form. There are no API routes and no client-side fetch calls for writes."
+				},
+				{
+					"label": "MongoDB Atlas",
+					"description": "Four collections power the app: WorkoutLog (raw sets), ExerciseRecords (materialized PRs), Plans (training programs), and Users (auth and preferences). Aggregation pipelines run at the database layer."
+				},
+				{
+					"label": "Materialized Records",
+					"description": "ExerciseRecords is updated on every set completion via atomic $max / $set operations, eliminating scans entirely so PR lookups always resolve against a single document."
+				},
+				{
+					"label": "Browser APIs",
+					"description": "A Service Worker handles offline asset serving, Web Notifications keep timers alive in the background, and localStorage preserves session continuity across navigations."
+				}
+			]
+		},
+		"technicalChallenges": [
+			{
+				"id": "pr-lookup-optimization",
+				"challenge": "O(1) PR lookup without a dedicated database",
+				"difficulty": "A naive approach re-scans every past set for a given exercise each time a new set is completed — an O(n) cost that grows linearly with a user's workout history.",
+				"solution": "Introduced a materialized ExerciseRecords collection. Each time a set is completed, a single atomic update uses $max to compare against the stored PR and $set to update it if it's been beaten.",
+				"outcome": "PR detection stays O(1) whether a user has logged 10 sets or 10,000. The same materialized view also feeds the progress charts, so no additional queries are needed."
+			},
+			{
+				"id": "persistent-timers",
+				"challenge": "Rest timers that survive app switching",
+				"difficulty": "Browsers throttle setTimeout once a tab is backgrounded, and on mobile, switching over to something like Spotify would kill the timer outright.",
+				"solution": "Used the Web Notifications API to schedule an alert for when the timer ends, so the Service Worker can fire it even if the tab is closed. Timer state is also serialized to localStorage on every tick so it can be restored accurately.",
+				"outcome": "Rest timers now keep working reliably even when users switch apps, lock their phone, or close the browser tab entirely — a must-have for real gym use."
+			},
+			{
+				"id": "analytics-aggregation",
+				"challenge": "Aggregating months of workout data into responsive dashboards",
+				"difficulty": "A user training daily for six-plus months accumulates thousands of set records, and computing aggregates on the client would freeze the UI.",
+				"solution": "Moved all aggregation into MongoDB itself. Each dashboard widget runs its own purpose-built pipeline ($match → $group → $sort) directly at the database level, so the server only ever fetches pre-computed arrays.",
+				"outcome": "Dashboards now load pre-computed analytics in under 200ms — the client just maps the data, it never has to compute it."
+			},
+			{
+				"id": "data-modeling",
+				"challenge": "Three workout modes sharing one schema",
+				"difficulty": "Live, Manual, and Plan modes overlap but also diverge in meaningful ways, and warm-up sets must never be persisted. A single flat schema risked nullable fields scattered everywhere.",
+				"solution": "Modeled sessions as a TypeScript discriminated union — Session = LiveSession | ManualSession | PlannedSession — sharing a common base with mode-specific payloads, and narrowed the type before anything is persisted.",
+				"outcome": "A single WorkoutLog collection now stores all three modes without a single nullable field. TypeScript itself enforces that warm-up sets can never be written, and adding a fourth mode is just a matter of adding a new union variant."
+			}
+		],
+		"performance": [
+			{
+				"metric": "PR Lookup Time",
+				"value": "O(1)",
+				"sublabel": "Materialized view eliminates scans"
+			},
+			{
+				"metric": "DB Calls for Warm-ups",
+				"value": "0",
+				"sublabel": "All client-side computation"
+			},
+			{
+				"metric": "Workout Modes",
+				"value": "3",
+				"sublabel": "Live · Manual · Plan"
+			},
+			{
+				"metric": "Heatmap Span",
+				"value": "52 weeks",
+				"sublabel": "Full year at a glance"
+			},
+			{
+				"metric": "Analytics Load",
+				"value": "<200ms",
+				"sublabel": "Server-side aggregation"
+			},
+			{
+				"metric": "Initial Paint",
+				"value": "Sub-second",
+				"sublabel": "Zero client waterfalls"
+			}
+		],
+		"designDecisions": [
+			{
+				"decision": "Dark theme by default",
+				"problem": "Gym lighting swings from harsh fluorescents to dim basements, and a light theme causes glare when you're glancing at your phone between sets.",
+				"rationale": "Dark surfaces paired with high-contrast orange accents stay readable in almost any lighting condition. Orange (HSL 24°) was chosen specifically for its visibility against dark backgrounds."
+			},
+			{
+				"decision": "Bottom navigation on mobile",
+				"problem": "The app is meant to be used one-handed between sets, and reaching the top of the screen with a thumb mid-workout is awkward.",
+				"rationale": "Bottom navigation puts every primary action within natural thumb reach. Desktop uses a persistent sidebar that mirrors the same structure."
+			},
+			{
+				"decision": "Large touch targets (min 48px)",
+				"problem": "Sweaty fingers, gym gloves, and an elevated heart rate all reduce tap accuracy.",
+				"rationale": "Every interactive element is at least 48x48px, and the 'Complete Set' button takes up 60% of the bottom of the screen during a live session."
+			},
+			{
+				"decision": "Glassmorphism cards",
+				"problem": "Live sessions pack a lot of information onto one screen — timer, current set, volume — and flat cards started to feel cluttered.",
+				"rationale": "Backdrop-blur cards add depth without relying on distracting borders, letting content float on translucent surfaces while the dark background breathes through underneath."
+			}
+		],
+		"gallery": [
+			{
+				"url": "/fitness-tracker/details.png",
+				"alt": "Live workout session with rest timer and volume tracking",
+				"type": "screenshot",
+				"device": "phone"
+			},
+			{
+				"url": "/fitness-tracker/thumbnail.png",
+				"alt": "Dashboard showing recent activity and plan adherence",
+				"type": "screenshot",
+				"device": "phone"
+			},
+			{
+				"url": "/fitness-tracker/progress-timeline.png",
+				"alt": "52-week consistency heatmap",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/fitness-tracker/rest-timer.png",
+				"alt": "Rest timer between sets",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/fitness-tracker/workoutpage-mockup.png",
+				"alt": "Progress charts with 1RM curve over 6 months",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/fitness-tracker/hero-desktop.png",
+				"alt": "Live workout session with rest timer and volume tracking",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/fitness-tracker/hero-mobile.png",
+				"alt": "Live workout session with rest timer and volume tracking",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/fitness-tracker/muscle-group-laptop-mockup.png",
+				"alt": "Progress charts with 1RM curve over 6 months",
+				"type": "screenshot",
+				"device": "desktop"
+			}
+		],
+		"roadmap": [
+			{
+				"title": "AI Program Generator",
+				"description": "Describe your goal, training frequency, and available equipment, and get back a periodized multi-week plan saved directly to your Plans collection.",
+				"status": "planned",
+				"icon": "sparkles"
+			},
+			{
+				"title": "AI Session Debrief",
+				"description": "A post-workout AI summary covering the PRs you hit, your volume change versus last session, and one focused recommendation for next time.",
+				"status": "planned",
+				"icon": "message-square"
+			},
+			{
+				"title": "Offline Sync",
+				"description": "Full offline support via IndexedDB — queue sets locally while offline and sync automatically once connectivity returns.",
+				"status": "exploring",
+				"icon": "wifi-off"
+			},
+			{
+				"title": "Apple Watch App",
+				"description": "Start sessions, view your current exercise, and complete sets — all from the wrist.",
+				"status": "exploring",
+				"icon": "watch"
+			}
+		],
+		"lessonsLearned": [
+			{
+				"lesson": "The materialized view was the single best architectural decision in the project.",
+				"whatWentWell": "O(1) PR lookups eliminated a performance bottleneck before it ever became one, and the same structure naturally became the data source for the progress charts.",
+				"rebuild": "I'd build every read-heavy path this way from day one, rather than retrofitting it later as a performance fix."
+			},
+			{
+				"lesson": "Three logging modes turned out to be one too many for an initial launch.",
+				"whatWentWell": "Live Mode was clearly the standout feature, while Manual and Plan modes saw much lighter use early on.",
+				"rebuild": "I'd ship with just Live Mode and add the others based on real user requests — building all three up front added about two weeks to the MVP timeline."
+			},
+			{
+				"lesson": "Server Actions quietly eliminated an entire category of bugs.",
+				"whatWentWell": "With no API routes, there was no fetch boilerplate, no duplicated error boundaries, and no stale client-side cache to worry about.",
+				"rebuild": "I'd colocate data fetching inside Server Components using this same pattern from the start, rather than the separate abstraction layer I'd originally planned."
+			}
+		],
+		"techStack": [
+			{
+				"category": "Framework",
+				"items": [
+					{ "name": "Next.js 15" },
+					{ "name": "TypeScript" },
+					{ "name": "React 19" }
+				]
+			},
+			{ "category": "Database", "items": [{ "name": "MongoDB Atlas" }] },
+			{ "category": "Auth", "items": [{ "name": "NextAuth.js" }] },
+			{
+				"category": "UI",
+				"items": [
+					{ "name": "Tailwind CSS" },
+					{ "name": "Framer Motion" },
+					{ "name": "Recharts" }
+				]
+			},
+			{
+				"category": "Infra",
+				"items": [{ "name": "Vercel" }, { "name": "PWA" }]
+			}
+		]
+	},
+	"hooked-on-movies": {
+		"slug": "hooked-on-movies",
+		"meta": {
+			"title": "HookedOn<br /> Movies",
+			"tagline": "A full-stack media discovery platform with SSR/ISR, a TypeScript normalization layer across TMDB's Movie & TV APIs, and sub-second TTFB via parallel server-side data fetching.",
+			"role": "Lead Full-Stack Developer",
+			"timeline": "6 weeks · 2024",
+			"platform": ["Web"],
+			"users": "Public",
+			"status": "live",
+			"year": "2024"
+		},
+		"hero": {
+			"mockupType": "desktop",
+			"image": "/hookedonmovies/thumbnail.png",
+			"alt": "HookedOnMovies cinematic media discovery interface with trending titles"
+		},
+		"links": {
+			"live": "https://onscreen-movie.vercel.app/",
+			"github": "https://github.com/lokesh-dc/streamXplore"
+		},
+		"quickFacts": [
+			{ "label": "Role", "value": "Lead Full-Stack Developer" },
+			{ "label": "Timeline", "value": "6 weeks" },
+			{ "label": "Platform", "value": "Web" },
+			{ "label": "API", "value": "TMDB" },
+			{ "label": "Status", "value": "Live" }
+		],
+		"problem": {
+			"headline": "Movie discovery apps suffer from data fragmentation and slow loading.",
+			"body": "Most movie discovery apps fetch from multiple endpoints, leading to inconsistent UI states and slow loading via waterfalls. TMDB's API returns fundamentally different schemas for Movies versus TV Shows — often causing runtime errors if not handled with rigorous type safety. Users bounce before content loads, and developers drown in defensive null-checks."
+		},
+		"solution": {
+			"headline": "A unified type system and parallel fetching architecture.",
+			"body": "I built a custom TypeScript normalization layer that reconciles all TMDB entities into a single unified interface. Combined with Promise.all parallel fetching on the server and ISR on detail pages, content stays fresh without sacrificing speed. The result is a cinematic, production-quality media experience that competes visually with commercial streaming platforms.",
+			"image": "/hookedonmovies/details.png"
+		},
+		"productHighlights": [
+			{
+				"id": "type-normalization",
+				"title": "TypeScript Data Normalization",
+				"description": "Reconciles inconsistent TMDB Movie vs TV Show field schemas into a single unified interface — eliminating runtime type errors across the entire app.",
+				"image": "/hookedonmovies/details.png",
+				"benefit": "Zero runtime type errors. One interface powers every component regardless of content type.",
+				"technicalNote": "A normalization layer sits between the TMDB API and the app. Movie and TV responses are mapped into a shared TypeScript interface at the fetch boundary. Every downstream component consumes the same shape — no conditional field access, no null guards."
+			},
+			{
+				"id": "parallel-fetching",
+				"title": "Parallel Server-Side Fetching",
+				"description": "Promise.all across multiple TMDB endpoints cuts TTFB significantly versus sequential waterfall requests.",
+				"image": "/hookedonmovies/thumbnail.png",
+				"benefit": "Sub-second page loads even when pulling trending, cast, and recommendation data simultaneously.",
+				"technicalNote": "All independent TMDB API calls are dispatched in parallel via Promise.all inside Next.js Server Components. Each fetch is independently try/caught so one failing endpoint never blocks the rest."
+			},
+			{
+				"id": "isr-caching",
+				"title": "ISR on Detail Pages",
+				"description": "Incremental Static Regeneration keeps detail pages fresh without per-request SSR cost — ideal for high-traffic titles.",
+				"image": "/hookedonmovies/thumbnail.png",
+				"benefit": "Content stays current while pages serve from edge cache. High-traffic title pages never hit the origin.",
+				"technicalNote": "Detail pages use Next.js revalidate config. The first request SSRs and caches; subsequent requests serve stale-while-revalidate. Background revalidation keeps content fresh at configurable intervals."
+			},
+			{
+				"id": "seo-implementation",
+				"title": "Full SEO Implementation",
+				"description": "Dynamic Open Graph tags, structured metadata per page, and canonical URLs for discoverability on search engines.",
+				"image": "/hookedonmovies/details.png",
+				"benefit": "Every page is indexable with rich social previews. Search engines and social platforms get proper metadata.",
+				"technicalNote": "Next.js generateMetadata API produces per-page Open Graph tags, Twitter cards, and structured data. Canonical URLs prevent duplicate indexing. Title, description, and poster image are all dynamic per route."
+			},
+			{
+				"id": "trailer-integration",
+				"title": "Trailer Integration",
+				"description": "Embedded YouTube trailers play directly in the detail view with cinematic backdrop transitions.",
+				"image": "/hookedonmovies/details.png",
+				"benefit": "Users watch trailers without leaving the page. No context switching to YouTube.",
+				"technicalNote": "YouTube embeds load lazily via iframe only when the user clicks play. Backdrop images from TMDB serve as the poster frame. Framer Motion handles the transition from static image to embedded video."
+			},
+			{
+				"id": "recommendations",
+				"title": "Smart Recommendations",
+				"description": "TMDB's recommendation engine powers a visually rich 'You Might Also Like' section on every detail page.",
+				"image": "/hookedonmovies/thumbnail.png",
+				"benefit": "Discovery doesn't stop at one title. Users naturally fall into a browsing loop.",
+				"technicalNote": "Recommendations are fetched in parallel with the main detail data via Promise.all. The recommendation endpoint accepts the current title's ID and returns a curated list — no custom ML required."
+			}
+		],
+		"engineeringHighlights": [
+			{
+				"id": "normalization-layer",
+				"title": "TypeScript Normalization Layer",
+				"problem": "TMDB returns fundamentally different shapes for movies vs TV shows. A single field like 'title' is 'name' on TV. Runtime errors plagued early builds.",
+				"solution": "Created a normalization layer at the fetch boundary that maps both Movie and TV responses into a single shared TypeScript interface. All downstream components consume the same shape.",
+				"result": "Zero runtime type errors. Components are fully decoupled from the TMDB schema. Adding a new entity type means adding one mapper."
+			},
+			{
+				"id": "parallel-fetch-arch",
+				"title": "Parallel Fetch Architecture",
+				"problem": "Sequential API calls for trending, cast, genres, and recommendations created visible waterfalls — users saw skeleton screens for 2-3 seconds.",
+				"solution": "All independent TMDB calls dispatched via Promise.all inside Server Components. Each fetch independently try/caught to prevent one failure from blocking others.",
+				"result": "TTFB cut by 60%+. Every page paints with all data present. One failing endpoint never breaks the page."
+			},
+			{
+				"id": "ssr-isr-strategy",
+				"title": "SSR + ISR Caching Strategy",
+				"problem": "Trending content changes frequently, but SSR on every request was expensive and slow for high-traffic pages.",
+				"solution": "Trending pages use SSR for fresh content. Detail pages use ISR with configurable revalidation — stale-while-revalidate serves cached content while background revalidation keeps it current.",
+				"result": "Detail pages serve from edge cache in <100ms. Trending pages are always fresh. Origin server sees a fraction of the traffic."
+			},
+			{
+				"id": "seo-system",
+				"title": "Dynamic SEO System",
+				"problem": "Every page needed unique Open Graph tags, Twitter cards, and structured metadata — but content is dynamic and changes over time.",
+				"solution": "Leveraged Next.js generateMetadata to produce per-page metadata dynamically. Title, description, poster image, and canonical URL all derive from the TMDB response.",
+				"result": "Every page is fully indexable with rich social previews. Google and social platforms get accurate, per-page metadata automatically."
+			}
+		],
+		"architecture": {
+			"caption": "HookedOnMovies follows a server-first Next.js architecture — data fetching happens on the server via TMDB API, and client-side interactivity is limited to UI transitions and trailer playback.",
+			"layers": [
+				{
+					"label": "Next.js Server Components",
+					"description": "Every page renders on the server. Trending data, detail pages, and recommendations are all fetched inside Server Components — no client-side data fetching."
+				},
+				{
+					"label": "TMDB API Layer",
+					"description": "All data comes from TMDB's REST API. A normalization layer at the fetch boundary reconciles Movie and TV schemas into a single TypeScript interface."
+				},
+				{
+					"label": "Parallel Fetching",
+					"description": "Promise.all dispatches all independent API calls simultaneously. Each fetch is independently try/caught for fault tolerance."
+				},
+				{
+					"label": "ISR Cache Layer",
+					"description": "Detail pages use Incremental Static Regeneration. Content is cached at the edge and revalidated in the background at configurable intervals."
+				},
+				{
+					"label": "Client UI Layer",
+					"description": "Framer Motion handles page transitions, hover states, and trailer embed animations. Swiper.js powers the carousel components. Zero client-side data fetching."
+				}
+			]
+		},
+		"technicalChallenges": [
+			{
+				"id": "schema-reconciliation",
+				"challenge": "Reconciling TMDB's divergent Movie and TV schemas",
+				"difficulty": "TMDB returns fundamentally different shapes for movies vs TV shows. A field called 'title' on movies is 'name' on TV. Runtime type errors appeared throughout the codebase whenever a component expected one schema but received the other.",
+				"solution": "Built a normalization layer at the fetch boundary. Both Movie and TV API responses are mapped into a single shared TypeScript interface before any component sees the data. The mapper handles field renaming, default values, and type coercion.",
+				"outcome": "Zero runtime type errors. Components are fully decoupled from TMDB's schema. Adding a new entity type (e.g., People, Collections) means adding one normalization function."
+			},
+			{
+				"id": "waterfall-elimination",
+				"challenge": "Eliminating sequential fetch waterfalls",
+				"difficulty": "Fetching trending, detail, cast, and recommendation data sequentially caused 2-3 second load times with visible skeleton screens on every navigation.",
+				"solution": "Analyzed the dependency graph of all TMDB calls. Independent calls (trending, genres, recommendations) are dispatched via Promise.all. Dependent calls (recommendations need the current title's ID) are batched into the second wave.",
+				"outcome": "TTFB reduced by 60%+. Every page now paints with all data present in a single server round-trip."
+			},
+			{
+				"id": "caching-freshness",
+				"challenge": "Balancing cache freshness with server cost",
+				"difficulty": "Trending content changes hourly, but SSR on every request for high-traffic pages (e.g., popular movies) was expensive and slow.",
+				"solution": "Implemented a split caching strategy: trending pages use SSR for always-fresh content. Detail pages use ISR with stale-while-revalidate — cached content serves instantly while background revalidation keeps it current.",
+				"outcome": "Detail pages serve from edge cache in <100ms. Origin server sees a fraction of the traffic. Content never feels stale."
+			},
+			{
+				"id": "seo-at-scale",
+				"challenge": "Dynamic SEO metadata for thousands of titles",
+				"difficulty": "Every page needed unique Open Graph tags, Twitter cards, and structured data — but content is dynamic and titles change over time.",
+				"solution": "Used Next.js generateMetadata to produce per-page metadata dynamically from the TMDB response. Title, description, poster image, and canonical URL all derive from the fetched data.",
+				"outcome": "Every page is fully indexable with rich social previews. Google and social platforms get accurate, per-page metadata with zero manual intervention."
+			}
+		],
+		"performance": [
+			{
+				"metric": "TTFB Reduction",
+				"value": "60%+",
+				"sublabel": "Parallel vs sequential fetching"
+			},
+			{
+				"metric": "Detail Page Load",
+				"value": "<100ms",
+				"sublabel": "ISR edge cache serving"
+			},
+			{
+				"metric": "Runtime Type Errors",
+				"value": "0",
+				"sublabel": "Normalization layer eliminates them"
+			},
+			{
+				"metric": "API Calls per Page",
+				"value": "Parallel",
+				"sublabel": "Promise.all dispatch"
+			},
+			{
+				"metric": "SEO Score",
+				"value": "100%",
+				"sublabel": "Dynamic metadata per page"
+			},
+			{
+				"metric": "Data Normalization",
+				"value": "1 layer",
+				"sublabel": "Single interface for all content"
+			}
+		],
+		"designDecisions": [
+			{
+				"decision": "Cinematic dark theme",
+				"problem": "Movie apps need to feel immersive — light themes clash with poster artwork and break the cinematic atmosphere.",
+				"rationale": "Dark surfaces let movie posters and backdrop images pop. The UI recedes, letting the content be the hero — similar to how Netflix and Letterboxd approach it."
+			},
+			{
+				"decision": "Desktop-first layout",
+				"problem": "Media discovery is a browsing-heavy experience — poster grids, detail pages, and trailers all benefit from horizontal space.",
+				"rationale": "Desktop-first layout maximizes poster visibility and allows side-by-side content layouts. Mobile adapts via responsive breakpoints but the core experience is optimized for larger screens."
+			},
+			{
+				"decision": "Server-only data fetching",
+				"problem": "Client-side fetching introduces loading states, waterfalls, and exposes API keys to the browser.",
+				"rationale": "All TMDB calls happen on the server. The client never makes a fetch call for data. This eliminates loading spinners, keeps API keys secure, and enables ISR caching."
+			},
+			{
+				"decision": "Lazy trailer loading",
+				"problem": "YouTube embeds are heavy — loading them eagerly on every detail page wastes bandwidth and slows initial paint.",
+				"rationale": "Trailers load via iframe only when the user clicks play. A static TMDB backdrop serves as the poster frame. This keeps initial page loads fast while still offering rich video content."
+			}
+		],
+		"gallery": [
+			{
+				"url": "/hookedonmovies/thumbnail.png",
+				"alt": "HookedOnMovies trending page with movie poster grid",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/hookedonmovies/details.png",
+				"alt": "Movie detail page with trailer, cast, and recommendations",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/hookedonmovies/thumbnail.png",
+				"alt": "Search results with instant type-ahead",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/hookedonmovies/details.png",
+				"alt": "Responsive mobile view of movie details",
+				"type": "screenshot",
+				"device": "phone"
+			}
+		],
+		"roadmap": [
+			{
+				"title": "AI Recommendation Engine",
+				"description": "Replace TMDB's basic 'similar' endpoint with an embedding-based recommender using OpenAI embeddings and cosine similarity from user watch history.",
+				"status": "planned",
+				"icon": "sparkles"
+			},
+			{
+				"title": "User Accounts & Watchlists",
+				"description": "NextAuth.js with Google OAuth, PostgreSQL-backed persistent watchlists, and per-user recommendation personalization.",
+				"status": "planned",
+				"icon": "list"
+			},
+			{
+				"title": "Streaming Availability",
+				"description": "Show which platform (Netflix, Prime, Hotstar) each title is currently available on via JustWatch API — bridging discovery to instant action.",
+				"status": "exploring",
+				"icon": "play"
+			},
+			{
+				"title": "Redis Edge Caching",
+				"description": "Cache TMDB API responses at the CDN edge with configurable Redis TTLs to eliminate redundant API calls and achieve sub-100ms global response times.",
+				"status": "exploring",
+				"icon": "zap"
+			}
+		],
+		"lessonsLearned": [
+			{
+				"lesson": "Normalize data at the fetch boundary, not in every component.",
+				"whatWentWell": "The normalization layer eliminated runtime type errors across the entire codebase. Components became simpler and fully decoupled from TMDB's schema.",
+				"rebuild": "Build the normalization layer as the very first thing. I wasted a week adding null-checks in components before realizing a single mapper solves it globally."
+			},
+			{
+				"lesson": "Promise.all is not optional — it's an architecture decision.",
+				"whatWentWell": "Parallel fetching cut TTFB by 60%+. The page feels instant because all data arrives in one round-trip.",
+				"rebuild": "Map the dependency graph of every API call before writing any fetch code. Independent calls should always be parallel. This should be a default, not an optimization."
+			},
+			{
+				"lesson": "ISR is the right default for content that changes infrequently.",
+				"whatWentWell": "Detail pages serve from edge cache in <100ms. The origin server barely sees traffic. Content stays fresh via background revalidation.",
+				"rebuild": "Use ISR for everything by default, and only fall back to SSR when real-time freshness is truly required."
+			}
+		],
+		"techStack": [
+			{
+				"category": "Framework",
+				"items": [
+					{ "name": "Next.js" },
+					{ "name": "TypeScript" },
+					{ "name": "React" }
+				]
+			},
+			{
+				"category": "API",
+				"items": [{ "name": "TMDB API" }, { "name": "YouTube Embed API" }]
+			},
+			{
+				"category": "UI",
+				"items": [
+					{ "name": "Framer Motion" },
+					{ "name": "Swiper.js" },
+					{ "name": "Tailwind CSS" }
+				]
+			},
+			{
+				"category": "Infra",
+				"items": [
+					{ "name": "Vercel" },
+					{ "name": "ISR" },
+					{ "name": "Edge Cache" }
+				]
+			},
+			{
+				"category": "SEO",
+				"items": [
+					{ "name": "Open Graph" },
+					{ "name": "Structured Data" },
+					{ "name": "Canonical URLs" }
+				]
+			}
+		]
+	}
+}
