@@ -22,7 +22,8 @@ export default function MobileNav() {
       <motion.nav 
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="flex items-center gap-1 p-2 rounded-full bg-white/80 dark:bg-stone-900/80 backdrop-blur-lg border border-stone-200 dark:border-stone-800 shadow-xl"
+        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+        className="flex items-center gap-1 p-2 rounded-full bg-white/90 dark:bg-stone-900/90 backdrop-blur-lg border border-stone-200 dark:border-stone-800 shadow-xl"
       >
         {navItems.map((item) => {
           const isActive = item.href === "/" 

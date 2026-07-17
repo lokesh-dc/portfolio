@@ -27,6 +27,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import MobileNav from "@/components/MobileNav";
 import CustomCursor from "@/components/CustomCursor";
 import LayoutWrapper from "@/components/LayoutWrapper";
+import ScrollToTop from "@/components/ScrollToTop";
 
 export default function RootLayout({
   children,
@@ -39,7 +40,8 @@ export default function RootLayout({
       className={`${poppins.variable} ${lato.variable} antialiased`}
       suppressHydrationWarning
     >
-      <body className="bg-white dark:bg-[#0a0a0a] text-stone-900 dark:text-stone-100 transition-colors duration-300">
+      <body className="bg-white dark:bg-[#0a0a0a] text-stone-900 dark:text-stone-100">
+        <ScrollToTop />
         <div className="mesh-gradient" aria-hidden="true" />
         <ThemeProvider
           attribute="class"

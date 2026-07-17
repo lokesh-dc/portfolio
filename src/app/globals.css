@@ -38,20 +38,22 @@ body {
   background-color: var(--background);
   color: var(--foreground);
   font-family: var(--font-poppins), Arial, Helvetica, sans-serif;
-  transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1.5px, transparent 0);
   background-size: 40px 40px;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .dark body {
   background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1.5px, transparent 0);
 }
 
-/* Ensure all interactive elements transition smoothly */
-a, button, input, div, span, p, h1, h2, h3, h4, h5, h6 {
+/* Smooth transitions only on interactive elements */
+a, button, input, [role="button"] {
   transition-property: background-color, border-color, color, fill, stroke, opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
+  transition-duration: 200ms;
 }
 
 /* Premium Background Effects */
@@ -89,12 +91,29 @@ a, button, input, div, span, p, h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Fix mobile flickering from backdrop-blur */
+@media (max-width: 1023px) {
+  .backdrop-blur-md,
+  .backdrop-blur-lg {
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    will-change: transform;
+  }
+}
+
+/* Prevent layout shift during navigation */
+main {
+  min-height: 100dvh;
+}
+
 @media (min-width: 768px) {
   *, body, a, button, [role="button"], input, textarea, select {
     cursor: none !important;
   }
-}
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
