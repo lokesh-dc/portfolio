@@ -31,7 +31,7 @@ export function Gallery({ items }: GalleryProps) {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: i * 0.1 }}
-            className={`relative rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-900 border border-stone-200 dark:border-stone-800/50 group ${item.device === "phone" ? "max-w-[280px] mx-auto md:mx-0" : ""
+            className={`relative rounded-xl overflow-hidden bg-stone-200 dark:bg-stone-900 border border-stone-200 dark:border-stone-800/50 group ${item.device === "phone" ? " mx-auto md:mx-0" : ""
               } ${item.device === "desktop" ? "md:col-span-2" : ""}`}
           >
             <div className={`relative ${item.device === "phone" ? "aspect-[19/19]" : "aspect-[16/10]"}`}>
@@ -41,7 +41,7 @@ export function Gallery({ items }: GalleryProps) {
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-transparent group-hover:bg-black/5 dark:group-hover:bg-white/5 transition-colors" />
+              <div className="absolute inset-0 bg-transparent transition-colors" />
             </div>
             <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white/80 dark:from-stone-950/80 to-transparent">
               <p className="text-xs text-stone-700 dark:text-stone-300 font-light">
