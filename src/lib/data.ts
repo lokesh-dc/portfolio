@@ -26,6 +26,9 @@ export type AboutInfo = {
   title: string;
   bio: string;
   skills: string[];
+  longBio: string[];
+  hobbies: string[];
+  socialImages: { url: string; alt: string }[];
 };
 
 // Export typed data from unified JSON source
@@ -34,6 +37,9 @@ export const aboutData: AboutInfo = {
   title: portfolioData.personal.title,
   bio: portfolioData.personal.bio,
   skills: portfolioData.personal.skills,
+  longBio: portfolioData.personal.longBio,
+  hobbies: portfolioData.personal.hobbies,
+  socialImages: portfolioData.personal.socialImages,
 };
 
 export const workExperienceData: Job[] = portfolioData.experience.map(job => ({
