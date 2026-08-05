@@ -22,9 +22,9 @@
 			"A/B Testing (Firebase/GTM)",
 			"CMS Architecture"
 		],
-		"heroStatement": "Senior Software Engineer specializing in high-scale Next.js architectures—reducing page load times by 40% and driving 3M+ quarterly users through performance-first engineering.",
+		"heroStatement": "Senior Software Engineer specializing in high-scale Next.js architectures. Reducing page load times by 40% and driving 3M+ quarterly users through performance-first engineering.",
 		"longBio": [
-			"I architect and ship production-grade frontend systems with a focus on measurable impact. Most recently, I led a full-scale migration from .NET/jQuery to Next.js, resulting in a 40% reduction in page load times and a 60% improvement in campaign rollout velocity through a custom CMS-driven system.",
+			"I architect and ship production-grade frontend systems with a focus on measurable impact. Most recently, I led a full-scale migration from.NET/jQuery to Next.js, resulting in a 40% reduction in page load times and a 60% improvement in campaign rollout velocity through a custom CMS-driven system.",
 			"My expertise spans Core Web Vitals optimization (improving PageSpeed scores from 50 to 90+), scalable SEO strategies that 5x organic traffic, and integrating complex systems like Razorpay and conversational AI chatbots to drive business conversions."
 		],
 		"hobbies": [
@@ -56,7 +56,7 @@
 			"link": "https://hexahealth.com/",
 			"role": "Senior Software Engineer",
 			"description": [
-				"Led end-to-end migration of the entire web platform from .NET & jQuery to Next.js and React, reducing page load times by 40% and enabling a modular, component-driven frontend architecture",
+				"Led end-to-end migration of the entire web platform from.NET & jQuery to Next.js and React, reducing page load times by 40% and enabling a modular, component-driven frontend architecture",
 				"Engineered a CMS-driven marketing page system supporting 35+ campaign variants, cutting rollout time by 60% and increasing lead form submission rates from 8% to 20%",
 				"Optimised Core Web Vitals and page performance, pushing Google PageSpeed scores from 50 to 90+, directly lowering paid marketing spend by 30% through improved ad quality scores",
 				"Implemented scalable on-page SEO strategy (meta tags, structured schema, keyword targeting), scaling organic traffic from 5K to 25K daily visitors and driving 3M+ quarterly users",
@@ -76,13 +76,13 @@
 		{
 			"year": "2022",
 			"school": "Masai School",
-			"degree": "Full Stack Web Development — intensive bootcamp covering DSA, React, Node.js, and system design"
+			"degree": "Full Stack Web Development. Intensive bootcamp covering DSA, React, Node.js, and system design"
 		}
 	],
 	"projects": {
 		"fitness-tracker": {
 			"title": "FitTrack Fitness Tracker",
-			"description": "A premium, mobile-first workout companion built for serious lifters — not a step counter. Plan your training, execute sessions, track every set, and turn raw gym data into actionable insights.",
+			"description": "A premium, mobile-first workout companion built for serious lifters. Not a step counter. Plan your training, execute sessions, track every set, and turn raw gym data into actionable insights.",
 			"year": "2024",
 			"role": "Lead Software Engineer",
 			"github": "https://github.com/lokesh-dc/fitness-tracker",
@@ -106,37 +106,37 @@
 			"features": [
 				{
 					"title": "Three-Mode Workout Logging",
-					"description": "Live Session with real-time rest timers, Manual History Log for past sessions, and Plan Designer for programming. Each mode has distinct behavior — rest timer only fires in Live Session, warm-up sets never persist.",
+					"description": "Live Session with real-time rest timers, Manual History Log for past sessions, and Plan Designer for programming. Each mode has distinct behavior. Rest timer only fires in Live Session, warm-up sets never persist.",
 					"icon": "🏋️"
 				},
 				{
 					"title": "Intelligent PR Detection",
-					"description": "Automated detection of Weight PRs and Rep PRs using a materialized ExerciseRecords collection. O(1) lookups on the gym floor — no scan, no lag. Atomic $max/$set updates preserve data integrity.",
+					"description": "Automated detection of Weight PRs and Rep PRs using a materialized ExerciseRecords collection. O(1) lookups on the gym floor. No scan, no lag. Atomic $max/$set updates preserve data integrity.",
 					"icon": "⚡"
 				},
 				{
 					"title": "PR Timeline & 1RM Tracking",
-					"description": "Per-exercise progress chart with max weight line, Epley estimated 1RM curve (server-side), and volume bars. Time-range selector: 1M / 3M / 6M / 1Y / Custom — filtered client-side after a single fetch.",
+					"description": "Per-exercise progress chart with max weight line, Epley estimated 1RM curve (server-side), and volume bars. Time-range selector: 1M / 3M / 6M / 1Y / Custom. Filtered client-side after a single fetch.",
 					"icon": "📊"
 				},
 				{
 					"title": "Warm-up Set Generator",
-					"description": "Rep-aware scheme selection: STRENGTH (4 sets at 30–90%) down to ENDURANCE (1 set at 60%). Pure client-side calculation — zero DB calls. Warm-up sets are never saved to WorkoutLog.",
+					"description": "Rep-aware scheme selection: STRENGTH (4 sets at 30-90%) down to ENDURANCE (1 set at 60%). Pure client-side calculation. Zero DB calls. Warm-up sets are never saved to WorkoutLog.",
 					"icon": "🔥"
 				},
 				{
 					"title": "Plan vs Actual Adherence",
-					"description": "Weekly schedule tracking with real adherence scores. Missed workouts are only flagged for past days — future planned sessions stay open. Sessions matched to plans by date, not foreign key.",
+					"description": "Weekly schedule tracking with real adherence scores. Missed workouts are only flagged for past days. Future planned sessions stay open. Sessions matched to plans by date, not foreign key.",
 					"icon": "📅"
 				},
 				{
 					"title": "Shareable Workout Snapshots",
-					"description": "Custom image generation via html2canvas creates Instagram-ready cards with PR badges, volume stats, and session highlights — ready to share directly from the completion screen.",
+					"description": "Custom image generation via html2canvas creates Instagram-ready cards with PR badges, volume stats, and session highlights. Ready to share directly from the completion screen.",
 					"icon": "📸"
 				},
 				{
 					"title": "Consistency Heatmap",
-					"description": "GitHub-style 52-week training frequency grid with sticky day labels and auto-scroll to current week. High visual impact — turns habit data into a motivating, at-a-glance streak visualization.",
+					"description": "GitHub-style 52-week training frequency grid with sticky day labels and auto-scroll to current week. High visual impact. Turns habit data into a motivating, at-a-glance streak visualization.",
 					"icon": "🧱"
 				},
 				{
@@ -148,25 +148,45 @@
 			"upcomingIdeas": [
 				{
 					"title": "AI Session Debrief",
-					"description": "After completing a workout, the Anthropic API synthesizes WorkoutLog + ExerciseRecords to generate a post-session summary — PRs hit, volume compared to last session, and a focused recommendation for what to improve next time.",
+					"description": "After completing a workout, the Anthropic API synthesizes WorkoutLog + ExerciseRecords to generate a post-session summary. PRs hit, volume compared to last session, and a focused recommendation for what to improve next time.",
 					"icon": "🤖",
-					"tags": ["Anthropic API", "WorkoutLog", "ExerciseRecords"]
+					"tags": [
+						"Anthropic API",
+						"WorkoutLog",
+						"ExerciseRecords"
+					]
 				},
 				{
 					"title": "AI Program Generator",
-					"description": "Input your goal (strength / hypertrophy / endurance), training days per week, and available equipment — the model generates a full multi-week periodized plan, directly saved to the Plans collection.",
+					"description": "Input your goal (strength / hypertrophy / endurance), training days per week, and available equipment. The model generates a full multi-week periodized plan, directly saved to the Plans collection.",
 					"icon": "📋",
-					"tags": ["Anthropic API", "Plan Designer", "Periodization"]
+					"tags": [
+						"Anthropic API",
+						"Plan Designer",
+						"Periodization"
+					]
 				}
 			],
 			"content": [
 				{
 					"type": "metrics",
 					"stats": [
-						{ "label": "PR lookups", "value": "O(1)" },
-						{ "label": "logging modes", "value": "3" },
-						{ "label": "heatmap grid", "value": "52-wk" },
-						{ "label": "DB calls for warmups", "value": "0" }
+						{
+							"label": "PR lookups",
+							"value": "O(1)"
+						},
+						{
+							"label": "logging modes",
+							"value": "3"
+						},
+						{
+							"label": "heatmap grid",
+							"value": "52-wk"
+						},
+						{
+							"label": "DB calls for warmups",
+							"value": "0"
+						}
 					]
 				},
 				{
@@ -183,7 +203,7 @@
 					"items": [
 						{
 							"title": "Materialized View Pattern",
-							"sub": "ExerciseRecords acts as a denormalized cache for current PRs — eliminates full WorkoutLog scans on every set completion."
+							"sub": "ExerciseRecords acts as a denormalized cache for current PRs. Eliminates full WorkoutLog scans on every set completion."
 						},
 						{
 							"title": "MongoDB Aggregation Pipelines",
@@ -203,7 +223,7 @@
 						},
 						{
 							"title": "Custom useSessionStats Hook",
-							"sub": "Unified live session state — volume, sets, estimated time remaining, PR feed — shared between sidebar and mobile variants via a single hook."
+							"sub": "Unified live session state. Volume, sets, estimated time remaining, PR feed. Shared between sidebar and mobile variants via a single hook."
 						},
 						{
 							"title": "Epley 1RM (Server-only)",
@@ -211,7 +231,7 @@
 						},
 						{
 							"title": "Work-based Calorie Estimation",
-							"sub": "Custom algorithm using total volume moved + sets completed. Accurate regardless of rest duration or timer fluctuations — not a generic MET calculation."
+							"sub": "Custom algorithm using total volume moved + sets completed. Accurate regardless of rest duration or timer fluctuations. Not a generic MET calculation."
 						}
 					]
 				}
@@ -219,7 +239,7 @@
 		},
 		"portfolio-redesign": {
 			"title": "Conversational Developer Portfolio",
-			"description": "Command-driven personal portfolio built with Next.js App Router and Framer Motion—replacing infinite scroll with a contextual AI chat interface that surfaces projects, skills, and experience on demand.",
+			"description": "Command-driven personal portfolio built with Next.js App Router and Framer Motion. Replacing infinite scroll with a contextual AI chat interface that surfaces projects, skills, and experience on demand.",
 			"year": "2024",
 			"role": "Full Stack Developer",
 			"thumbnail": "/portfolio/thumbnail.png",
@@ -234,15 +254,15 @@
 				"TypeScript"
 			],
 			"features": [
-				"Command-palette-style interface with slash-command routing — visitors type intent, not keywords",
+				"Command-palette-style interface with slash-command routing. Visitors type intent, not keywords",
 				"Framer Motion layout animations for seamless content transitions between project detail views",
-				"Server-rendered shell with client-side hydration — fast initial load with no layout shift (zero CLS)",
-				"JSON-driven content architecture — all portfolio data decoupled from UI components for easy updates"
+				"Server-rendered shell with client-side hydration. Fast initial load with no layout shift (zero CLS)",
+				"JSON-driven content architecture. All portfolio data decoupled from UI components for easy updates"
 			],
 			"upcomingIdeas": [
 				{
 					"title": "Live Claude API integration",
-					"description": "Replace simulated responses with real Claude API calls—making the portfolio genuinely answer recruiter and client questions about specific projects, stack choices, and availability."
+					"description": "Replace simulated responses with real Claude API calls. Making the portfolio genuinely answer recruiter and client questions about specific projects, stack choices, and availability."
 				},
 				{
 					"title": "RAG over resume & projects",
@@ -250,11 +270,11 @@
 				},
 				{
 					"title": "Visitor analytics dashboard",
-					"description": "Track which projects and questions visitors ask most — feeding insights back into which work to feature or expand in the portfolio."
+					"description": "Track which projects and questions visitors ask most. Feeding insights back into which work to feature or expand in the portfolio."
 				},
 				{
 					"title": "Voice input via Web Speech API",
-					"description": "Let mobile visitors speak queries naturally — further differentiating the experience from every static portfolio in the market."
+					"description": "Let mobile visitors speak queries naturally. Further differentiating the experience from every static portfolio in the market."
 				}
 			],
 			"content": [
@@ -264,7 +284,7 @@
 				},
 				{
 					"type": "paragraph",
-					"text": "Traditional portfolios force visitors to navigate a predetermined structure. This portfolio inverts that model — the visitor drives the conversation. Using Next.js App Router for SSR performance and Framer Motion for layout-aware transitions, the interface feels like a premium AI product rather than a developer resume."
+					"text": "Traditional portfolios force visitors to navigate a predetermined structure. This portfolio inverts that model. The visitor drives the conversation. Using Next.js App Router for SSR performance and Framer Motion for layout-aware transitions, the interface feels like a premium AI product rather than a developer resume."
 				},
 				{
 					"type": "image",
@@ -282,7 +302,7 @@
 			"live": "https://onscreen-movie.vercel.app/",
 			"thumbnail": "/hookedonmovies/thumbnail.png",
 			"detailImage": "/hookedonmovies/details.png",
-			"problem": "Many movie discovery apps suffer from 'data fragmentation'—fetching from multiple endpoints leads to inconsistent UI states and slow loading (waterfalls). Additionally, TMDB's API returns different schemas for Movies vs TV Shows, often causing runtime errors if not handled with rigorous type safety.",
+			"problem": "Many movie discovery apps suffer from 'data fragmentation'. Fetching from multiple endpoints leads to inconsistent UI states and slow loading (waterfalls). Additionally, TMDB's API returns different schemas for Movies vs TV Shows, often causing runtime errors if not handled with rigorous type safety.",
 			"solution": "I implemented a custom TypeScript normalization layer that reconciles all TMDB entities into a single unified interface. To solve the performance issue, I architected a parallel fetching strategy using Promise.all on the server side, combined with ISR to keep trending content fresh without sacrificing speed.",
 			"technologies": [
 				"Next.js",
@@ -295,9 +315,9 @@
 				"Open Graph / SEO"
 			],
 			"features": [
-				"TypeScript data normalization layer that reconciles inconsistent TMDB Movie vs TV Show field schemas into a single unified interface—eliminating runtime type errors across the entire app",
+				"TypeScript data normalization layer that reconciles inconsistent TMDB Movie vs TV Show field schemas into a single unified interface. Eliminating runtime type errors across the entire app",
 				"Parallel server-side data fetching with Promise.all across multiple TMDB endpoints, cutting TTFB significantly versus sequential waterfall requests",
-				"ISR (Incremental Static Regeneration) on detail pages — content stays fresh without per-request SSR cost, ideal for high-traffic title pages",
+				"ISR (Incremental Static Regeneration) on detail pages. Content stays fresh without per-request SSR cost, ideal for high-traffic title pages",
 				"Full SEO implementation: dynamic Open Graph tags, structured metadata per page, and canonical URLs for discoverability on search engines"
 			],
 			"upcomingIdeas": [
@@ -311,7 +331,7 @@
 				},
 				{
 					"title": "Streaming availability via JustWatch API",
-					"description": "Show which platform (Netflix, Prime, Hotstar, etc.) each title is currently available on — bridging discovery to instant action."
+					"description": "Show which platform (Netflix, Prime, Hotstar, etc.) each title is currently available on. Bridging discovery to instant action."
 				},
 				{
 					"title": "Redis edge caching for TMDB responses",
@@ -325,7 +345,7 @@
 				},
 				{
 					"type": "paragraph",
-					"text": "HookedOnMovies is a production-quality media discovery platform with a focus on performance, type safety, and cinematic UX. Users can explore trending content, view rich metadata, watch trailers, and surface recommendations—with a UI that competes visually with commercial streaming platforms."
+					"text": "HookedOnMovies is a production-quality media discovery platform with a focus on performance, type safety, and cinematic UX. Users can explore trending content, view rich metadata, watch trailers, and surface recommendations. With a UI that competes visually with commercial streaming platforms."
 				},
 				{
 					"type": "heading",
@@ -333,7 +353,7 @@
 				},
 				{
 					"type": "paragraph",
-					"text": "TMDB's API returns fundamentally different shapes for movies versus TV shows. A custom TypeScript normalization layer maps both into a single shared interface consumed across all components—eliminating defensive nullchecks throughout the codebase. Combined with Promise.all parallel fetching on the server, page data is assembled in a single round-trip rather than a waterfall."
+					"text": "TMDB's API returns fundamentally different shapes for movies versus TV shows. A custom TypeScript normalization layer maps both into a single shared interface consumed across all components. Eliminating defensive nullchecks throughout the codebase. Combined with Promise.all parallel fetching on the server, page data is assembled in a single round-trip rather than a waterfall."
 				},
 				{
 					"type": "image",
@@ -346,7 +366,7 @@
 				},
 				{
 					"type": "paragraph",
-					"text": "Demonstrates end-to-end ownership of a full-stack Next.js product: API integration architecture, TypeScript system design, ISR caching strategy, SEO implementation, and a polished Framer Motion UI—all shipped as a cohesive, performant application."
+					"text": "Demonstrates end-to-end ownership of a full-stack Next.js product: API integration architecture, TypeScript system design, ISR caching strategy, SEO implementation, and a polished Framer Motion UI. All shipped as a cohesive, performant application."
 				}
 			]
 		}

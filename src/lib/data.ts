@@ -49,6 +49,8 @@ export const projectsData: Project[] = Object.entries(portfolioData.projects).ma
   description: project.description,
   technologies: project.technologies,
   detailImage: project.detailImage,
+  year: project.year,
+  role: project.role,
   link: `/projects/${slug}`,
   slug: slug
 }));
