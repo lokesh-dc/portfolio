@@ -44,7 +44,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${lato.variable} ${caveat.variable} antialiased`}
+      className={`${poppins.variable} ${lato.variable} ${caveat.variable} antialiased scroll-smooth`}
       suppressHydrationWarning
     >
       <body className="bg-white dark:bg-[#0a0a0a] text-stone-900 dark:text-stone-100">
