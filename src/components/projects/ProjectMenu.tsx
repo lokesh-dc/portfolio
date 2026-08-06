@@ -2,18 +2,14 @@
 
 import { useEffect, useState } from "react";
 
-const sections = [
-  { id: "context", num: "01", label: "Context" },
-  { id: "problem", num: "02", label: "Problem" },
-  { id: "solution", num: "03", label: "Solution" },
-  { id: "features", num: "04", label: "Features" },
-  { id: "engineering", num: "05", label: "Engineering" },
-  { id: "performance", num: "06", label: "Performance" },
-  { id: "roadmap", num: "07", label: "Roadmap" },
-];
+export type ProjectSection = {
+  id: string;
+  num: string;
+  label: string;
+};
 
-export default function ProjectMenu() {
-  const [active, setActive] = useState("context");
+export default function ProjectMenu({ sections }: { sections: ProjectSection[] }) {
+  const [active, setActive] = useState(sections[0]?.id ?? "");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -29,7 +25,7 @@ export default function ProjectMenu() {
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, []);
+  }, [sections]);
 
   return (
     <nav

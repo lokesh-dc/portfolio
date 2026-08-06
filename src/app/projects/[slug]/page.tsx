@@ -5,6 +5,8 @@ import { BlockRenderer, Block } from "@/components/BlockRenderer";
 import { ExternalLink } from "lucide-react";
 import { GithubIcon as Github } from "@/components/SocialIcons";
 import FitTrackCaseStudy from "@/components/projects/FitTrackCaseStudy";
+import HookedOnMoviesCaseStudy from "@/components/projects/HookedOnMoviesCaseStudy";
+import PortfolioRedesignCaseStudy from "@/components/projects/PortfolioRedesignCaseStudy";
 import { ProjectHero } from "@/components/projects/ProjectHero";
 import { QuickFactsBar } from "@/components/projects/QuickFactsBar";
 import { ProblemSolution } from "@/components/projects/ProblemSolution";
@@ -29,8 +31,13 @@ export async function generateStaticParams() {
 export default async function ProjectDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  if (slug === "fitness-tracker") {
-    return <FitTrackCaseStudy />;
+  const caseStudies: Record<string, React.ReactNode> = {
+    "fitness-tracker": <FitTrackCaseStudy />,
+    "hooked-on-movies": <HookedOnMoviesCaseStudy />,
+    "portfolio-redesign": <PortfolioRedesignCaseStudy />,
+  };
+  if (caseStudies[slug]) {
+    return caseStudies[slug];
   }
 
   const v2Project = (projectsV2Data as Record<string, any>)[slug];
