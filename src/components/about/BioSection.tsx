@@ -11,8 +11,8 @@ export default function BioSection() {
 
   return (
     <section className="flex w-full items-end min-h-[calc(100dvh-7rem)]">
-      <div className="mx-auto w-full max-w-[1180px] px-6 md:px-10 pb-4 md:pb-10 flex flex-col md:flex-row gap-12 md:gap-12 md:items-end">
-        <div className="w-full md:max-w-[300px] shrink-0 flex flex-col gap-20 md:gap-[260px]">
+      <div className="mx-auto w-full max-w-295 px-6 md:px-10 pb-4 md:pb-10 flex flex-col md:flex-row gap-12 md:gap-12 md:items-end">
+        <div className="w-full md:max-w-75 shrink-0 flex flex-col gap-20 md:gap-65">
           <motion.h1
             initial={reduce ? false : { opacity: 0, filter: "blur(10px)", y: 10 }}
             animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
@@ -28,21 +28,21 @@ export default function BioSection() {
           </p>
         </div>
 
-        <div className="w-full md:w-[200px] lg:w-[220px] shrink-0 md:self-end">
+        <div className="w-full md:w-50 lg:w-55 shrink-0 md:self-end">
           <Image
             src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=900&h=1100&fit=crop"
             alt="Laptop at a desk mid-work"
             width={900}
             height={1100}
-            className="w-full aspect-[4/5] object-cover rounded-2xl grayscale hover:grayscale-0 transition duration-500"
+            className="w-full aspect-4/5 object-cover rounded-2xl grayscale hover:grayscale-0 transition duration-500"
           />
         </div>
 
-        <div className="w-full md:max-w-[360px] flex flex-col gap-5">
+        <div className="w-full md:max-w-90 flex flex-col gap-5">
           {aboutData.longBio.map((paragraph, i) => (
             <p
               key={i}
-              className="font-sans text-[16px] md:text-[18px] font-normal leading-[1.5] tracking-[-0.02em] text-stone-600 dark:text-stone-400"
+              className="font-sans text-[16px] md:text-[18px] font-normal leading-normal tracking-[-0.02em] text-stone-600 dark:text-stone-400"
             >
               {paragraph}
             </p>
@@ -59,7 +59,7 @@ export default function BioSection() {
             <span className="relative block h-7 w-7 overflow-hidden rounded-lg border border-stone-900 dark:border-white">
               <span
                 aria-hidden
-                className="absolute bottom-[-4px] left-[-4px] h-[1px] w-[1px] rounded-full bg-stone-900 dark:bg-white transition-all duration-300 group-hover:h-[35px] group-hover:w-[35px]"
+                className="absolute -bottom-1 -left-1 h-px w-px rounded-full bg-stone-900 dark:bg-white transition-all duration-300 group-hover:h-8.75 group-hover:w-8.75"
               />
               <ArrowUpRight
                 aria-hidden
