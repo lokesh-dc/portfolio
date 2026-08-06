@@ -1,15 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import MessageBubble, { Message } from "./MessageBubble";
 import ChatInput from "./ChatInput";
-import {
-	AboutResponse,
-	ExperienceResponse,
-	ProjectsResponse,
-} from "./Responses";
 
 const generateId = () => Math.random().toString(36).substring(2, 9);
 
@@ -23,71 +18,85 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
 		{
 			id: "initial",
 			type: "assistant",
-			content: (
-				<div className="space-y-4">
-					<p className="text-stone-800 dark:text-stone-200">
-						Hello! I&apos;m an interactive summary of Lokesh.
-					</p>
-					<p className="text-stone-600 dark:text-stone-400">
-						How can I help you learn more today? Feel free to use the prompts
-						below.
-					</p>
-				</div>
-			),
+			content:
+				"Hello! I'm an AI assistant for Lokesh's portfolio. Ask me anything about his experience, projects, or skills.",
 		},
 	]);
-	const [isTyping, setIsTyping] = useState(false);
+	const [isStreaming, setIsStreaming] = useState(false);
 	const bottomRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
 		if (isOpen) {
 			bottomRef.current?.scrollIntoView({ behavior: "smooth" });
 		}
-	}, [messages, isTyping, isOpen]);
+	}, [messages, isStreaming, isOpen]);
 
-	const handleOptionSelect = (option: "experience" | "projects" | "about") => {
-		if (isTyping) return;
+	const sendMessage = useCallback(
+		async (text: string) => {
+			const trimmed = text.trim();
+			if (!trimmed || isStreaming) return;
 
-		let userText = "";
-		let AssistantComponent: React.ReactNode = null;
+			const userMsg: Message = { id: generateId(), type: "user", content: trimmed };
+			const assistantId = generateId();
+			const assistantMsg: Message = {
+				id: assistantId,
+				type: "assistant",
+				content: "",
+			};
 
-		if (option === "experience") {
-			userText = "Tell me about your work experience.";
-			AssistantComponent = <ExperienceResponse />;
-		} else if (option === "projects") {
-			userText = "Show me some of your projects.";
-			AssistantComponent = <ProjectsResponse />;
-		} else if (option === "about") {
-			userText = "Tell me more about you.";
-			AssistantComponent = <AboutResponse />;
-		}
+			const history = [...messages, userMsg]
+				.filter((m) => m.id !== "initial")
+				.map((m) => ({ role: m.type, content: m.content }));
 
-		const userMsg: Message = {
-			id: generateId(),
-			type: "user",
-			content: (
-				<p className="text-stone-800 dark:text-stone-200 font-medium">
-					{userText}
-				</p>
-			),
-		};
+			setMessages((prev) => [...prev, userMsg, assistantMsg]);
+			setIsStreaming(true);
 
-		setMessages((prev) => [...prev, userMsg]);
-		setIsTyping(true);
+			try {
+				const res = await fetch("/api/chat", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ messages: history }),
+				});
 
-		setTimeout(
-			() => {
-				const assistantMsg: Message = {
-					id: generateId(),
-					type: "assistant",
-					content: AssistantComponent,
-				};
-				setMessages((prev) => [...prev, assistantMsg]);
-				setIsTyping(false);
-			},
-			600 + Math.random() * 400,
-		);
-	};
+				if (!res.ok || !res.body) {
+					const errorData = await res.json().catch(() => null);
+					const detail = errorData?.error || `Request failed with status ${res.status}.`;
+					setMessages((prev) =>
+						prev.map((m) =>
+							m.id === assistantId
+								? { ...m, content: `I couldn't reach my brain. ${detail}` }
+								: m
+						)
+					);
+					return;
+				}
+
+				const reader = res.body.getReader();
+				const decoder = new TextDecoder();
+				let acc = "";
+
+				while (true) {
+					const { done, value } = await reader.read();
+					if (done) break;
+					acc += decoder.decode(value, { stream: true });
+					setMessages((prev) =>
+						prev.map((m) => (m.id === assistantId ? { ...m, content: acc } : m))
+					);
+				}
+			} catch {
+				setMessages((prev) =>
+					prev.map((m) =>
+						m.id === assistantId
+							? { ...m, content: "Something went wrong while streaming the response. Please try again." }
+							: m
+					)
+				);
+			} finally {
+				setIsStreaming(false);
+			}
+		},
+		[messages, isStreaming]
+	);
 
 	return (
 		<AnimatePresence>
@@ -125,7 +134,7 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
 									<MessageBubble message={msg} />
 								</div>
 							))}
-							{isTyping && (
+							{isStreaming && (
 								<div className="flex items-center gap-1.5 px-6 py-6 md:pl-16">
 									<div
 										className="w-1.5 h-1.5 rounded-full bg-stone-300 dark:bg-stone-600 animate-bounce"
@@ -147,8 +156,8 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
 						{/* Input Area */}
 						<div className="flex-none bg-gradient-to-t from-[#fafafa] via-[#fafafa] to-transparent dark:from-[#0c0c0c] dark:via-[#0c0c0c] pt-6 relative z-10">
 							<ChatInput
-								onOptionSelect={handleOptionSelect}
-								disabled={isTyping}
+								onSend={sendMessage}
+								disabled={isStreaming}
 							/>
 						</div>
 					</motion.aside>
