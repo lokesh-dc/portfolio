@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import portfolioData from "@/lib/portfolio-data.json";
 import projectsV2Data from "@/lib/projects-v2.json";
+import { recordUsage, updateRateLimit } from "@/lib/chat-usage";
 
 export const runtime = "nodejs";
 const BASE_URL = process.env.LLM_BASE_URL || "https://api.groq.com/openai";
@@ -12,6 +13,7 @@ const MAX_HISTORY_MESSAGES = 12;
 const MAX_MESSAGE_LENGTH = 2_000;
 const MAX_TOTAL_MESSAGES = 30;
 const MAX_RESPONSE_TOKENS = 512;
+const TEMPERATURE = 0.3;
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX_REQUESTS = 10;
 const rateLimitBuckets = new Map<string, { count: number; resetAt: number }>();
@@ -269,6 +271,7 @@ export async function POST(req: NextRequest) {
         messages,
         stream: true,
         max_tokens: MAX_RESPONSE_TOKENS,
+        temperature: TEMPERATURE,
       }),
       signal,
     });
@@ -294,6 +297,8 @@ export async function POST(req: NextRequest) {
       { status: 502, headers: { "Content-Type": "application/json" } }
     );
   }
+
+  updateRateLimit(upstream.headers);
 
   const reader = upstream.body.getReader();
   const decoder = new TextDecoder();
@@ -327,6 +332,9 @@ export async function POST(req: NextRequest) {
                 for (const chunk of filter.push(delta)) {
                   controller.enqueue(chunk);
                 }
+              }
+              if (parsed.usage && typeof parsed.usage.prompt_tokens === "number") {
+                recordUsage(parsed.usage.prompt_tokens, parsed.usage.completion_tokens);
               }
             } catch {
               // skip malformed keep-alive frames

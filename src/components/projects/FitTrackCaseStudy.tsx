@@ -6,6 +6,7 @@ import ProjectMenu, { ProjectSection } from "@/components/projects/ProjectMenu";
 import ImagePlaceholder from "@/components/projects/ImagePlaceholder";
 import SectionHeader from "@/components/projects/SectionHeader";
 import { cleanText, TitleLines } from "@/lib/text";
+import Image from "next/image";
 
 const sections: ProjectSection[] = [
   { id: "context", num: "01", label: "Context" },
@@ -56,7 +57,7 @@ export default function FitTrackCaseStudy() {
     <div className="relative flex-1 w-full">
       <ProjectMenu sections={sections} />
 
-      <article className="mx-auto w-full max-w-[760px] px-6 md:px-10 space-y-20 md:space-y-28 pb-32">
+      <article className="mx-auto w-full max-w-190 px-6 md:px-10 space-y-20 md:space-y-28 pb-32">
         {/* Hero */}
         <header className="pt-4 md:pt-10 space-y-10">
           <div className="space-y-5">
@@ -124,10 +125,7 @@ export default function FitTrackCaseStudy() {
             </a>
           </div>
 
-          <ImagePlaceholder
-            label="Add hero screenshot"
-            hint="Drop the image at public/fitness-tracker/hero-desktop.png"
-          />
+          <Image className="rounded-xl" alt="Fitness Project" height={400} width={800} src={"/fitness-tracker/thumbnail.png"} />
         </header>
 
         {/* 01 Context */}
@@ -210,10 +208,8 @@ export default function FitTrackCaseStudy() {
             </p>
           </div>
           <div className="mt-10">
-            <ImagePlaceholder
-              label="Add product screenshot"
-              hint="public/fitness-tracker/details.png"
-            />
+            <Image className="rounded-xl" alt="" height={400} width={800} src={"/fitness-tracker/hero-image.png"} />
+
           </div>
         </section>
 
