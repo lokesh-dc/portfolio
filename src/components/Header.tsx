@@ -1,99 +1,69 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Sparkles, ArrowLeft } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { useChat } from "@/context/ChatContext";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { motion } from "framer-motion";
 
 import { ThemeToggle } from "./ThemeToggle";
+
+const links = [
+  { href: "/projects", label: "Projects" },
+  { href: "/experience", label: "Experience" },
+  { href: "/about", label: "About" },
+];
 
 export default function Header() {
   const { openSidebar } = useChat();
   const pathname = usePathname();
-  const isHome = pathname === "/";
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   return (
-    <header className={clsx(
-      "sticky top-0 w-full z-50",
-      "bg-white/80 dark:bg-[#0a0a0a]/80",
-      scrolled
-        ? "border-b border-stone-200/50 dark:border-stone-800/50 py-4 shadow-sm backdrop-blur-md"
-        : "border-b border-transparent py-4"
-    )}>
-      <div className="flex items-center justify-between px-6 md:px-10 max-w-7xl mx-auto">
-        <div className="flex items-center gap-8">
-          <Link
-            href="/"
-            className="font-sans font-bold text-xl tracking-tight hover:opacity-70 transition-opacity text-stone-900 dark:text-white"
-          >
-            LC.
-          </Link>
-          <nav className="hidden md:flex gap-6">
-            <Link
-              href="/projects"
-              className={clsx(
-                "font-medium text-sm transition-colors",
-                pathname.startsWith("/projects") ? "text-stone-900 dark:text-stone-100" : "text-stone-500 hover:text-stone-900 dark:hover:text-stone-100"
-              )}
-            >
-              Projects
-            </Link>
-            <Link
-              href="/experience"
-              className={clsx(
-                "font-medium text-sm transition-colors",
-                pathname === "/experience" ? "text-stone-900 dark:text-stone-100" : "text-stone-500 hover:text-stone-900 dark:hover:text-stone-100"
-              )}
-            >
-              Experience
-            </Link>
-            <Link
-              href="/about"
-              className={clsx(
-                "font-medium text-sm transition-colors",
-                pathname === "/about" ? "text-stone-900 dark:text-stone-100" : "text-stone-500 hover:text-stone-900 dark:hover:text-stone-100"
-              )}
-            >
-              About
-            </Link>
-          </nav>
+    <header className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4">
+      <nav className="flex items-center gap-0.5 rounded-full border border-stone-200/70 dark:border-stone-800/70 bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl p-1.5 pr-1.5 shadow-[0_12px_32px_rgba(0,0,0,0.08)]">
+        <Link
+          href="/"
+          className="px-3 py-1.5 text-lg font-bold tracking-tight text-stone-900 dark:text-white hover:opacity-70 transition-opacity"
+        >
+          LC.
+        </Link>
+
+        <div className="hidden md:flex items-center gap-0.5">
+          {links.map((link) => {
+            const isActive =
+              link.href === "/projects"
+                ? pathname.startsWith("/projects")
+                : pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={clsx(
+                  "px-3.5 py-2 rounded-full text-[13px] font-medium transition-colors",
+                  isActive
+                    ? "text-stone-900 dark:text-white"
+                    : "text-stone-500 hover:text-stone-900 dark:text-stone-400 dark:hover:text-white"
+                )}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
 
-        <div className="flex items-center gap-3">
-          {!isHome && (
-            <Link
-              href="/"
-              className="hidden lg:flex items-center gap-1.5 text-sm font-medium text-stone-500 hover:text-stone-900 dark:hover:text-white transition-colors mr-2"
-            >
-              <ArrowLeft size={16} /> Back Home
-            </Link>
-          )}
+        <div className="h-6 w-px bg-stone-200 dark:bg-stone-800 mx-1.5" aria-hidden />
 
+        <div className="flex items-center gap-2">
           <ThemeToggle />
-
-          <motion.button
-            whileTap={{ scale: 0.95 }}
+          <button
             onClick={openSidebar}
-            className="flex items-center gap-2 group px-4 py-2 rounded-full border border-stone-200 dark:border-stone-800 bg-[#fafafa] dark:bg-[#111] hover:bg-stone-100 dark:hover:bg-[#1a1a1a] transition-all shadow-sm"
+            className="flex items-center gap-1.5 rounded-full bg-emerald-500 px-4 py-2 text-[13px] font-bold text-stone-950 transition-colors hover:bg-emerald-400"
           >
-            <Sparkles className="w-4 h-4 text-emerald-500 group-hover:text-emerald-600 transition-colors" />
-            <span className="hidden sm:inline text-sm font-medium tracking-wide dark:text-stone-200 text-stone-600">Ask AI</span>
-          </motion.button>
+            <Sparkles className="h-3.5 w-3.5" aria-hidden />
+            Ask my AI
+          </button>
         </div>
-      </div>
+      </nav>
     </header>
   );
 }

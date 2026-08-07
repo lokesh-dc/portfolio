@@ -1,17 +1,24 @@
 import type { Metadata } from "next";
-import { Poppins, Lato } from "next/font/google";
+import { Poppins, Lato, Caveat } from "next/font/google";
 import "./globals.css";
 
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
 });
 
 const lato = Lato({
   variable: "--font-lato",
   subsets: ["latin"],
   weight: ["400", "700", "900"],
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: ["500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -37,7 +44,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.variable} ${lato.variable} antialiased`}
+      className={`${poppins.variable} ${lato.variable} ${caveat.variable} antialiased scroll-smooth`}
       suppressHydrationWarning
     >
       <body className="bg-white dark:bg-[#0a0a0a] text-stone-900 dark:text-stone-100">
@@ -53,7 +60,7 @@ export default function RootLayout({
             <CustomCursor />
             <Header />
             <LayoutWrapper>
-              <main className="flex-1 flex flex-col pb-24 md:pb-0">
+              <main className="flex-1 flex flex-col pt-20 md:pt-24">
                 {children}
               </main>
             </LayoutWrapper>
