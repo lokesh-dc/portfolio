@@ -1,4 +1,5 @@
 import portfolioData from "./portfolio-data.json";
+import projectsV2Data from "./projects-v2.json";
 
 export type Project = {
   title: string;
@@ -50,13 +51,27 @@ export const workExperienceData: Job[] = portfolioData.experience.map(job => ({
   link: job.link
 }));
 
-export const projectsData: Project[] = Object.entries(portfolioData.projects).map(([slug, project]: [string, any]) => ({
-  title: project.title,
-  description: project.description,
-  technologies: project.technologies,
-  detailImage: project.detailImage,
-  year: project.year,
-  role: project.role,
-  link: `/projects/${slug}`,
-  slug: slug
-}));
+export type ProjectListing = Project & { thumbnail: string };
+
+function v2ToListing(slug: string, project: any): ProjectListing {
+  const technologies = (project.techStack ?? []).flatMap(
+    (group: { items: { name: string }[] }) => group.items.map((item) => item.name)
+  );
+  return {
+    slug,
+    title: (project.meta?.title ?? "").replace(/<br\s*\/?>/gi, " "),
+    description: project.meta?.tagline ?? "",
+    technologies,
+    detailImage: project.solution?.image || project.hero?.image || "",
+    thumbnail: project.hero?.image || "",
+    link: `/projects/${slug}`,
+    problem: project.problem?.body,
+    solution: project.solution?.body,
+    year: project.meta?.year,
+    role: project.meta?.role,
+  };
+}
+
+export const projectsData: ProjectListing[] = Object.entries(projectsV2Data).map(
+  ([slug, project]: [string, any]) => v2ToListing(slug, project)
+);

@@ -3,9 +3,16 @@ import { ExternalLink } from "lucide-react";
 import { GithubIcon as Github } from "@/components/SocialIcons";
 import projectsV2Data from "@/lib/projects-v2.json";
 import ProjectMenu, { ProjectSection } from "@/components/projects/ProjectMenu";
-import ImagePlaceholder from "@/components/projects/ImagePlaceholder";
 import SectionHeader from "@/components/projects/SectionHeader";
+import ProjectGallery from "@/components/projects/ProjectGallery";
 import { cleanText, TitleLines } from "@/lib/text";
+import Image from "next/image";
+
+const project = projectsV2Data["hooked-on-movies"] as unknown as Project;
+
+const hasGallery = project.gallery.some(
+  (item) => item.url !== project.hero.image && item.url !== project.solution.image
+);
 
 const sections: ProjectSection[] = [
   { id: "context", num: "01", label: "Context" },
@@ -15,6 +22,9 @@ const sections: ProjectSection[] = [
   { id: "engineering", num: "05", label: "Engineering" },
   { id: "performance", num: "06", label: "Performance" },
   { id: "roadmap", num: "07", label: "Roadmap" },
+  ...(hasGallery
+    ? [{ id: "gallery", num: "08", label: "Gallery" }]
+    : []),
 ];
 
 type Project = {
@@ -28,6 +38,8 @@ type Project = {
     status: string;
   };
   links: { live: string; github: string };
+  hero: { image: string; alt: string };
+  solution: { image: string };
   productHighlights: {
     title: string;
     description: string;
@@ -44,10 +56,14 @@ type Project = {
   performance: { metric: string; value: string; sublabel: string }[];
   roadmap: { title: string; description: string; status: string }[];
   lessonsLearned: { lesson: string; whatWentWell: string; rebuild: string }[];
+  gallery: {
+    url: string;
+    alt: string;
+    type: "screenshot" | "mockup" | "animation";
+    device?: "phone" | "desktop" | "tablet";
+  }[];
   techStack: { category: string; items: { name: string }[] }[];
 };
-
-const project = projectsV2Data["hooked-on-movies"] as unknown as Project;
 
 export default function HookedOnMoviesCaseStudy() {
   const { meta, engineeringHighlights, architecture, designDecisions, performance, roadmap, lessonsLearned, techStack } = project;
@@ -124,9 +140,12 @@ export default function HookedOnMoviesCaseStudy() {
             </a>
           </div>
 
-          <ImagePlaceholder
-            label="Add hero screenshot"
-            hint="Drop the image at public/hookedonmovies/thumbnail.png"
+          <Image
+            className="rounded-xl"
+            src={project.hero.image}
+            alt={project.hero.alt}
+            width={800}
+            height={400}
           />
         </header>
 
@@ -206,9 +225,12 @@ export default function HookedOnMoviesCaseStudy() {
             </p>
           </div>
           <div className="mt-10">
-            <ImagePlaceholder
-              label="Add product screenshot"
-              hint="public/hookedonmovies/details.png"
+            <Image
+              className="rounded-xl"
+              src={project.solution.image}
+              alt=""
+              width={800}
+              height={400}
             />
           </div>
         </section>
@@ -320,13 +342,6 @@ export default function HookedOnMoviesCaseStudy() {
             ))}
           </div>
 
-          <div className="mt-10">
-            <ImagePlaceholder
-              ratio="aspect-[4/3]"
-              label="Add architecture diagram"
-              hint="Show the server-first flow and the normalization layer"
-            />
-          </div>
         </section>
 
         {/* 06 Performance */}
@@ -404,6 +419,16 @@ export default function HookedOnMoviesCaseStudy() {
             ))}
           </div>
         </section>
+
+        {/* 08 Gallery */}
+        <ProjectGallery
+          num="08"
+          label="Gallery"
+          title="Screens from the app"
+          subtitle="A visual tour through trending discovery, the detail page, and search."
+          items={project.gallery}
+          exclude={[project.hero.image, project.solution.image]}
+        />
 
         {/* CTA */}
         <section className="rounded-3xl bg-stone-100 dark:bg-white/[0.04] border border-stone-200 dark:border-white/10 p-10 md:p-14 text-center scroll-mt-28">

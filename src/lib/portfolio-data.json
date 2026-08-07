@@ -237,62 +237,6 @@
 				}
 			]
 		},
-		"portfolio-redesign": {
-			"title": "Conversational Developer Portfolio",
-			"description": "Command-driven personal portfolio built with Next.js App Router and Framer Motion. Replacing infinite scroll with a contextual AI chat interface that surfaces projects, skills, and experience on demand.",
-			"year": "2024",
-			"role": "Full Stack Developer",
-			"thumbnail": "/portfolio/thumbnail.png",
-			"detailImage": "/portfolio/detail.png",
-			"problem": "Traditional portfolios are often static, linear, and force recruiters to dig through buried links to find relevant info. They lack engagement and don't demonstrate a developer's ability to build truly interactive, product-like experiences. In a market flooded with 'infinite scroll' resumes, it's hard to stand out without a unique interaction model.",
-			"solution": "I designed a conversational UI that inverts the browsing experience. Instead of searching, visitors 'ask' for what they need via a command palette or chat interface. Built with Next.js App Router and Framer Motion, it provides sub-second transitions and a premium, tool-like feel that mirrors modern AI applications.",
-			"technologies": [
-				"Next.js",
-				"Tailwind CSS",
-				"Framer Motion",
-				"Lucide React",
-				"TypeScript"
-			],
-			"features": [
-				"Command-palette-style interface with slash-command routing. Visitors type intent, not keywords",
-				"Framer Motion layout animations for seamless content transitions between project detail views",
-				"Server-rendered shell with client-side hydration. Fast initial load with no layout shift (zero CLS)",
-				"JSON-driven content architecture. All portfolio data decoupled from UI components for easy updates"
-			],
-			"upcomingIdeas": [
-				{
-					"title": "Live Claude API integration",
-					"description": "Replace simulated responses with real Claude API calls. Making the portfolio genuinely answer recruiter and client questions about specific projects, stack choices, and availability."
-				},
-				{
-					"title": "RAG over resume & projects",
-					"description": "Embed resume, project write-ups, and GitHub READMEs into a pgvector store so the chat can retrieve and cite specific achievements in context."
-				},
-				{
-					"title": "Visitor analytics dashboard",
-					"description": "Track which projects and questions visitors ask most. Feeding insights back into which work to feature or expand in the portfolio."
-				},
-				{
-					"title": "Voice input via Web Speech API",
-					"description": "Let mobile visitors speak queries naturally. Further differentiating the experience from every static portfolio in the market."
-				}
-			],
-			"content": [
-				{
-					"type": "heading",
-					"text": "Rethinking the portfolio as a product"
-				},
-				{
-					"type": "paragraph",
-					"text": "Traditional portfolios force visitors to navigate a predetermined structure. This portfolio inverts that model. The visitor drives the conversation. Using Next.js App Router for SSR performance and Framer Motion for layout-aware transitions, the interface feels like a premium AI product rather than a developer resume."
-				},
-				{
-					"type": "image",
-					"url": "/portfolio/detail.png",
-					"alt": "Command interface aesthetic"
-				}
-			]
-		},
 		"hooked-on-movies": {
 			"title": "HookedOnMovies",
 			"description": "Full-stack media discovery platform built on Next.js with SSR/ISR, a TypeScript normalization layer across TMDB's Movie & TV APIs, and sub-second TTFB via parallel server-side data fetching.",

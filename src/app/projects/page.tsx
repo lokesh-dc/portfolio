@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import portfolioData from "@/lib/portfolio-data.json";
+import { projectsData } from "@/lib/data";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
 export default function ProjectsPage() {
-  const projects = Object.entries(portfolioData.projects);
+  const projects = projectsData;
 
   const container = {
     hidden: { opacity: 0 },
@@ -45,10 +45,10 @@ export default function ProjectsPage() {
         animate="show"
         className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20 md:gap-y-32"
       >
-        {projects.map(([slug, project]: [string, any]) => (
-          <motion.div key={slug} variants={item}>
+        {projects.map((project) => (
+          <motion.div key={project.slug} variants={item}>
             <Link 
-              href={`/projects/${slug}`} 
+              href={`/projects/${project.slug}`} 
               className="group block space-y-6"
               data-cursor-text="View Project"
             >

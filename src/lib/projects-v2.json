@@ -13,8 +13,8 @@
 		},
 		"hero": {
 			"mockupType": "phone",
-			"image": "/fitness-tracker/hero-mobile.png",
-			"alt": "FitTrack live session running with rest timer active and current set highlighted"
+			"alt": "FitTrack live session running with rest timer active and current set highlighted",
+			"image": "/fitness-tracker/thumbnail.png"
 		},
 		"links": {
 			"live": "https://workouts-logger.vercel.app?demo=true",
@@ -34,7 +34,7 @@
 		"solution": {
 			"headline": "A lifter-first experience, from setup to cooldown.",
 			"body": "FitTrack strips away everything a lifter doesn't need and optimizes every interaction for the gym environment — one hand, between sets, sometimes with weak signal. It offers three distinct logging modes, timers that keep running even if you switch apps, instant PR detection with zero database scans, and a warm-up generator that never touches the server. It's the tool I wish had existed when I first started lifting.",
-			"image": "/fitness-tracker/thumbnail.png"
+			"image": "/fitness-tracker/hero-mobile.png"
 		},
 		"productHighlights": [
 			{
@@ -696,6 +696,333 @@
 					{ "name": "Structured Data" },
 					{ "name": "Canonical URLs" }
 				]
+			}
+		]
+	},
+	"portfolio-redesign": {
+		"slug": "portfolio-redesign",
+		"meta": {
+			"title": "Conversational<br /> Developer Portfolio",
+			"tagline": "A command-driven portfolio built with the Next.js App Router and Framer Motion. Visitors type intent instead of hunting through links, and the site answers like a product, not a resume.",
+			"role": "Full Stack Developer",
+			"timeline": "Ongoing · 2024",
+			"platform": ["Web"],
+			"users": "Recruiters & clients",
+			"status": "live",
+			"year": "2024"
+		},
+		"hero": {
+			"mockupType": "desktop",
+			"image": "/portfolio/thumbnail.png",
+			"alt": "Command-driven portfolio interface with a contextual AI chat"
+		},
+		"links": {
+			"live": "/",
+			"github": "https://github.com/lokesh-dc/portfolio"
+		},
+		"quickFacts": [
+			{ "label": "Role", "value": "Full Stack Developer" },
+			{ "label": "Timeline", "value": "Ongoing" },
+			{ "label": "Platform", "value": "Web" },
+			{ "label": "Audience", "value": "Recruiters & clients" },
+			{ "label": "Status", "value": "Live" }
+		],
+		"problem": {
+			"headline": "Portfolios force recruiters to browse, not to ask.",
+			"body": "Traditional portfolios are often static, linear, and force recruiters to dig through buried links to find relevant info. They lack engagement and don't demonstrate a developer's ability to build truly interactive, product-like experiences. In a market flooded with 'infinite scroll' resumes, it's hard to stand out without a unique interaction model."
+		},
+		"solution": {
+			"headline": "A conversational UI that inverts the browsing experience.",
+			"body": "Instead of searching, visitors ask. A command palette and contextual AI chat interface route typed intent to projects, skills, and experience on demand. Built with the Next.js App Router and Framer Motion, it provides sub-second transitions and a premium, tool-like feel that mirrors modern AI applications.",
+			"image": "/portfolio/detail.png"
+		},
+		"productHighlights": [
+			{
+				"id": "command-palette",
+				"title": "Command Palette Interface",
+				"description": "Slash-command routing maps typed intent to projects, skills, and experience on demand — visitors type what they want instead of navigating a predetermined structure.",
+				"image": "/portfolio/thumbnail.png",
+				"benefit": "Visitors find exactly what they're looking for in seconds, no menu hunting required.",
+				"technicalNote": "Commands are matched client-side against a JSON-driven route table, so adding a new destination never touches the router logic."
+			},
+			{
+				"id": "ai-chat",
+				"title": "Contextual AI Chat",
+				"description": "A live assistant answers questions about Lokesh's experience, skills, and projects using only the facts defined in the portfolio data.",
+				"image": "/portfolio/detail.png",
+				"benefit": "Recruiters get immediate answers about the person behind the portfolio.",
+				"technicalNote": "A streaming route handler pipes LLM responses to the client token-by-token over SSE, with a code-fence filter guaranteeing no source code ever reaches the browser."
+			},
+			{
+				"id": "motion-transitions",
+				"title": "Framer Motion Transitions",
+				"description": "Layout animations handle seamless content transitions between project detail views and command results.",
+				"image": "/portfolio/thumbnail.png",
+				"benefit": "Navigation feels instantaneous and product-like instead of a hard page jump.",
+				"technicalNote": "Shared layout animations run on the client with reduced-motion respect, so the experience stays accessible."
+			},
+			{
+				"id": "json-content",
+				"title": "JSON-Driven Content",
+				"description": "All portfolio content — projects, experience, and education — lives in decoupled JSON files rather than inside UI components.",
+				"image": "/portfolio/detail.png",
+				"benefit": "Updating the portfolio is a content edit, never a component change.",
+				"technicalNote": "portfolio-data.json and projects-v2.json are the single source of truth, consumed by both the UI and the chat system prompt."
+			},
+			{
+				"id": "server-rendered-shell",
+				"title": "Server-Rendered Shell",
+				"description": "The page shell is server-rendered and statically generated, with client-side hydration layered on only where interactivity is needed.",
+				"image": "/portfolio/thumbnail.png",
+				"benefit": "Fast first paint with zero layout shift — no client-side data waterfalls.",
+				"technicalNote": "App Router Server Components and static generation keep the initial HTML complete before any JavaScript runs."
+			},
+			{
+				"id": "guardrailed-output",
+				"title": "Guardrailed Chat Output",
+				"description": "The AI assistant is constrained to portfolio facts, and its output is filtered at the stream so code can never be rendered.",
+				"image": "/portfolio/detail.png",
+				"benefit": "Every answer is grounded, safe, and on-brand — even when the model gets creative.",
+				"technicalNote": "A CodeFenceFilter buffers trailing backticks across SSE chunks and strips any fenced code before it reaches the client."
+			}
+		],
+		"engineeringHighlights": [
+			{
+				"id": "streaming-chat-api",
+				"title": "Streaming AI Chat API",
+				"problem": "A static portfolio can't hold a conversation, but adding one naively would mean slow, buffered responses and no protection against abuse.",
+				"solution": "Built a /api/chat route handler that streams LLM output token-by-token over SSE, with per-IP rate limiting, request timeouts, and an abort-signal chain from the client.",
+				"result": "Answers stream in live with zero full-page reloads, while a 10 req/min bucket keeps the endpoint safe."
+			},
+			{
+				"id": "code-fence-filter",
+				"title": "CodeFenceFilter Output Guardrail",
+				"problem": "The LLM could emit markdown code blocks that violate the chat's no-code rule and break the formatted output.",
+				"solution": "Implemented a streaming filter that buffers across SSE chunk boundaries, tracks fence state, and strips any code before it can reach the client.",
+				"result": "Source code can never be rendered, even if the model tries to output it mid-stream."
+			},
+			{
+				"id": "json-driven-content",
+				"title": "JSON-Driven Content Architecture",
+				"problem": "Content edits were scattered across components, making updates risky and slow.",
+				"solution": "Moved every project, experience, and education record into structured JSON consumed by both the UI and the chat system prompt.",
+				"result": "The portfolio is now a content pipeline — updates are JSON edits that never touch components."
+			},
+			{
+				"id": "server-first-shell",
+				"title": "Server-First Rendering",
+				"problem": "Client-side fetching would introduce loading spinners and layout shift on first load.",
+				"solution": "Rendered the shell and project pages on the server with static generation, hydrating interactivity only where required.",
+				"result": "Sub-second first paint with zero CLS across the entire site."
+			},
+			{
+				"id": "rate-limiting",
+				"title": "In-Memory Rate Limiting",
+				"problem": "A public chat endpoint needs abuse protection without adding database infrastructure.",
+				"solution": "Implemented sliding-window rate limit buckets keyed by client IP, with periodic pruning of expired entries.",
+				"result": "The chat API is protected at portfolio scale with zero external dependencies."
+			}
+		],
+		"architecture": {
+			"caption": "The portfolio is server-rendered and statically generated, with interactivity — the command palette and streaming AI chat — layered on as a thin client island.",
+			"layers": [
+				{
+					"label": "Server Components",
+					"description": "Pages and the shell render on the server with static generation. Content is imported directly from JSON files — no client-side data fetching."
+				},
+				{
+					"label": "Client Interactivity",
+					"description": "Framer Motion drives transitions, the command palette handles intent routing, and the chat UI hydrates for streaming responses."
+				},
+				{
+					"label": "AI Chat API",
+					"description": "A /api/chat route handler streams LLM responses over SSE, filtered through a code-fence guardrail and protected by in-memory rate limiting."
+				},
+				{
+					"label": "JSON Data Layer",
+					"description": "portfolio-data.json and projects-v2.json are the single source of truth, consumed by both the rendered UI and the chat system prompt."
+				},
+				{
+					"label": "Deployment",
+					"description": "Statically generated output served from the edge — fast everywhere, with no origin compute for page loads."
+				}
+			]
+		},
+		"technicalChallenges": [
+			{
+				"id": "reliable-streaming",
+				"challenge": "Streaming LLM responses reliably",
+				"difficulty": "SSE payloads arrive split across arbitrary chunk boundaries, and malformed partial frames or late [DONE] markers can stall or corrupt the stream.",
+				"solution": "Buffered incoming lines, parsed only complete JSON frames, and handled [DONE] and keep-alive frames explicitly while forwarding every delta immediately.",
+				"outcome": "Chat responses stream token-by-token with no dropped or duplicated content, even under slow networks."
+			},
+			{
+				"id": "output-guardrails",
+				"challenge": "Guaranteeing no code ever reaches the client",
+				"difficulty": "The model could start a code fence in one chunk and close it in another, so simple string checks miss fences split across the stream.",
+				"solution": "Built a stateful filter that buffers trailing backticks until it's clear whether they form a fence, and emits only non-fenced text.",
+				"outcome": "Fenced code is stripped across arbitrary chunk boundaries, and unterminated fences are safely cut off at stream end."
+			},
+			{
+				"id": "abuse-protection",
+				"challenge": "Protecting a public chat endpoint without a database",
+				"difficulty": "A public LLM endpoint is a prime target for abuse, but adding Redis or Postgres just for rate limiting is overkill for a portfolio.",
+				"solution": "Used in-memory sliding-window buckets keyed by client IP, pruned automatically as entries expire.",
+				"outcome": "Users get 10 requests per minute, and expired buckets are cleaned up without any external infrastructure."
+			},
+			{
+				"id": "zero-cls-transitions",
+				"challenge": "Product-like transitions without layout shift",
+				"difficulty": "Animated content swaps and command routing could reflow the page and hurt Core Web Vitals if not handled carefully.",
+				"solution": "Kept the shell server-rendered and applied layout animations client-side with reduced-motion support, so transitions never shift layout.",
+				"outcome": "The site maintains zero CLS while still feeling like a native product."
+			}
+		],
+		"performance": [
+			{
+				"metric": "Initial Paint",
+				"value": "Sub-second",
+				"sublabel": "Server-rendered shell"
+			},
+			{
+				"metric": "Layout Shift",
+				"value": "0",
+				"sublabel": "Zero CLS by design"
+			},
+			{
+				"metric": "Chat Streaming",
+				"value": "Token-by-token",
+				"sublabel": "SSE from /api/chat"
+			},
+			{
+				"metric": "Chat Rate Limit",
+				"value": "10 req/min",
+				"sublabel": "In-memory buckets"
+			},
+			{
+				"metric": "Page Generation",
+				"value": "Static",
+				"sublabel": "SSG across the site"
+			},
+			{
+				"metric": "Content Source",
+				"value": "JSON-driven",
+				"sublabel": "Decoupled from UI"
+			}
+		],
+		"designDecisions": [
+			{
+				"decision": "Command palette over navigation",
+				"problem": "Traditional nav forces visitors to hunt through links for the one thing they care about.",
+				"rationale": "Typing intent is faster than navigating. The command palette routes directly to answers, inverting the browse-first model of most portfolios."
+			},
+			{
+				"decision": "AI chat as the centerpiece",
+				"problem": "A static portfolio can't answer the questions recruiters actually have.",
+				"rationale": "A grounded, guardrailed assistant turns the portfolio into a product that answers questions in real time — demonstrating AI-integrated UX instead of describing it."
+			},
+			{
+				"decision": "JSON-driven everything",
+				"problem": "Content scattered through components made every update a code change with risk.",
+				"rationale": "Single-source JSON keeps the UI, the chat prompt, and future tooling reading the same facts — one edit updates the whole site."
+			},
+			{
+				"decision": "Dark, minimal surfaces",
+				"problem": "Busy layouts compete with the command-driven interaction model.",
+				"rationale": "Dark surfaces with high-contrast emerald accents let the chat and command output take focus, matching the premium AI-product feel."
+			}
+		],
+		"gallery": [
+			{
+				"url": "/portfolio/thumbnail.png",
+				"alt": "Command-driven portfolio home",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/portfolio/detail.png",
+				"alt": "Conversational AI chat answering a question",
+				"type": "screenshot",
+				"device": "desktop"
+			}
+		],
+		"roadmap": [
+			{
+				"title": "RAG over resume & projects",
+				"description": "Embed resume, project write-ups, and GitHub READMEs into a vector store so the chat can retrieve and cite specific achievements in context.",
+				"status": "planned",
+				"icon": "database"
+			},
+			{
+				"title": "Visitor analytics dashboard",
+				"description": "Track which projects and questions visitors ask most, feeding insights back into which work to feature or expand in the portfolio.",
+				"status": "planned",
+				"icon": "chart"
+			},
+			{
+				"title": "Voice input via Web Speech API",
+				"description": "Let mobile visitors speak queries naturally, further differentiating the experience from every static portfolio in the market.",
+				"status": "exploring",
+				"icon": "mic"
+			},
+			{
+				"title": "Session memory across chats",
+				"description": "Carry context between consecutive conversations so follow-up questions feel continuous rather than starting from scratch.",
+				"status": "exploring",
+				"icon": "message-square"
+			}
+		],
+		"lessonsLearned": [
+			{
+				"lesson": "Content decoupling is the highest-leverage architecture decision.",
+				"whatWentWell": "Every content edit is now a JSON change — the UI, the chat prompt, and the site all read the same source of truth.",
+				"rebuild": "I'd design the data layer before any component, so the UI is always a projection of content."
+			},
+			{
+				"lesson": "Streaming UIs demand defensive parsing.",
+				"whatWentWell": "Buffering partial frames and tracking fence state across chunks made the stream rock solid under real network conditions.",
+				"rebuild": "I'd write the chunk-boundary handling first and treat it as the core feature, not an edge case."
+			},
+			{
+				"lesson": "In-memory rate limiting is enough at portfolio scale.",
+				"whatWentWell": "A sliding-window bucket protected the chat endpoint without adding any database infrastructure.",
+				"rebuild": "Only introduce Redis when real traffic proves in-memory limiting insufficient — premature infrastructure adds cost, not value."
+			}
+		],
+		"techStack": [
+			{
+				"category": "Framework",
+				"items": [
+					{ "name": "Next.js" },
+					{ "name": "React" },
+					{ "name": "TypeScript" }
+				]
+			},
+			{
+				"category": "UI",
+				"items": [
+					{ "name": "Tailwind CSS" },
+					{ "name": "Framer Motion" },
+					{ "name": "Lucide React" }
+				]
+			},
+			{
+				"category": "AI",
+				"items": [
+					{ "name": "Groq LLM" },
+					{ "name": "Streaming SSE" }
+				]
+			},
+			{
+				"category": "Infra",
+				"items": [
+					{ "name": "Vercel" },
+					{ "name": "Static Generation" }
+				]
+			},
+			{
+				"category": "Content",
+				"items": [{ "name": "JSON-driven" }]
 			}
 		]
 	}

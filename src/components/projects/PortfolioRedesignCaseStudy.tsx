@@ -1,21 +1,30 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
-import portfolioData from "@/lib/portfolio-data.json";
+import { GithubIcon as Github } from "@/components/SocialIcons";
+import projectsV2Data from "@/lib/projects-v2.json";
 import ProjectMenu, { ProjectSection } from "@/components/projects/ProjectMenu";
-import ImagePlaceholder from "@/components/projects/ImagePlaceholder";
 import SectionHeader from "@/components/projects/SectionHeader";
-import { cleanText } from "@/lib/text";
+import { cleanText, TitleLines } from "@/lib/text";
 
-const project = portfolioData.projects["portfolio-redesign"] as {
-  title: string;
-  description: string;
-  year: string;
-  role: string;
-  technologies: string[];
-  features: string[];
-  upcomingIdeas: { title: string; description: string }[];
-  problem: string;
-  solution: string;
+const project = projectsV2Data["portfolio-redesign"] as unknown as Project;
+
+type Project = {
+  meta: {
+    title: string;
+    tagline: string;
+    role: string;
+    timeline: string;
+    platform: string[];
+    users: string;
+    status: string;
+  };
+  links: { live: string; github: string };
+  hero: { image: string; alt: string };
+  solution: { image: string };
+  productHighlights: { title: string; description: string; technicalNote: string }[];
+  roadmap: { title: string; description: string; status: string }[];
+  techStack: { category: string; items: { name: string }[] }[];
 };
 
 const sections: ProjectSection[] = [
@@ -27,6 +36,8 @@ const sections: ProjectSection[] = [
 ];
 
 export default function PortfolioRedesignCaseStudy() {
+  const { meta, links, hero, solution, productHighlights, roadmap, techStack } = project;
+
   return (
     <div className="relative flex-1 w-full">
       <ProjectMenu sections={sections} />
@@ -39,53 +50,62 @@ export default function PortfolioRedesignCaseStudy() {
               Live Project
             </p>
             <h1 className="font-sans text-4xl md:text-6xl font-semibold leading-[1.05] tracking-[-0.02em] text-stone-900 dark:text-white">
-              {project.title}
+              <TitleLines title={meta.title} />
             </h1>
             <p className="text-xl md:text-2xl font-light leading-relaxed text-stone-600 dark:text-stone-400">
-              A command-driven portfolio that inverts the browsing experience.
-              Visitors type intent instead of hunting through links, and the
-              site answers like a product, not a resume.
+              {cleanText(meta.tagline)}
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-stone-200 dark:border-stone-800 bg-stone-200 dark:bg-stone-800">
             <div className="bg-white dark:bg-[#0a0a0a] p-5">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">My Role</p>
-              <p className="mt-1.5 text-sm font-medium text-stone-900 dark:text-white">{project.role}</p>
+              <p className="mt-1.5 text-sm font-medium text-stone-900 dark:text-white">{meta.role}</p>
             </div>
             <div className="bg-white dark:bg-[#0a0a0a] p-5">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">Timeline</p>
-              <p className="mt-1.5 text-sm font-medium text-stone-900 dark:text-white">{project.year}</p>
+              <p className="mt-1.5 text-sm font-medium text-stone-900 dark:text-white">{meta.timeline}</p>
             </div>
             <div className="bg-white dark:bg-[#0a0a0a] p-5">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">Platform</p>
-              <p className="mt-1.5 text-sm font-medium text-stone-900 dark:text-white">Web</p>
+              <p className="mt-1.5 text-sm font-medium text-stone-900 dark:text-white">{meta.platform.join(" · ")}</p>
             </div>
             <div className="bg-white dark:bg-[#0a0a0a] p-5">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">Status</p>
-              <p className="mt-1.5 text-sm font-medium text-stone-900 dark:text-white">Live</p>
+              <p className="mt-1.5 text-sm font-medium text-stone-900 dark:text-white">{meta.status}</p>
             </div>
           </div>
 
           <div className="flex flex-wrap gap-x-2 gap-y-1.5">
-            {project.technologies.map((tech) => (
-              <span
-                key={tech}
-                className="rounded-full border border-stone-200 dark:border-stone-800 px-3 py-1 text-xs font-medium text-stone-600 dark:text-stone-400"
-              >
-                {tech}
-              </span>
-            ))}
+            {techStack.map((group) =>
+              group.items.map((item) => (
+                <span
+                  key={`${group.category}-${item.name}`}
+                  className="rounded-full border border-stone-200 dark:border-stone-800 px-3 py-1 text-xs font-medium text-stone-600 dark:text-stone-400"
+                >
+                  {item.name}
+                </span>
+              ))
+            )}
           </div>
 
           <div className="flex flex-wrap gap-4">
             <Link
-              href="/"
+              href={links.live}
               className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-500 transition-colors"
             >
               <ArrowUpRight size={16} />
               Visit the live site
             </Link>
+            <a
+              href={links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-stone-300 dark:border-stone-700 px-6 py-3 text-sm font-medium text-stone-900 dark:text-white hover:bg-stone-50 dark:hover:bg-stone-900 transition-colors"
+            >
+              <Github className="h-4 w-4" />
+              Source code
+            </a>
             <a
               href="mailto:lokesh.cdewanand@gmail.com"
               className="inline-flex items-center gap-2 rounded-full border border-stone-300 dark:border-stone-700 px-6 py-3 text-sm font-medium text-stone-900 dark:text-white hover:bg-stone-50 dark:hover:bg-stone-900 transition-colors"
@@ -94,9 +114,12 @@ export default function PortfolioRedesignCaseStudy() {
             </a>
           </div>
 
-          <ImagePlaceholder
-            label="Add interface screenshot"
-            hint="Drop the image at public/portfolio/detail.png"
+          <Image
+            className="rounded-xl border border-stone-200 dark:border-stone-800"
+            alt={hero.alt}
+            height={896}
+            width={1195}
+            src={hero.image}
           />
         </header>
 
@@ -176,9 +199,12 @@ export default function PortfolioRedesignCaseStudy() {
             </p>
           </div>
           <div className="mt-10">
-            <ImagePlaceholder
-              label="Add command palette screenshot"
-              hint="public/portfolio/thumbnail.png"
+            <Image
+              className="rounded-xl border border-stone-200 dark:border-stone-800"
+              alt=""
+              height={1846}
+              width={2940}
+              src={solution.image}
             />
           </div>
         </section>
@@ -187,19 +213,27 @@ export default function PortfolioRedesignCaseStudy() {
         <section id="features" className="scroll-mt-28">
           <SectionHeader num="04" label="Features" title="Things that just work" />
           <div className="space-y-10">
-            {project.features.map((feature, i) => (
+            {productHighlights.map((feature, i) => (
               <div
-                key={feature}
+                key={feature.title}
                 className="border-t border-stone-200 dark:border-stone-800 pt-8"
               >
                 <div className="flex items-baseline gap-4">
                   <span className="font-sans text-sm font-semibold tabular-nums text-emerald-600 dark:text-emerald-400">
                     0{i + 1}
                   </span>
+                  <h3 className="font-sans text-lg font-semibold text-stone-900 dark:text-white">
+                    {feature.title}
+                  </h3>
                 </div>
                 <p className="mt-2 text-stone-600 dark:text-stone-400 font-light leading-relaxed md:pl-9">
-                  {cleanText(feature)}
+                  {cleanText(feature.description)}
                 </p>
+                {feature.technicalNote && (
+                  <p className="mt-3 text-sm text-stone-500 dark:text-stone-500 leading-relaxed md:pl-9">
+                    {cleanText(feature.technicalNote)}
+                  </p>
+                )}
               </div>
             ))}
           </div>
@@ -209,14 +243,19 @@ export default function PortfolioRedesignCaseStudy() {
         <section id="roadmap" className="scroll-mt-28">
           <SectionHeader num="05" label="Roadmap" title="Where it goes next" />
           <div className="space-y-7">
-            {project.upcomingIdeas.map((idea) => (
+            {roadmap.map((idea) => (
               <div
                 key={idea.title}
                 className="space-y-2 border-t border-stone-200 dark:border-stone-800 pt-7"
               >
-                <h3 className="font-sans text-lg font-semibold text-stone-900 dark:text-white">
-                  {idea.title}
-                </h3>
+                <div className="flex items-center justify-between gap-4">
+                  <h3 className="font-sans text-lg font-semibold text-stone-900 dark:text-white">
+                    {idea.title}
+                  </h3>
+                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">
+                    {idea.status}
+                  </span>
+                </div>
                 <p className="text-[15px] font-light leading-relaxed text-stone-600 dark:text-stone-400">
                   {cleanText(idea.description)}
                 </p>
@@ -236,7 +275,7 @@ export default function PortfolioRedesignCaseStudy() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <Link
-              href="/"
+              href={links.live}
               className="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white hover:bg-emerald-500 transition-colors"
             >
               <ArrowUpRight size={16} />

@@ -68,7 +68,7 @@ function RowContent({
           className="group mt-8 inline-flex items-center gap-2 rounded-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-5 py-2.5 text-[13px] font-bold text-stone-700 dark:text-stone-200 shadow-sm transition-all hover:gap-3 hover:border-emerald-500/50"
           data-cursor-text="View Project"
         >
-          View case study
+          View Live Project
           <ArrowRight
             className="h-4 w-4 transition-transform group-hover:translate-x-0.5 text-emerald-600 dark:text-emerald-400"
             aria-hidden
@@ -126,7 +126,7 @@ function FullWidthRow({ project, index }: { project: Project; index: number }) {
           className="group mt-8 inline-flex items-center gap-2 rounded-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-5 py-2.5 text-[13px] font-bold text-stone-700 dark:text-stone-200 shadow-sm transition-all hover:gap-3 hover:border-emerald-500/50"
           data-cursor-text="View Project"
         >
-          View case study
+          View Live Project
           <ArrowRight
             className="h-4 w-4 transition-transform group-hover:translate-x-0.5 text-emerald-600 dark:text-emerald-400"
             aria-hidden

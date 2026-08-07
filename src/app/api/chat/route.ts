@@ -43,6 +43,34 @@ function pruneRateLimitBuckets() {
   }
 }
 
+function getProjectPromptEntry(slug: string): {
+  title: string;
+  tagline: string;
+  problem: string;
+  solution: string;
+  stack: string;
+} | null {
+  const v2 = (projectsV2Data as Record<string, any>)[slug];
+  const legacy = (portfolioData.projects as Record<string, any>)[slug];
+  if (!v2 && !legacy) return null;
+
+  const meta = v2?.meta ?? {};
+  const title = (meta.title ?? legacy?.title ?? "").replace(/<br\s*\/?>/gi, " ");
+  const tagline = meta.tagline ?? legacy?.description ?? "";
+  const problem = v2?.problem?.body ?? legacy?.problem ?? "";
+  const solution = v2?.solution?.body ?? legacy?.solution ?? "";
+  const stack =
+    (v2?.techStack ?? [])
+      .flatMap((group: { items: { name: string }[] }) =>
+        group.items.map((item) => item.name)
+      )
+      .join(", ") ||
+    legacy?.technologies?.join(", ") ||
+    "";
+
+  return { title, tagline, problem, solution, stack };
+}
+
 function buildSystemPrompt(): string {
   const p = portfolioData.personal;
   const lines: string[] = [];
@@ -57,15 +85,18 @@ function buildSystemPrompt(): string {
     "If the answer is not in the provided facts, say you don't have that information and suggest what he could share."
   );
 
-  const projectEntries = Object.entries(portfolioData.projects);
-  const projectLinkList = projectEntries
-    .map(([slug, project]) => {
-      const v2 = (projectsV2Data as Record<string, unknown>)[slug] as
-        | { meta?: { title?: string } }
-        | undefined;
-      const title = v2?.meta?.title?.replace(/<br\s*\/?>/gi, " ") || project.title;
-      return `[${title}](/projects/${slug})`;
+  const projectSlugs = [
+    ...new Set([
+      ...Object.keys(projectsV2Data),
+      ...Object.keys(portfolioData.projects),
+    ]),
+  ];
+  const projectLinkList = projectSlugs
+    .map((slug) => {
+      const entry = getProjectPromptEntry(slug);
+      return entry ? `[${entry.title}](/projects/${slug})` : "";
     })
+    .filter(Boolean)
     .join(", ");
 
   lines.push(
@@ -105,16 +136,13 @@ function buildSystemPrompt(): string {
   }
 
   lines.push("PROJECTS:");
-  for (const [slug, project] of projectEntries) {
-    const v2 = (projectsV2Data as Record<string, unknown>)[slug] as {
-      meta?: { title?: string; tagline?: string };
-    } | undefined;
-    const title = v2?.meta?.title?.replace(/<br\s*\/?>/gi, " ") || project.title;
-    const tagline = v2?.meta?.tagline || project.description;
-    lines.push(`- ${title} (${slug}, /projects/${slug}): ${tagline}`);
-    lines.push(`  Problem: ${project.problem}`);
-    lines.push(`  Solution: ${project.solution}`);
-    lines.push(`  Stack: ${project.technologies.join(", ")}`);
+  for (const slug of projectSlugs) {
+    const entry = getProjectPromptEntry(slug);
+    if (!entry) continue;
+    lines.push(`- ${entry.title} (${slug}, /projects/${slug}): ${entry.tagline}`);
+    lines.push(`  Problem: ${entry.problem}`);
+    lines.push(`  Solution: ${entry.solution}`);
+    lines.push(`  Stack: ${entry.stack}`);
   }
 
   lines.push(

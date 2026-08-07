@@ -90,7 +90,7 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
         </button>
       </div>
       <p className="mt-2 text-center text-[10px] uppercase tracking-wider text-stone-500 dark:text-stone-500">
-        Powered by local Ollama
+        Powered by Gro
       </p>
     </div>
   );
