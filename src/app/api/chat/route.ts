@@ -51,24 +51,19 @@ function getProjectPromptEntry(slug: string): {
   stack: string;
 } | null {
   const v2 = (projectsV2Data as Record<string, any>)[slug];
-  const legacy = (portfolioData.projects as Record<string, any>)[slug];
-  if (!v2 && !legacy) return null;
+  if (!v2) return null;
 
-  const meta = v2?.meta ?? {};
-  const title = (meta.title ?? legacy?.title ?? "").replace(/<br\s*\/?>/gi, " ");
-  const tagline = meta.tagline ?? legacy?.description ?? "";
-  const problem = v2?.problem?.body ?? legacy?.problem ?? "";
-  const solution = v2?.solution?.body ?? legacy?.solution ?? "";
-  const stack =
-    (v2?.techStack ?? [])
+  return {
+    title: (v2.meta?.title ?? "").replace(/<br\s*\/?>/gi, " "),
+    tagline: v2.meta?.tagline ?? "",
+    problem: v2.problem?.body ?? "",
+    solution: v2.solution?.body ?? "",
+    stack: (v2.techStack ?? [])
       .flatMap((group: { items: { name: string }[] }) =>
         group.items.map((item) => item.name)
       )
-      .join(", ") ||
-    legacy?.technologies?.join(", ") ||
-    "";
-
-  return { title, tagline, problem, solution, stack };
+      .join(", "),
+  };
 }
 
 function buildSystemPrompt(): string {
@@ -85,12 +80,7 @@ function buildSystemPrompt(): string {
     "If the answer is not in the provided facts, say you don't have that information and suggest what he could share."
   );
 
-  const projectSlugs = [
-    ...new Set([
-      ...Object.keys(projectsV2Data),
-      ...Object.keys(portfolioData.projects),
-    ]),
-  ];
+  const projectSlugs = Object.keys(projectsV2Data);
   const projectLinkList = projectSlugs
     .map((slug) => {
       const entry = getProjectPromptEntry(slug);
