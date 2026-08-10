@@ -5,11 +5,11 @@
 			"title": "Fitness That<br /> Understands You",
 			"tagline": "A workout companion built for the gym floor, not the couch. Log your sets, track your PRs, and watch your progress unfold — all in under three taps.",
 			"role": "Lead Software Engineer",
-			"timeline": "8 weeks · 2024",
+			"timeline": "8 weeks · 2026",
 			"platform": ["PWA", "Web"],
 			"users": "25+ active lifters",
 			"status": "live",
-			"year": "2024"
+			"year": "2026"
 		},
 		"hero": {
 			"mockupType": "phone",
@@ -371,11 +371,11 @@
 			"title": "HookedOn<br /> Movies",
 			"tagline": "A full-stack media discovery platform with SSR/ISR, a TypeScript normalization layer across TMDB's Movie & TV APIs, and sub-second TTFB via parallel server-side data fetching.",
 			"role": "Lead Full-Stack Developer",
-			"timeline": "6 weeks · 2024",
+			"timeline": "6 weeks · 2026",
 			"platform": ["Web"],
 			"users": "Public",
 			"status": "live",
-			"year": "2024"
+			"year": "2026"
 		},
 		"hero": {
 			"mockupType": "desktop",
@@ -705,11 +705,11 @@
 			"title": "Conversational<br /> Developer Portfolio",
 			"tagline": "A command-driven portfolio built with the Next.js App Router and Framer Motion. Visitors type intent instead of hunting through links, and the site answers like a product, not a resume.",
 			"role": "Full Stack Developer",
-			"timeline": "Ongoing · 2024",
+			"timeline": "Ongoing · 2026",
 			"platform": ["Web"],
 			"users": "Recruiters & clients",
 			"status": "live",
-			"year": "2024"
+			"year": "2026"
 		},
 		"hero": {
 			"mockupType": "desktop",
