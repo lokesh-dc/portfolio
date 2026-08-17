@@ -1,4 +1,338 @@
 {
+	"klicky": {
+		"slug": "klicky",
+		"meta": {
+			"title": "Klicky — Real Keyboards,<br />Zero Hardware",
+			"tagline": "A Web Audio playground that plays real sampled mechanical keyboard clicks on every keystroke — five community soundpacks, one tiny hook.",
+			"role": "Creator · Frontend Engineer",
+			"timeline": "2 weeks · 2026",
+			"platform": [
+				"Web"
+			],
+			"users": "5 sound packs",
+			"status": "live",
+			"year": "2026"
+		},
+		"hero": {
+			"mockupType": "desktop",
+			"alt": "Klicky demo showing the Klack header, sound toggle, pack selector, volume slider and test pad",
+			"image": "/klicky/thumbnail.png"
+		},
+		"links": {
+			"live": "/keyboard",
+			"github": ""
+		},
+		"quickFacts": [
+			{
+				"label": "Role",
+				"value": "Creator · Frontend Engineer"
+			},
+			{
+				"label": "Timeline",
+				"value": "2 weeks"
+			},
+			{
+				"label": "Platform",
+				"value": "Web"
+			},
+			{
+				"label": "Packs",
+				"value": "5 soundpacks"
+			},
+			{
+				"label": "Status",
+				"value": "Live"
+			}
+		],
+		"problem": {
+			"headline": "A keyboard you can't hear isn't a keyboard you can judge.",
+			"body": "You can't feel a switch's character from a spec sheet, and video reviews flatten it into whatever mic and room the creator had. The only honest way to know how a Cherry MX Blue or an NK Cream actually sounds is to hear real samples — but the tools that play them are desktop-only downloads with opaque config formats, and nothing on the web lets you try five boards before you buy one. Nobody gets to type before they commit."
+		},
+		"solution": {
+			"headline": "A browser that sounds like your dream desk.",
+			"body": "Klicky loads real mechvibes-format soundpacks — the exact config and sample files the mechanical-keyboard community already ships — decodes them with the Web Audio API, and fires the correct sample for each physical key as you type. Drop a pack into /public, add one line to a list, and it's playable. No install, no conversion, no sound card.",
+			"image": "/klicky/mobile.png"
+		},
+		"productHighlights": [
+			{
+				"id": "soundpack-engine",
+				"title": "Soundpack Engine",
+				"description": "Loads real mechvibes-format packs — both single-sprite and multi-file layouts — straight out of /public.",
+				"image": "/klicky/top.png",
+				"benefit": "Drop any community soundpack into the folder and it just works.",
+				"technicalNote": "The loader parses config.json at runtime: v1 'single' packs slice one decoded sprite by [offset, duration] per keycode, while v2 'multi' packs pre-decode every referenced file (expanding {0-4} range tokens) into a buffer cache."
+			},
+			{
+				"id": "physical-key-mapping",
+				"title": "Physical Key Mapping",
+				"description": "Maps every browser KeyboardEvent.code to the Linux evdev keycodes the pack configs use.",
+				"image": "/klicky/mid.png",
+				"benefit": "Keys sound right — backspace plays the backspace sample, not a generic click.",
+				"technicalNote": "A hand-built CODE_TO_EVDEV table covers 60+ physical keys, and evdevFor() drops anything unmapped onto the pack's generic sound instead of erroring."
+			},
+			{
+				"id": "zero-install-playback",
+				"title": "Zero-Install Playback",
+				"description": "Everything decodes and plays client-side with the Web Audio API — no audio file is ever re-fetched after load.",
+				"image": "/klicky/bottom.png",
+				"benefit": "Open the page, start typing, hear it immediately.",
+				"technicalNote": "Buffers are decoded once and cached; playback runs through a minimal BufferSource → GainNode chain, and a suspended AudioContext resumes on the first user gesture."
+			},
+			{
+				"id": "global-listening-hook",
+				"title": "Global Listening Hook",
+				"description": "A single useKeyboardSound() hook attaches to window and plays on every keydown — with key-repeat filtered out.",
+				"image": "/klicky/mobile.png",
+				"benefit": "Any page can add real keyboard sounds with four lines of code.",
+				"technicalNote": "The hook exposes playCode(code, phase) and playClick(), supports per-pack volume, and offers an opt-in playOnKeyUp mode for quieter release samples when the pack defines them."
+			}
+		],
+		"engineeringHighlights": [
+			{
+				"id": "dual-format-loader",
+				"title": "Dual-Format Loader",
+				"problem": "Mechvibes community packs ship in two incompatible layouts — a single sprite file with per-key offsets, or a folder of per-key files with range tokens.",
+				"solution": "One loader parses both: v1 slices a decoded sprite by [offset, duration], v2 pre-decodes every referenced file, expanding {0-4} range tokens at decode time.",
+				"result": "Both formats flow through the same playForCode() path, so adding a pack never requires format-specific code."
+			},
+			{
+				"id": "buffer-cache",
+				"title": "Buffer Cache Instead of Re-fetch",
+				"problem": "Replaying a key would otherwise refetch and re-decode the file on every keystroke.",
+				"solution": "Every unique file a pack references is fetched and decoded once during load() and stored in a Map keyed by filename.",
+				"result": "After the initial load, playback never touches the network — every key is an in-memory buffer."
+			},
+			{
+				"id": "key-repeat-filter",
+				"title": "Key-Repeat Filtering",
+				"problem": "Holding a key fires dozens of keydown events per second, which sounds like machine-gun static.",
+				"solution": "The global listener drops any event where e.repeat is set, and keyup playback is opt-in via playOnKeyUp.",
+				"result": "Fast typists and hold-to-repeat both sound clean instead of stuttering."
+			},
+			{
+				"id": "gesture-aware-audio",
+				"title": "Gesture-Aware AudioContext",
+				"problem": "Browsers block AudioContext until a user gesture, so the very first keypress can arrive silent.",
+				"solution": "playCode() resumes a suspended context on demand, and the demo wires sound to mousedown as well as keydown.",
+				"result": "The first interaction always produces sound, in every modern browser."
+			}
+		],
+		"architecture": {
+			"caption": "Klicky is a deliberately small stack: a React hook that owns global input, a loader class that understands community soundpack formats, and the Web Audio API doing the rest.",
+			"layers": [
+				{
+					"label": "Hook layer",
+					"description": "useKeyboardSound() attaches global keydown/keyup listeners and exposes playCode(), playClick(), isReady and error. Volume, enabled and playOnKeyUp are plain options."
+				},
+				{
+					"label": "SoundPack class",
+					"description": "load() fetches config.json, decodes audio and caches buffers. playForCode()/playForKeycode() route a key event to the correct sample — sprite slice or individual file."
+				},
+				{
+					"label": "Keycode mapping",
+					"description": "A CODE_TO_EVDEV table translates browser KeyboardEvent.code into the numeric Linux evdev keycodes mechvibes configs expect."
+				},
+				{
+					"label": "Web Audio API",
+					"description": "Decoded AudioBuffers play through a BufferSource → GainNode → destination chain for sample-accurate, low-latency playback at a per-pack volume."
+				},
+				{
+					"label": "Static packs",
+					"description": "Soundpacks live under /public as plain config + audio files, so adding a pack is a drop-in operation with zero build steps."
+				}
+			]
+		},
+		"technicalChallenges": [
+			{
+				"id": "keycode-mapping",
+				"challenge": "Mapping browser keys to evdev keycodes",
+				"difficulty": "Browser KeyboardEvent.code strings (KeyA, ArrowUp, NumpadEnter) don't match the numeric keycodes mechvibes configs use — and a wrong mapping plays the neighbour key's sample for a physical key.",
+				"solution": "Hand-built a CODE_TO_EVDEV table covering every common physical key, cross-checked against Linux input-event-codes.h.",
+				"outcome": "Each physical key triggers its own sample; anything unmapped falls back to the pack's generic sound."
+			},
+			{
+				"id": "sprite-slicing",
+				"challenge": "Playing a sliced sprite with exact timing",
+				"difficulty": "V1 packs define keys as [offset, duration] slices inside a single sound file — a misread offset clips a note or plays the wrong key's sample.",
+				"solution": "The sprite is decoded once, and each press plays a BufferSource window (start at offset, stop at duration) straight from the cached buffer.",
+				"outcome": "Per-key timbre is exact with zero additional file loads."
+			},
+			{
+				"id": "latency",
+				"challenge": "Latency that feels instant",
+				"difficulty": "Keyboard sounds feel wrong if playback lags the keypress by more than a few milliseconds.",
+				"solution": "Everything runs on pre-decoded AudioBuffers through a minimal source → gain chain with no scheduling or effects, and loading happens up front.",
+				"outcome": "Playback lands sample-accurate on the keydown event, indistinguishable from a real switch."
+			}
+		],
+		"performance": [
+			{
+				"metric": "Sound Packs",
+				"value": "5",
+				"sublabel": "Mechvibes community format"
+			},
+			{
+				"metric": "Mapped Keys",
+				"value": "60+",
+				"sublabel": "evdev keycodes"
+			},
+			{
+				"metric": "Config Formats",
+				"value": "2",
+				"sublabel": "Sprite + multi-file"
+			},
+			{
+				"metric": "Post-load Fetches",
+				"value": "0",
+				"sublabel": "Everything cached"
+			},
+			{
+				"metric": "Per-Key Path",
+				"value": "1 node",
+				"sublabel": "BufferSource → GainNode"
+			},
+			{
+				"metric": "Key-Repeat",
+				"value": "Filtered",
+				"sublabel": "e.repeat dropped"
+			}
+		],
+		"designDecisions": [
+			{
+				"decision": "A near-black stage",
+				"problem": "Soundpack samples are mixed to sit on dark, focused surfaces — a busy background makes clicks feel disconnected.",
+				"rationale": "The demo renders on a deep slate stage so the audio is the entire focus, and the glowing accent on the active pack reads instantly."
+			},
+			{
+				"decision": "One switch, one dial, one big key",
+				"problem": "A sound tool shouldn't present a control panel — the whole point is to just type.",
+				"rationale": "UI is limited to an on/off toggle, a volume slider, and a giant SPACE test pad. Every other decision was made for you."
+			},
+			{
+				"decision": "Show the integration code",
+				"problem": "Most demos are dead ends — you try them and can't reuse the work.",
+				"rationale": "The page ends with a copy-ready snippet, because the real output of this project is a reusable hook, not a toy."
+			}
+		],
+		"gallery": [
+			{
+				"url": "/klicky/thumbnail.png",
+				"alt": "Klicky desktop view — header, pack selector, volume slider and test pad",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/klicky/mobile.png",
+				"alt": "The whole demo on a narrow mobile screen",
+				"type": "screenshot",
+				"device": "phone"
+			},
+			{
+				"url": "/klicky/top.png",
+				"alt": "Klack header with the sound toggle and pack selector",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/klicky/mid.png",
+				"alt": "Pack selector and volume slider in the active state",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/klicky/bottom.png",
+				"alt": "The giant SPACE test pad and the copy-ready usage snippet",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/klicky/full.png",
+				"alt": "The complete Klicky page in one shot",
+				"type": "screenshot",
+				"device": "desktop"
+			}
+		],
+		"roadmap": [
+			{
+				"title": "Key-up samples by default",
+				"description": "Map and play release samples for packs that define soundup, so switches feel genuinely mechanical in both directions.",
+				"status": "planned",
+				"icon": "sparkles"
+			},
+			{
+				"title": "Shareable pack presets",
+				"description": "URL params like ?pack=nk-cream&volume=0.6 so a specific keyboard feel can be shared as a link.",
+				"status": "exploring",
+				"icon": "message-square"
+			},
+			{
+				"title": "In-browser pack uploader",
+				"description": "Drag a mechvibes pack folder straight into the browser and hear it instantly — no code changes.",
+				"status": "exploring",
+				"icon": "wifi-off"
+			}
+		],
+		"lessonsLearned": [
+			{
+				"lesson": "The format is the feature.",
+				"whatWentWell": "Supporting mechvibes' config format directly meant thousands of existing community packs work without conversion.",
+				"rebuild": "I'd design the loader against a community format first instead of inventing my own."
+			},
+			{
+				"lesson": "Audio setups fail loudly.",
+				"whatWentWell": "Surfacing loading state and errors meant a broken pack told you so instead of silently doing nothing.",
+				"rebuild": "I'd add a Web Audio capability check even earlier so unsupported browsers get a friendly message."
+			},
+			{
+				"lesson": "Latency is an architecture choice.",
+				"whatWentWell": "Deciding to decode everything up front kept the per-key cost to a single gain node.",
+				"rebuild": "I'd profile larger multi-file packs to push initial load time down further."
+			}
+		],
+		"techStack": [
+			{
+				"category": "Framework",
+				"items": [
+					{
+						"name": "Next.js 16"
+					},
+					{
+						"name": "React 19"
+					},
+					{
+						"name": "TypeScript"
+					}
+				]
+			},
+			{
+				"category": "Audio",
+				"items": [
+					{
+						"name": "Web Audio API"
+					}
+				]
+			},
+			{
+				"category": "Source",
+				"items": [
+					{
+						"name": "MechVibes packs"
+					}
+				]
+			},
+			{
+				"category": "Tooling",
+				"items": [
+					{
+						"name": "ESLint"
+					},
+					{
+						"name": "Playwright"
+					}
+				]
+			}
+		]
+	},
 	"fitness-tracker": {
 		"slug": "fitness-tracker",
 		"meta": {

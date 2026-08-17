@@ -3,6 +3,7 @@ import projectsV2Data from "@/lib/projects-v2.json";
 import FitTrackCaseStudy from "@/components/projects/FitTrackCaseStudy";
 import HookedOnMoviesCaseStudy from "@/components/projects/HookedOnMoviesCaseStudy";
 import PortfolioRedesignCaseStudy from "@/components/projects/PortfolioRedesignCaseStudy";
+import KlickyCaseStudy from "@/components/projects/KlickyCaseStudy";
 import { ProjectHero } from "@/components/projects/ProjectHero";
 import { QuickFactsBar } from "@/components/projects/QuickFactsBar";
 import { ProblemSolution } from "@/components/projects/ProblemSolution";
@@ -28,6 +29,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
     "fitness-tracker": <FitTrackCaseStudy />,
     "hooked-on-movies": <HookedOnMoviesCaseStudy />,
     "portfolio-redesign": <PortfolioRedesignCaseStudy />,
+    "klicky": <KlickyCaseStudy />,
   };
   if (caseStudies[slug]) {
     return caseStudies[slug];
