@@ -17,6 +17,7 @@ import { Gallery } from "@/components/projects/Gallery";
 import { Roadmap } from "@/components/projects/Roadmap";
 import { LessonsLearned } from "@/components/projects/LessonsLearned";
 import { TechStackGrid } from "@/components/projects/TechStackGrid";
+import ProjectLinks from "@/components/projects/ProjectLinks";
 
 export async function generateStaticParams() {
   return Object.keys(projectsV2Data).map((slug) => ({ slug }));
@@ -48,6 +49,7 @@ function ProjectV2Page({ project }: { project: any }) {
   return (
     <div className="relative">
       <div className="mesh-gradient" />
+      <ProjectLinks liveUrl={project.links?.live} githubUrl={project.links?.github} />
       <div className="relative z-10 space-y-24 md:space-y-32 pb-32">
         <ProjectHero
           title={project.meta.title}

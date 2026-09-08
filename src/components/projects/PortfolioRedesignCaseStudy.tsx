@@ -4,6 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { GithubIcon as Github } from "@/components/SocialIcons";
 import projectsV2Data from "@/lib/projects-v2.json";
 import ProjectMenu, { ProjectSection } from "@/components/projects/ProjectMenu";
+import ProjectLinks from "@/components/projects/ProjectLinks";
 import SectionHeader from "@/components/projects/SectionHeader";
 import { cleanText, TitleLines } from "@/lib/text";
 
@@ -41,6 +42,7 @@ export default function PortfolioRedesignCaseStudy() {
   return (
     <div className="relative flex-1 w-full">
       <ProjectMenu sections={sections} />
+      <ProjectLinks liveUrl={links.live} githubUrl={links.github} />
 
       <article className="mx-auto w-full max-w-[760px] px-6 md:px-10 space-y-20 md:space-y-28 pb-32">
         {/* Hero */}
