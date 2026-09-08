@@ -3,23 +3,34 @@
 		"slug": "klicky",
 		"meta": {
 			"title": "Klicky — Real Keyboards,<br />Zero Hardware",
-			"tagline": "A Web Audio playground that plays real sampled mechanical keyboard clicks on every keystroke — five community soundpacks, one tiny hook.",
+			"tagline": "A Web Audio playground that plays real sampled mechanical keyboard clicks on every keystroke — four community soundpacks, five visual themes, one tiny hook.",
 			"role": "Creator · Frontend Engineer",
 			"timeline": "2 weeks · 2026",
-			"platform": [
-				"Web"
-			],
-			"users": "5 sound packs",
+			"platform": ["Web"],
+			"users": "4 sound packs · 5 visual themes",
 			"status": "live",
 			"year": "2026"
 		},
+		"soundpacks": [
+			"Cherry MX Blue ABS",
+			"Cherry MX Blue ABS 2",
+			"EG Oreo",
+			"NK Cream"
+		],
+		"visualThemes": [
+			"Auto (follow sound)",
+			"Cherry Blue",
+			"EG Oreo",
+			"NK Cream",
+			"Purple"
+		],
 		"hero": {
 			"mockupType": "desktop",
-			"alt": "Klicky demo showing the Klack header, sound toggle, pack selector, volume slider and test pad",
+			"alt": "Klicky demo stage showing the Klack header, soundpack and visual theme selectors, and the 3D keyboard",
 			"image": "/klicky/thumbnail.png"
 		},
 		"links": {
-			"live": "/keyboard",
+			"live": "https://klicky-keyboard.vercel.app/",
 			"github": ""
 		},
 		"quickFacts": [
@@ -51,7 +62,7 @@
 		"solution": {
 			"headline": "A browser that sounds like your dream desk.",
 			"body": "Klicky loads real mechvibes-format soundpacks — the exact config and sample files the mechanical-keyboard community already ships — decodes them with the Web Audio API, and fires the correct sample for each physical key as you type. Drop a pack into /public, add one line to a list, and it's playable. No install, no conversion, no sound card.",
-			"image": "/klicky/mobile.png"
+			"image": "/klicky/mockup.png"
 		},
 		"productHighlights": [
 			{
@@ -85,6 +96,22 @@
 				"image": "/klicky/mobile.png",
 				"benefit": "Any page can add real keyboard sounds with four lines of code.",
 				"technicalNote": "The hook exposes playCode(code, phase) and playClick(), supports per-pack volume, and offers an opt-in playOnKeyUp mode for quieter release samples when the pack defines them."
+			},
+			{
+				"id": "live-3d-keyboard",
+				"title": "3D Keyboard Visualizer",
+				"description": "A fully animated QWERTY board with real keycaps — each press lights the key and sends a light wave across the board.",
+				"image": "/klicky/full.png",
+				"benefit": "See exactly which physical key fired, with a satisfying ripple that makes the sound feel tactile.",
+				"technicalNote": "The board renders as modular rows of 3D keys (top face, edge, front), each carrying per-key CSS custom properties. A press animates key translateY, then injects a radial 'wave' burst whose RGB color the user can pick."
+			},
+			{
+				"id": "typing-test",
+				"title": "Typing Test & Live Stats",
+				"description": "Type the pangram and watch live WPM and progress as you go, while the board lights up underneath.",
+				"image": "/klicky/mockup.png",
+				"benefit": "It doubles as a typing tester — progress and speed update in real time.",
+				"technicalNote": "A hidden focusable area captures keystrokes, maps them against the pangram, and recomputes WPM and a percentage from elapsed time and correct characters."
 			}
 		],
 		"engineeringHighlights": [
@@ -212,12 +239,17 @@
 				"decision": "Show the integration code",
 				"problem": "Most demos are dead ends — you try them and can't reuse the work.",
 				"rationale": "The page ends with a copy-ready snippet, because the real output of this project is a reusable hook, not a toy."
+			},
+			{
+				"decision": "Visuals that reflect the sound",
+				"problem": "A sound demo still needs something to look at, and static keys feel disconnected from the audio.",
+				"rationale": "The board ships five visual themes — Auto (follows the chosen pack), Cherry Blue, EG Oreo, NK Cream and Purple — kept independent of the sound profile, plus a wave-color picker so the light ripple can match any theme."
 			}
 		],
 		"gallery": [
 			{
 				"url": "/klicky/thumbnail.png",
-				"alt": "Klicky desktop view — header, pack selector, volume slider and test pad",
+				"alt": "The full Klicky stage — header controls, typing area and the 3D keyboard",
 				"type": "screenshot",
 				"device": "desktop"
 			},
@@ -229,19 +261,19 @@
 			},
 			{
 				"url": "/klicky/top.png",
-				"alt": "Klack header with the sound toggle and pack selector",
+				"alt": "Klack header with the soundpack, visual theme and wave-color controls",
 				"type": "screenshot",
 				"device": "desktop"
 			},
 			{
 				"url": "/klicky/mid.png",
-				"alt": "Pack selector and volume slider in the active state",
+				"alt": "The 3D QWERTY board with per-key keycaps and light ripple",
 				"type": "screenshot",
 				"device": "desktop"
 			},
 			{
 				"url": "/klicky/bottom.png",
-				"alt": "The giant SPACE test pad and the copy-ready usage snippet",
+				"alt": "Live typing state — pangram highlight, WPM, progress and lit keys",
 				"type": "screenshot",
 				"device": "desktop"
 			},
@@ -1342,17 +1374,11 @@
 			},
 			{
 				"category": "AI",
-				"items": [
-					{ "name": "Groq LLM" },
-					{ "name": "Streaming SSE" }
-				]
+				"items": [{ "name": "Groq LLM" }, { "name": "Streaming SSE" }]
 			},
 			{
 				"category": "Infra",
-				"items": [
-					{ "name": "Vercel" },
-					{ "name": "Static Generation" }
-				]
+				"items": [{ "name": "Vercel" }, { "name": "Static Generation" }]
 			},
 			{
 				"category": "Content",

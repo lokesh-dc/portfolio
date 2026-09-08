@@ -36,6 +36,8 @@ type Project = {
     users: string;
     status: string;
   };
+  soundpacks: string[];
+  visualThemes: string[];
   links: { live: string; github: string };
   hero: { image: string; alt: string };
   solution: { image: string };
@@ -102,6 +104,43 @@ export default function KlickyCaseStudy() {
             <div className="bg-white dark:bg-[#0a0a0a] p-5">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">Packs</p>
               <p className="mt-1.5 text-sm font-medium text-stone-900 dark:text-white">{meta.users}</p>
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-stone-200 dark:border-stone-800 p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500 mb-4">
+                  Sound packs
+                </p>
+                <ul className="space-y-2.5">
+                  {project.soundpacks.map((pack) => (
+                    <li
+                      key={pack}
+                      className="flex items-center gap-2.5 text-sm font-medium text-stone-700 dark:text-stone-300"
+                    >
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400" aria-hidden />
+                      {pack}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500 mb-4">
+                  Visual themes
+                </p>
+                <ul className="space-y-2.5">
+                  {project.visualThemes.map((theme) => (
+                    <li
+                      key={theme}
+                      className="flex items-center gap-2.5 text-sm font-medium text-stone-700 dark:text-stone-300"
+                    >
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-600 dark:bg-emerald-400" aria-hidden />
+                      {theme}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
 
@@ -402,7 +441,7 @@ export default function KlickyCaseStudy() {
           num="08"
           label="Gallery"
           title="Screens from the demo"
-          subtitle="A visual tour through the pack selector, the volume dial, and the copy-ready usage snippet."
+          subtitle="A visual tour through the header controls, the 3D keyboard, and the live typing experience."
           items={project.gallery}
           exclude={[project.hero.image, project.solution.image]}
         />
