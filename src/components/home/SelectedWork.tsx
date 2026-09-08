@@ -3,29 +3,35 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, Dumbbell, MessageSquare, Clapperboard } from "lucide-react";
+import { ArrowRight, Dumbbell, MessageSquare, Clapperboard, Keyboard } from "lucide-react";
 import { projectsData } from "@/lib/data";
 import type { Project } from "@/lib/data";
 
-const rowIcons = [Dumbbell, MessageSquare, Clapperboard];
-const rowGlows = [
-  "from-emerald-100/70 to-emerald-50/40",
-  "from-emerald-50/80 to-teal-50/40",
-  "from-emerald-100/50 to-stone-100/40",
-];
-
+const namedIcons = {
+  klicky: Keyboard,
+  "fitness-tracker": Dumbbell,
+  "hooked-on-movies": Clapperboard,
+} as const;
 const ease = [0.16, 1, 0.3, 1] as const;
+
+const namedGlows: Record<string, string> = {
+  klicky: "from-emerald-100/70 to-emerald-50/40",
+  "fitness-tracker": "from-emerald-50/80 to-teal-50/40",
+  "hooked-on-movies": "from-emerald-100/50 to-stone-100/40",
+};
+
+function projectGlow(project: Project) {
+  return (project.slug && namedGlows[project.slug]) || namedGlows["fitness-tracker"];
+}
 
 function RowContent({
   project,
-  index,
   reverse,
 }: {
   project: Project;
-  index: number;
   reverse: boolean;
 }) {
-  const Icon = rowIcons[index] ?? rowIcons[0];
+  const Icon = (project.slug && namedIcons[project.slug as keyof typeof namedIcons]) || MessageSquare;
 
   return (
     <div className={`flex flex-col ${reverse ? "lg:flex-row-reverse" : "lg:flex-row"} gap-10 lg:gap-16 items-center`}>
@@ -79,7 +85,7 @@ function RowContent({
       <div className="w-full lg:flex-1 relative">
         <div
           aria-hidden
-          className={`absolute inset-0 rounded-[32px] bg-gradient-to-br ${rowGlows[index] ?? rowGlows[0]} blur-2xl opacity-60 scale-95`}
+          className={`absolute inset-0 rounded-[32px] bg-gradient-to-br ${projectGlow(project)} blur-2xl opacity-60 scale-95`}
         />
         <div className="relative rounded-[24px] overflow-hidden border border-stone-200/70 dark:border-stone-800 bg-white shadow-[0_24px_48px_-12px_rgba(0,0,0,0.12)]">
           <Image
@@ -96,8 +102,8 @@ function RowContent({
   );
 }
 
-function FullWidthRow({ project, index }: { project: Project; index: number }) {
-  const Icon = rowIcons[index] ?? rowIcons[0];
+function FullWidthRow({ project }: { project: Project }) {
+  const Icon = (project.slug && namedIcons[project.slug as keyof typeof namedIcons]) || MessageSquare;
 
   return (
     <div className="flex flex-col items-center text-center">
@@ -137,7 +143,7 @@ function FullWidthRow({ project, index }: { project: Project; index: number }) {
       <div className="w-full mt-10 relative">
         <div
           aria-hidden
-          className={`absolute inset-0 rounded-[32px] bg-gradient-to-br ${rowGlows[index] ?? rowGlows[0]} blur-2xl opacity-60 scale-95`}
+          className={`absolute inset-0 rounded-[32px] bg-gradient-to-br ${projectGlow(project)} blur-2xl opacity-60 scale-95`}
         />
         <div className="relative rounded-[24px] overflow-hidden border border-stone-200/70 dark:border-stone-800 bg-white shadow-[0_24px_48px_-12px_rgba(0,0,0,0.12)]">
           <Image
@@ -187,7 +193,7 @@ export default function SelectedWork() {
           viewport={{ once: true, amount: 0.25 }}
           transition={{ duration: 0.7, ease }}
         >
-          <RowContent project={feature} index={0} reverse={false} />
+          <RowContent project={feature} reverse={false} />
         </motion.div>
 
         {rest.map((project, i) => {
@@ -201,9 +207,9 @@ export default function SelectedWork() {
               transition={{ duration: 0.7, ease }}
             >
               {isLast ? (
-                <FullWidthRow project={project} index={i + 1} />
+                <FullWidthRow project={project} />
               ) : (
-                <RowContent project={project} index={i + 1} reverse={i % 2 === 0} />
+                <RowContent project={project} reverse={i % 2 === 0} />
               )}
             </motion.div>
           );

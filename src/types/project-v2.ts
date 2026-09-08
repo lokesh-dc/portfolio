@@ -10,6 +10,7 @@ export interface ProjectV2 {
     status: "live" | "beta" | "wip" | "archived";
     year: string;
   };
+  soundpacks?: string[];
   hero: {
     image: string;
     video?: string;

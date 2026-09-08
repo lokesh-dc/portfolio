@@ -3,6 +3,7 @@ import projectsV2Data from "@/lib/projects-v2.json";
 import FitTrackCaseStudy from "@/components/projects/FitTrackCaseStudy";
 import HookedOnMoviesCaseStudy from "@/components/projects/HookedOnMoviesCaseStudy";
 import PortfolioRedesignCaseStudy from "@/components/projects/PortfolioRedesignCaseStudy";
+import KlickyCaseStudy from "@/components/projects/KlickyCaseStudy";
 import { ProjectHero } from "@/components/projects/ProjectHero";
 import { QuickFactsBar } from "@/components/projects/QuickFactsBar";
 import { ProblemSolution } from "@/components/projects/ProblemSolution";
@@ -16,6 +17,7 @@ import { Gallery } from "@/components/projects/Gallery";
 import { Roadmap } from "@/components/projects/Roadmap";
 import { LessonsLearned } from "@/components/projects/LessonsLearned";
 import { TechStackGrid } from "@/components/projects/TechStackGrid";
+import ProjectLinks from "@/components/projects/ProjectLinks";
 
 export async function generateStaticParams() {
   return Object.keys(projectsV2Data).map((slug) => ({ slug }));
@@ -28,6 +30,7 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
     "fitness-tracker": <FitTrackCaseStudy />,
     "hooked-on-movies": <HookedOnMoviesCaseStudy />,
     "portfolio-redesign": <PortfolioRedesignCaseStudy />,
+    "klicky": <KlickyCaseStudy />,
   };
   if (caseStudies[slug]) {
     return caseStudies[slug];
@@ -46,6 +49,7 @@ function ProjectV2Page({ project }: { project: any }) {
   return (
     <div className="relative">
       <div className="mesh-gradient" />
+      <ProjectLinks liveUrl={project.links?.live} githubUrl={project.links?.github} />
       <div className="relative z-10 space-y-24 md:space-y-32 pb-32">
         <ProjectHero
           title={project.meta.title}
