@@ -369,7 +369,7 @@
 		"slug": "fitness-tracker",
 		"meta": {
 			"title": "Fitness That<br /> Understands You",
-			"tagline": "A workout companion built for the gym floor, not the couch. Log your sets, track your PRs, and watch your progress unfold — all in under three taps.",
+			"tagline": "A workout companion built for the gym floor, not the couch. Log your sets, track your PRs, and train with AI-built programs — all in under three taps.",
 			"role": "Lead Software Engineer",
 			"timeline": "8 weeks · 2026",
 			"platform": ["PWA", "Web"],
@@ -458,6 +458,22 @@
 				"image": "/fitness-tracker/details.png",
 				"benefit": "Follow a real program instead of guessing, and see exactly how consistently you're executing it.",
 				"technicalNote": "Plans are matched to completed sessions by date rather than a foreign key. Adherence is calculated as completed sessions divided by scheduled sessions per week."
+			},
+			{
+				"id": "ai-program-generator",
+				"title": "AI Program Generator",
+				"description": "Answer a five-step guided form — goal, frequency, split, drag-and-drop day assignment, duration — and get a full periodized plan back, every exercise pre-matched to the library and reviewed before saving.",
+				"image": "/fitness-tracker/details.png",
+				"benefit": "Turn 'I want to train strength four days a week' into a complete, consistent plan in under a minute.",
+				"technicalNote": "The LLM (Groq) returns tagged plain-text lines that a parser reconstructs into days, re-ordered to the user's chosen schedule and validated (day count, muscle tags) before it's ever shown. A fuzzy token matcher maps AI exercise names to library exercises — tolerant of word order ('Seated Calf Raise' vs 'Calf Raise (Seated)'), typos, and equipment prefixes — and one-session-per-day vs stacked days is enforced by comparing session count to training days."
+			},
+			{
+				"id": "ai-cooldown-guide",
+				"title": "AI Cool-Down Guide",
+				"description": "Right after you finish a session, an AI suggests 3–5 cool-down stretches for the muscles you actually trained, each with a hold time to aim for.",
+				"image": "/fitness-tracker/details.png",
+				"benefit": "End every workout with a warm-down that targets what you just trained — no thinking required.",
+				"technicalNote": "The workout-completion celebration POSTs the session's exercises, split, and PRs to /api/workout-summary, where Groq returns the stretches. The result is persisted to the WorkoutLog's aiSummary field so it's generated exactly once, then re-surfaces on the dashboard for today's workout."
 			}
 		],
 		"engineeringHighlights": [
@@ -502,6 +518,13 @@
 				"problem": "Using API routes for set logging added latency and meant writing separate error handling for every mutation.",
 				"solution": "Handled every mutation through Next.js Server Actions with useActionState, so forms progressively enhance and degrade gracefully without JavaScript.",
 				"result": "Mutations complete in a single round trip, error handling becomes declarative, and the core flow still works even without JavaScript enabled."
+			},
+			{
+				"id": "fuzzy-exercise-matching",
+				"title": "Fuzzy Exercise Matching Pipeline",
+				"problem": "AI-generated exercise names rarely match the library exactly — word order differs ('Seated Calf Raise' vs 'Calf Raise (Seated)'), names are mistyped ('Hip Thrust' as 'Hit Thrust'), and custom exercises can sit under non-canonical muscle groups like 'Glutes'.",
+				"solution": "Built an order-insensitive token matcher that tolerates single-character typos and treats the AI name as a subset of a library name, running against candidates normalized from every stored muscle group to the same canonical set.",
+				"result": "Commonly mismatched exercises now auto-resolve instead of being flagged as new or sent to manual review."
 			}
 		],
 		"architecture": {
@@ -557,6 +580,13 @@
 				"difficulty": "Live, Manual, and Plan modes overlap but also diverge in meaningful ways, and warm-up sets must never be persisted. A single flat schema risked nullable fields scattered everywhere.",
 				"solution": "Modeled sessions as a TypeScript discriminated union — Session = LiveSession | ManualSession | PlannedSession — sharing a common base with mode-specific payloads, and narrowed the type before anything is persisted.",
 				"outcome": "A single WorkoutLog collection now stores all three modes without a single nullable field. TypeScript itself enforces that warm-up sets can never be written, and adding a fourth mode is just a matter of adding a new union variant."
+			},
+			{
+				"id": "ai-output-parsing",
+				"challenge": "Turning free-form LLM output into a validated plan",
+				"difficulty": "A language model returns anything — extra prose, the wrong number of days, off-schedule days, or muscle-group tags that don't belong to the chosen split.",
+				"solution": "The prompt demands tagged lines ([DAY], [RATIONALE], [EXERCISE]) which a parser reconstructs into days, re-orders to the user's chosen weekdays, and validates (day count, muscle tags, per-day assignment) before a plan is ever shown.",
+				"outcome": "Malformed generations surface a clear error and can be retried instead of creating corrupt plans."
 			}
 		],
 		"performance": [
@@ -667,13 +697,13 @@
 			{
 				"title": "AI Program Generator",
 				"description": "Describe your goal, training frequency, and available equipment, and get back a periodized multi-week plan saved directly to your Plans collection.",
-				"status": "planned",
+				"status": "shipped",
 				"icon": "sparkles"
 			},
 			{
-				"title": "AI Session Debrief",
-				"description": "A post-workout AI summary covering the PRs you hit, your volume change versus last session, and one focused recommendation for next time.",
-				"status": "planned",
+				"title": "AI Cool-Down Guide",
+				"description": "After every completed session, an AI recommends 3-5 cool-down stretches for the exact muscles you trained, each with a hold time.",
+				"status": "shipped",
 				"icon": "message-square"
 			},
 			{
@@ -710,19 +740,21 @@
 			{
 				"category": "Framework",
 				"items": [
-					{ "name": "Next.js 15" },
+					{ "name": "Next.js 16" },
 					{ "name": "TypeScript" },
 					{ "name": "React 19" }
 				]
 			},
 			{ "category": "Database", "items": [{ "name": "MongoDB Atlas" }] },
+			{ "category": "AI", "items": [{ "name": "Groq" }] },
 			{ "category": "Auth", "items": [{ "name": "NextAuth.js" }] },
 			{
 				"category": "UI",
 				"items": [
 					{ "name": "Tailwind CSS" },
 					{ "name": "Framer Motion" },
-					{ "name": "Recharts" }
+					{ "name": "Recharts" },
+					{ "name": "@dnd-kit" }
 				]
 			},
 			{

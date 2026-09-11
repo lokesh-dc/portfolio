@@ -29,13 +29,22 @@ export default function BioSection() {
         </div>
 
         <div className="w-full md:w-50 lg:w-55 shrink-0 md:self-end">
-          <Image
-            src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=900&h=1100&fit=crop"
-            alt="Laptop at a desk mid-work"
-            width={900}
-            height={1100}
-            className="w-full aspect-4/5 object-cover rounded-2xl grayscale hover:grayscale-0 transition duration-500"
-          />
+          <div className="group relative w-full aspect-4/5 rounded-2xl overflow-hidden">
+              <Image
+                src="/me/me-about.jpg"
+                alt="Portrait of Lokesh"
+                width={1200}
+                height={1600}
+                draggable={false}
+                className="w-full h-full object-cover md:grayscale group-hover:grayscale-0 transition duration-500"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0 z-10"
+                onContextMenu={(e) => e.preventDefault()}
+                onDragStart={(e) => e.preventDefault()}
+              />
+            </div>
         </div>
 
         <div className="w-full md:max-w-90 flex flex-col gap-5">

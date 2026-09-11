@@ -87,10 +87,10 @@ export default function Hero() {
 
         <div className="relative overflow-hidden rounded-[24px] border border-stone-200/80 dark:border-stone-800 bg-white shadow-[0_40px_80px_-24px_rgba(0,0,0,0.25)]">
           <Image
-            src="/fitness-tracker/hero-desktop.png"
-            alt="FitTrack fitness tracker app interface"
-            width={2080}
-            height={1170}
+            src="/fitness-tracker/muscle-group-laptop-mockup.png"
+            alt="FitTrack fitness tracker app interface on a laptop"
+            width={1536}
+            height={1024}
             priority
             sizes="(min-width: 1024px) 1040px, 100vw"
             className="w-full h-auto"
