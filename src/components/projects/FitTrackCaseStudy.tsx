@@ -215,8 +215,18 @@ export default function FitTrackCaseStudy() {
                 persistence at the type level.
               </li>
               <li>
+                An AI cool-down guide meets you at the finish — 3–5 stretches for
+                the muscles you just trained, generated once and saved to the
+                session.
+              </li>
+              <li>
                 The app is server-rendered end to end, so pages load in under a
                 second even in a signal-free basement.
+              </li>
+              <li>
+                A five-step AI plan generator turns your goal and schedule into
+                a complete program, with every exercise matched and reviewable
+                before it's saved.
               </li>
             </ul>
             <p className="pt-2 text-lg font-normal text-stone-900 dark:text-white">
@@ -283,6 +293,20 @@ export default function FitTrackCaseStudy() {
                   "Design multi-week training plans and see exactly how consistently you follow them.",
                 technicalNote:
                   "Plans match completed sessions by date rather than foreign key, and adherence is completed over scheduled sessions per week.",
+              },
+              {
+                title: "AI Program Generator",
+                description:
+                  "A five-step guided form — goal, frequency, split, drag-and-drop day assignment, duration — turns a sentence into a complete periodized plan, with every exercise pre-matched and reviewable before anything is saved.",
+                technicalNote:
+                  "The LLM (Groq) returns tagged plain-text lines that a parser reconstructs into days, re-orders to the days you picked, and validates (day count, muscle tags, per-day assignment) before it's shown. A fuzzy token matcher maps AI exercise names to library exercises — immune to word order, typos, and equipment prefixes — and one-session-per-day vs stacked days follows from comparing session count to training days.",
+              },
+              {
+                title: "AI Cool-Down Guide",
+                description:
+                  "Finish a session and get an instant cool-down: 3–5 stretches for the muscles you just trained, each with a hold time to aim for.",
+                technicalNote:
+                  "The completion celebration posts the session's exercises and split to /api/workout-summary, where Groq returns the stretches. The result persists to the WorkoutLog so it's generated once and reappears on the dashboard.",
               },
             ].map((feature, i) => (
               <div
@@ -426,12 +450,15 @@ export default function FitTrackCaseStudy() {
                     {item.title}
                   </h3>
                   <span
-                    className={`rounded-full px-3 py-0.5 text-[10px] font-semibold uppercase tracking-[0.15em] ${item.status === "planned"
-                      ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
-                      : "bg-stone-100 text-stone-500 dark:bg-stone-800 dark:text-stone-400"
-                      }`}
+                    className={`rounded-full px-3 py-0.5 text-[10px] font-semibold uppercase tracking-[0.15em] ${
+                      item.status === "shipped"
+                        ? "bg-emerald-600 text-white"
+                        : item.status === "planned"
+                          ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
+                          : "bg-stone-100 text-stone-500 dark:bg-stone-800 dark:text-stone-400"
+                    }`}
                   >
-                    {item.status}
+                    {item.status === "shipped" ? "✓ Shipped" : item.status}
                   </span>
                 </div>
                 <p className="text-[15px] font-light leading-relaxed text-stone-600 dark:text-stone-400">
