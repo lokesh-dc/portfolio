@@ -8,7 +8,7 @@ import { useChat } from "@/context/ChatContext";
 const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function Hero() {
-  const { openSidebar } = useChat();
+  const { openSidebar, openPalette } = useChat();
   const reduce = useReducedMotion();
 
   return (
@@ -72,6 +72,21 @@ export default function Hero() {
             Ask my AI
           </button>
         </motion.div>
+
+        <p className="mt-4 text-xs text-stone-400 dark:text-stone-500">
+          Press{" "}
+          <button
+            onClick={openPalette}
+            className="rounded border border-stone-200 dark:border-stone-700 bg-white/60 dark:bg-stone-800/60 px-1.5 py-0.5 font-mono text-[10px] font-semibold hover:text-stone-700 dark:hover:text-stone-200 transition-colors"
+          >
+            ⌘K
+          </button>{" "}
+          to search · type{" "}
+          <kbd className="rounded border border-stone-200 dark:border-stone-700 bg-white/60 dark:bg-stone-800/60 px-1.5 py-0.5 font-mono text-[10px] font-semibold">
+            /
+          </kbd>{" "}
+          for commands
+        </p>
       </motion.div>
 
       <motion.div
