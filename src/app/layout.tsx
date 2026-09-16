@@ -28,6 +28,7 @@ export const metadata: Metadata = {
 
 import { ChatProvider } from "@/context/ChatContext";
 import GlobalSidebar from "@/components/GlobalSidebar";
+import CommandPalette from "@/components/CommandPalette";
 import Header from "@/components/Header";
 
 import { ThemeProvider } from "@/components/ThemeProvider";
@@ -66,6 +67,7 @@ export default function RootLayout({
             </LayoutWrapper>
             <MobileNav />
             <GlobalSidebar />
+            <CommandPalette />
           </ChatProvider>
         </ThemeProvider>
       </body>

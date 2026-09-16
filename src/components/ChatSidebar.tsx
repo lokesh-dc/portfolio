@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import MessageBubble, { Message } from "./MessageBubble";
 import ChatInput from "./ChatInput";
+import { useChat } from "@/context/ChatContext";
 
 const generateId = () => Math.random().toString(36).substring(2, 9);
 
@@ -24,6 +25,7 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
 	]);
 	const [isStreaming, setIsStreaming] = useState(false);
 	const bottomRef = useRef<HTMLDivElement>(null);
+	const { pendingPrompt, consumePendingPrompt } = useChat();
 
 	useEffect(() => {
 		if (isOpen) {
@@ -97,6 +99,21 @@ export default function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
 		},
 		[messages, isStreaming]
 	);
+
+	// Questions handed off from the command palette auto-send on open.
+	const sendRef = useRef(sendMessage);
+	useEffect(() => {
+		sendRef.current = sendMessage;
+	});
+	const consumedRef = useRef<string | null>(null);
+	useEffect(() => {
+		if (isOpen && pendingPrompt && consumedRef.current !== pendingPrompt) {
+			consumedRef.current = pendingPrompt;
+			const q = consumePendingPrompt();
+			if (q) sendRef.current(q);
+		}
+		if (!isOpen) consumedRef.current = null;
+	}, [isOpen, pendingPrompt, consumePendingPrompt]);
 
 	return (
 		<AnimatePresence>

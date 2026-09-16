@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
+import { Search, Sparkles } from "lucide-react";
 import { useChat } from "@/context/ChatContext";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
@@ -15,7 +15,7 @@ const links = [
 ];
 
 export default function Header() {
-  const { openSidebar } = useChat();
+  const { openSidebar, openPalette } = useChat();
   const pathname = usePathname();
 
   return (
@@ -55,6 +55,17 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
+          <button
+            onClick={openPalette}
+            className="flex items-center gap-2 rounded-full border border-stone-200 dark:border-stone-700 bg-white/70 dark:bg-stone-800/70 px-3.5 py-2 text-[13px] font-medium text-stone-500 dark:text-stone-400 transition-colors hover:text-stone-900 dark:hover:text-white"
+            aria-label="Open command palette"
+          >
+            <Search className="h-3.5 w-3.5" aria-hidden />
+            <span className="hidden sm:inline">Search</span>
+            <kbd className="hidden sm:inline-flex items-center rounded border border-stone-200 dark:border-stone-700 px-1 text-[10px] font-semibold">
+              ⌘K
+            </kbd>
+          </button>
           <button
             onClick={openSidebar}
             className="flex items-center gap-1.5 rounded-full bg-emerald-500 px-4 py-2 text-[13px] font-bold text-stone-950 transition-colors hover:bg-emerald-400"
