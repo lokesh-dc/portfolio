@@ -3,14 +3,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, Dumbbell, MessageSquare, Clapperboard, Keyboard } from "lucide-react";
+import { ArrowRight, Dumbbell, MessageSquare, Clapperboard, Keyboard, Brain } from "lucide-react";
 import { projectsData } from "@/lib/data";
-import type { Project } from "@/lib/data";
+import type { Project, ProjectListing } from "@/lib/data";
 
 const namedIcons = {
   klicky: Keyboard,
   "fitness-tracker": Dumbbell,
   "hooked-on-movies": Clapperboard,
+  mindrop: Brain,
 } as const;
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -18,6 +19,7 @@ const namedGlows: Record<string, string> = {
   klicky: "from-emerald-100/70 to-emerald-50/40",
   "fitness-tracker": "from-emerald-50/80 to-teal-50/40",
   "hooked-on-movies": "from-emerald-100/50 to-stone-100/40",
+  mindrop: "from-violet-100/70 to-indigo-50/40",
 };
 
 function projectGlow(project: Project) {
@@ -32,13 +34,14 @@ function RowContent({
   reverse: boolean;
 }) {
   const Icon = (project.slug && namedIcons[project.slug as keyof typeof namedIcons]) || MessageSquare;
+  const isWip = project.status === "wip";
 
   return (
     <div className={`flex flex-col ${reverse ? "lg:flex-row-reverse" : "lg:flex-row"} gap-10 lg:gap-16 items-center`}>
       <div className="w-full lg:max-w-[480px] shrink-0">
         <div className="flex items-center gap-3">
-          <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-100 dark:border-emerald-500/20 shadow-sm">
-            <Icon className="h-6 w-6 text-emerald-600 dark:text-emerald-400" aria-hidden />
+          <span className={`flex h-14 w-14 items-center justify-center rounded-2xl border shadow-sm ${isWip ? "bg-amber-50 dark:bg-amber-500/10 border-amber-200 dark:border-amber-500/20" : "bg-emerald-50 dark:bg-emerald-500/10 border-emerald-100 dark:border-emerald-500/20"}`}>
+            <Icon className={`h-6 w-6 ${isWip ? "text-amber-600 dark:text-amber-400" : "text-emerald-600 dark:text-emerald-400"}`} aria-hidden />
           </span>
           <div className="flex items-center gap-3">
             <span className="text-[11px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-widest">
@@ -48,6 +51,14 @@ function RowContent({
             <span className="text-[11px] font-bold text-stone-400 dark:text-stone-500 uppercase tracking-widest">
               {project.role}
             </span>
+            {isWip && (
+              <>
+                <span className="h-px w-4 bg-stone-300 dark:bg-stone-700" aria-hidden />
+                <span className="rounded-full bg-amber-100 dark:bg-amber-500/15 border border-amber-200 dark:border-amber-500/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-amber-700 dark:text-amber-300">
+                  In Dev
+                </span>
+              </>
+            )}
           </div>
         </div>
 
@@ -71,12 +82,12 @@ function RowContent({
 
         <Link
           href={project.link || "#"}
-          className="group mt-8 inline-flex items-center gap-2 rounded-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-5 py-2.5 text-[13px] font-bold text-stone-700 dark:text-stone-200 shadow-sm transition-all hover:gap-3 hover:border-emerald-500/50"
-          data-cursor-text="View Project"
+          className={`group mt-8 inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-[13px] font-bold shadow-sm transition-all hover:gap-3 ${isWip ? "bg-amber-500 text-white border-amber-500 hover:bg-amber-600 hover:border-amber-600" : "bg-white dark:bg-stone-800 border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-200 hover:border-emerald-500/50"}`}
+          data-cursor-text={isWip ? "View Case Study" : "View Project"}
         >
-          View Live Project
+          {isWip ? "View Case Study" : "View Live Project"}
           <ArrowRight
-            className="h-4 w-4 transition-transform group-hover:translate-x-0.5 text-emerald-600 dark:text-emerald-400"
+            className={`h-4 w-4 transition-transform group-hover:translate-x-0.5 ${isWip ? "text-white" : "text-emerald-600 dark:text-emerald-400"}`}
             aria-hidden
           />
         </Link>
@@ -104,13 +115,19 @@ function RowContent({
 
 function FullWidthRow({ project }: { project: Project }) {
   const Icon = (project.slug && namedIcons[project.slug as keyof typeof namedIcons]) || MessageSquare;
+  const isWip = project.status === "wip";
 
   return (
     <div className="flex flex-col items-center text-center">
       <div className="w-full max-w-[560px]">
-        <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-100 dark:border-emerald-500/20 shadow-sm mx-auto">
-          <Icon className="h-6 w-6 text-emerald-600 dark:text-emerald-400" aria-hidden />
+        <span className={`flex h-14 w-14 items-center justify-center rounded-2xl border shadow-sm mx-auto ${isWip ? "bg-amber-50 dark:bg-amber-500/10 border-amber-200 dark:border-amber-500/20" : "bg-emerald-50 dark:bg-emerald-500/10 border-emerald-100 dark:border-emerald-500/20"}`}>
+          <Icon className={`h-6 w-6 ${isWip ? "text-amber-600 dark:text-amber-400" : "text-emerald-600 dark:text-emerald-400"}`} aria-hidden />
         </span>
+        {isWip && (
+          <span className="mt-3 inline-flex rounded-full bg-amber-100 dark:bg-amber-500/15 border border-amber-200 dark:border-amber-500/20 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-amber-700 dark:text-amber-300">
+            In Development
+          </span>
+        )}
         <h3 className="mt-6 text-2xl md:text-3xl font-bold tracking-tight text-stone-900 dark:text-white">
           {project.title}
         </h3>
@@ -129,12 +146,12 @@ function FullWidthRow({ project }: { project: Project }) {
         </div>
         <Link
           href={project.link || "#"}
-          className="group mt-8 inline-flex items-center gap-2 rounded-full bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 px-5 py-2.5 text-[13px] font-bold text-stone-700 dark:text-stone-200 shadow-sm transition-all hover:gap-3 hover:border-emerald-500/50"
-          data-cursor-text="View Project"
+          className={`group mt-8 inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-[13px] font-bold shadow-sm transition-all hover:gap-3 ${isWip ? "bg-amber-500 text-white border-amber-500 hover:bg-amber-600" : "bg-white dark:bg-stone-800 border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-200 hover:border-emerald-500/50"}`}
+          data-cursor-text={isWip ? "View Case Study" : "View Project"}
         >
-          View Live Project
+          {isWip ? "View Case Study" : "View Live Project"}
           <ArrowRight
-            className="h-4 w-4 transition-transform group-hover:translate-x-0.5 text-emerald-600 dark:text-emerald-400"
+            className={`h-4 w-4 transition-transform group-hover:translate-x-0.5 ${isWip ? "text-white" : "text-emerald-600 dark:text-emerald-400"}`}
             aria-hidden
           />
         </Link>
@@ -162,7 +179,14 @@ function FullWidthRow({ project }: { project: Project }) {
 
 export default function SelectedWork() {
   const reduce = useReducedMotion();
-  const projects = projectsData.slice(0, 3);
+  // Featured order: put Mindrop first to showcase AI/RAG work, then the three polished live projects.
+  // Fallback to natural order if mindrop not present.
+  const featuredSlugs = ["mindrop", "klicky", "fitness-tracker", "hooked-on-movies"];
+  const ordered = featuredSlugs
+    .map((slug) => projectsData.find((p) => p.slug === slug))
+    .filter((p): p is ProjectListing => Boolean(p));
+  const fallback = projectsData.filter((p) => !featuredSlugs.includes(p.slug ?? ""));
+  const projects = [...ordered, ...fallback].slice(0, 4);
   const [feature, ...rest] = projects;
 
   return (
@@ -181,8 +205,8 @@ export default function SelectedWork() {
           Selected work
         </h2>
         <p className="mt-4 text-[15px] md:text-base font-medium leading-relaxed text-stone-500 dark:text-stone-400">
-          Three projects picked for what they show about performance and
-          architecture.
+          Four projects — one in private beta — picked for what they show about
+          AI, performance, and architecture.
         </p>
       </motion.div>
 

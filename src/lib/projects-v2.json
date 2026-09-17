@@ -2,12 +2,14 @@
 	"klicky": {
 		"slug": "klicky",
 		"meta": {
-			"title": "Klicky — Real Keyboards,<br />Zero Hardware",
-			"tagline": "A Web Audio playground that plays real sampled mechanical keyboard clicks on every keystroke — four community soundpacks, five visual themes, one tiny hook.",
-			"role": "Creator · Frontend Engineer",
-			"timeline": "2 weeks · 2026",
-			"platform": ["Web"],
-			"users": "4 sound packs · 5 visual themes",
+			"title": "Klicky \u2014 Real Keyboards,<br />Zero Hardware",
+			"tagline": "A Web Audio playground that plays real sampled mechanical keyboard clicks on every keystroke \u2014 four community soundpacks, five visual themes, one tiny hook.",
+			"role": "Creator \u00b7 Frontend Engineer",
+			"timeline": "2 weeks \u00b7 2026",
+			"platform": [
+				"Web"
+			],
+			"users": "4 sound packs \u00b7 5 visual themes",
 			"status": "live",
 			"year": "2026"
 		},
@@ -36,7 +38,7 @@
 		"quickFacts": [
 			{
 				"label": "Role",
-				"value": "Creator · Frontend Engineer"
+				"value": "Creator \u00b7 Frontend Engineer"
 			},
 			{
 				"label": "Timeline",
@@ -57,18 +59,18 @@
 		],
 		"problem": {
 			"headline": "A keyboard you can't hear isn't a keyboard you can judge.",
-			"body": "You can't feel a switch's character from a spec sheet, and video reviews flatten it into whatever mic and room the creator had. The only honest way to know how a Cherry MX Blue or an NK Cream actually sounds is to hear real samples — but the tools that play them are desktop-only downloads with opaque config formats, and nothing on the web lets you try five boards before you buy one. Nobody gets to type before they commit."
+			"body": "You can't feel a switch's character from a spec sheet, and video reviews flatten it into whatever mic and room the creator had. The only honest way to know how a Cherry MX Blue or an NK Cream actually sounds is to hear real samples \u2014 but the tools that play them are desktop-only downloads with opaque config formats, and nothing on the web lets you try five boards before you buy one. Nobody gets to type before they commit."
 		},
 		"solution": {
 			"headline": "A browser that sounds like your dream desk.",
-			"body": "Klicky loads real mechvibes-format soundpacks — the exact config and sample files the mechanical-keyboard community already ships — decodes them with the Web Audio API, and fires the correct sample for each physical key as you type. Drop a pack into /public, add one line to a list, and it's playable. No install, no conversion, no sound card.",
+			"body": "Klicky loads real mechvibes-format soundpacks \u2014 the exact config and sample files the mechanical-keyboard community already ships \u2014 decodes them with the Web Audio API, and fires the correct sample for each physical key as you type. Drop a pack into /public, add one line to a list, and it's playable. No install, no conversion, no sound card.",
 			"image": "/klicky/mockup.png"
 		},
 		"productHighlights": [
 			{
 				"id": "soundpack-engine",
 				"title": "Soundpack Engine",
-				"description": "Loads real mechvibes-format packs — both single-sprite and multi-file layouts — straight out of /public.",
+				"description": "Loads real mechvibes-format packs \u2014 both single-sprite and multi-file layouts \u2014 straight out of /public.",
 				"image": "/klicky/top.png",
 				"benefit": "Drop any community soundpack into the folder and it just works.",
 				"technicalNote": "The loader parses config.json at runtime: v1 'single' packs slice one decoded sprite by [offset, duration] per keycode, while v2 'multi' packs pre-decode every referenced file (expanding {0-4} range tokens) into a buffer cache."
@@ -78,21 +80,21 @@
 				"title": "Physical Key Mapping",
 				"description": "Maps every browser KeyboardEvent.code to the Linux evdev keycodes the pack configs use.",
 				"image": "/klicky/mid.png",
-				"benefit": "Keys sound right — backspace plays the backspace sample, not a generic click.",
+				"benefit": "Keys sound right \u2014 backspace plays the backspace sample, not a generic click.",
 				"technicalNote": "A hand-built CODE_TO_EVDEV table covers 60+ physical keys, and evdevFor() drops anything unmapped onto the pack's generic sound instead of erroring."
 			},
 			{
 				"id": "zero-install-playback",
 				"title": "Zero-Install Playback",
-				"description": "Everything decodes and plays client-side with the Web Audio API — no audio file is ever re-fetched after load.",
+				"description": "Everything decodes and plays client-side with the Web Audio API \u2014 no audio file is ever re-fetched after load.",
 				"image": "/klicky/bottom.png",
 				"benefit": "Open the page, start typing, hear it immediately.",
-				"technicalNote": "Buffers are decoded once and cached; playback runs through a minimal BufferSource → GainNode chain, and a suspended AudioContext resumes on the first user gesture."
+				"technicalNote": "Buffers are decoded once and cached; playback runs through a minimal BufferSource \u2192 GainNode chain, and a suspended AudioContext resumes on the first user gesture."
 			},
 			{
 				"id": "global-listening-hook",
 				"title": "Global Listening Hook",
-				"description": "A single useKeyboardSound() hook attaches to window and plays on every keydown — with key-repeat filtered out.",
+				"description": "A single useKeyboardSound() hook attaches to window and plays on every keydown \u2014 with key-repeat filtered out.",
 				"image": "/klicky/mobile.png",
 				"benefit": "Any page can add real keyboard sounds with four lines of code.",
 				"technicalNote": "The hook exposes playCode(code, phase) and playClick(), supports per-pack volume, and offers an opt-in playOnKeyUp mode for quieter release samples when the pack defines them."
@@ -100,7 +102,7 @@
 			{
 				"id": "live-3d-keyboard",
 				"title": "3D Keyboard Visualizer",
-				"description": "A fully animated QWERTY board with real keycaps — each press lights the key and sends a light wave across the board.",
+				"description": "A fully animated QWERTY board with real keycaps \u2014 each press lights the key and sends a light wave across the board.",
 				"image": "/klicky/full.png",
 				"benefit": "See exactly which physical key fired, with a satisfying ripple that makes the sound feel tactile.",
 				"technicalNote": "The board renders as modular rows of 3D keys (top face, edge, front), each carrying per-key CSS custom properties. A press animates key translateY, then injects a radial 'wave' burst whose RGB color the user can pick."
@@ -110,7 +112,7 @@
 				"title": "Typing Test & Live Stats",
 				"description": "Type the pangram and watch live WPM and progress as you go, while the board lights up underneath.",
 				"image": "/klicky/mockup.png",
-				"benefit": "It doubles as a typing tester — progress and speed update in real time.",
+				"benefit": "It doubles as a typing tester \u2014 progress and speed update in real time.",
 				"technicalNote": "A hidden focusable area captures keystrokes, maps them against the pangram, and recomputes WPM and a percentage from elapsed time and correct characters."
 			}
 		],
@@ -118,7 +120,7 @@
 			{
 				"id": "dual-format-loader",
 				"title": "Dual-Format Loader",
-				"problem": "Mechvibes community packs ship in two incompatible layouts — a single sprite file with per-key offsets, or a folder of per-key files with range tokens.",
+				"problem": "Mechvibes community packs ship in two incompatible layouts \u2014 a single sprite file with per-key offsets, or a folder of per-key files with range tokens.",
 				"solution": "One loader parses both: v1 slices a decoded sprite by [offset, duration], v2 pre-decodes every referenced file, expanding {0-4} range tokens at decode time.",
 				"result": "Both formats flow through the same playForCode() path, so adding a pack never requires format-specific code."
 			},
@@ -127,7 +129,7 @@
 				"title": "Buffer Cache Instead of Re-fetch",
 				"problem": "Replaying a key would otherwise refetch and re-decode the file on every keystroke.",
 				"solution": "Every unique file a pack references is fetched and decoded once during load() and stored in a Map keyed by filename.",
-				"result": "After the initial load, playback never touches the network — every key is an in-memory buffer."
+				"result": "After the initial load, playback never touches the network \u2014 every key is an in-memory buffer."
 			},
 			{
 				"id": "key-repeat-filter",
@@ -153,7 +155,7 @@
 				},
 				{
 					"label": "SoundPack class",
-					"description": "load() fetches config.json, decodes audio and caches buffers. playForCode()/playForKeycode() route a key event to the correct sample — sprite slice or individual file."
+					"description": "load() fetches config.json, decodes audio and caches buffers. playForCode()/playForKeycode() route a key event to the correct sample \u2014 sprite slice or individual file."
 				},
 				{
 					"label": "Keycode mapping",
@@ -161,7 +163,7 @@
 				},
 				{
 					"label": "Web Audio API",
-					"description": "Decoded AudioBuffers play through a BufferSource → GainNode → destination chain for sample-accurate, low-latency playback at a per-pack volume."
+					"description": "Decoded AudioBuffers play through a BufferSource \u2192 GainNode \u2192 destination chain for sample-accurate, low-latency playback at a per-pack volume."
 				},
 				{
 					"label": "Static packs",
@@ -173,14 +175,14 @@
 			{
 				"id": "keycode-mapping",
 				"challenge": "Mapping browser keys to evdev keycodes",
-				"difficulty": "Browser KeyboardEvent.code strings (KeyA, ArrowUp, NumpadEnter) don't match the numeric keycodes mechvibes configs use — and a wrong mapping plays the neighbour key's sample for a physical key.",
+				"difficulty": "Browser KeyboardEvent.code strings (KeyA, ArrowUp, NumpadEnter) don't match the numeric keycodes mechvibes configs use \u2014 and a wrong mapping plays the neighbour key's sample for a physical key.",
 				"solution": "Hand-built a CODE_TO_EVDEV table covering every common physical key, cross-checked against Linux input-event-codes.h.",
 				"outcome": "Each physical key triggers its own sample; anything unmapped falls back to the pack's generic sound."
 			},
 			{
 				"id": "sprite-slicing",
 				"challenge": "Playing a sliced sprite with exact timing",
-				"difficulty": "V1 packs define keys as [offset, duration] slices inside a single sound file — a misread offset clips a note or plays the wrong key's sample.",
+				"difficulty": "V1 packs define keys as [offset, duration] slices inside a single sound file \u2014 a misread offset clips a note or plays the wrong key's sample.",
 				"solution": "The sprite is decoded once, and each press plays a BufferSource window (start at offset, stop at duration) straight from the cached buffer.",
 				"outcome": "Per-key timbre is exact with zero additional file loads."
 			},
@@ -188,7 +190,7 @@
 				"id": "latency",
 				"challenge": "Latency that feels instant",
 				"difficulty": "Keyboard sounds feel wrong if playback lags the keypress by more than a few milliseconds.",
-				"solution": "Everything runs on pre-decoded AudioBuffers through a minimal source → gain chain with no scheduling or effects, and loading happens up front.",
+				"solution": "Everything runs on pre-decoded AudioBuffers through a minimal source \u2192 gain chain with no scheduling or effects, and loading happens up front.",
 				"outcome": "Playback lands sample-accurate on the keydown event, indistinguishable from a real switch."
 			}
 		],
@@ -216,7 +218,7 @@
 			{
 				"metric": "Per-Key Path",
 				"value": "1 node",
-				"sublabel": "BufferSource → GainNode"
+				"sublabel": "BufferSource \u2192 GainNode"
 			},
 			{
 				"metric": "Key-Repeat",
@@ -227,29 +229,29 @@
 		"designDecisions": [
 			{
 				"decision": "A near-black stage",
-				"problem": "Soundpack samples are mixed to sit on dark, focused surfaces — a busy background makes clicks feel disconnected.",
+				"problem": "Soundpack samples are mixed to sit on dark, focused surfaces \u2014 a busy background makes clicks feel disconnected.",
 				"rationale": "The demo renders on a deep slate stage so the audio is the entire focus, and the glowing accent on the active pack reads instantly."
 			},
 			{
 				"decision": "One switch, one dial, one big key",
-				"problem": "A sound tool shouldn't present a control panel — the whole point is to just type.",
+				"problem": "A sound tool shouldn't present a control panel \u2014 the whole point is to just type.",
 				"rationale": "UI is limited to an on/off toggle, a volume slider, and a giant SPACE test pad. Every other decision was made for you."
 			},
 			{
 				"decision": "Show the integration code",
-				"problem": "Most demos are dead ends — you try them and can't reuse the work.",
+				"problem": "Most demos are dead ends \u2014 you try them and can't reuse the work.",
 				"rationale": "The page ends with a copy-ready snippet, because the real output of this project is a reusable hook, not a toy."
 			},
 			{
 				"decision": "Visuals that reflect the sound",
 				"problem": "A sound demo still needs something to look at, and static keys feel disconnected from the audio.",
-				"rationale": "The board ships five visual themes — Auto (follows the chosen pack), Cherry Blue, EG Oreo, NK Cream and Purple — kept independent of the sound profile, plus a wave-color picker so the light ripple can match any theme."
+				"rationale": "The board ships five visual themes \u2014 Auto (follows the chosen pack), Cherry Blue, EG Oreo, NK Cream and Purple \u2014 kept independent of the sound profile, plus a wave-color picker so the light ripple can match any theme."
 			}
 		],
 		"gallery": [
 			{
 				"url": "/klicky/thumbnail.png",
-				"alt": "The full Klicky stage — header controls, typing area and the 3D keyboard",
+				"alt": "The full Klicky stage \u2014 header controls, typing area and the 3D keyboard",
 				"type": "screenshot",
 				"device": "desktop"
 			},
@@ -273,7 +275,7 @@
 			},
 			{
 				"url": "/klicky/bottom.png",
-				"alt": "Live typing state — pangram highlight, WPM, progress and lit keys",
+				"alt": "Live typing state \u2014 pangram highlight, WPM, progress and lit keys",
 				"type": "screenshot",
 				"device": "desktop"
 			},
@@ -299,7 +301,7 @@
 			},
 			{
 				"title": "In-browser pack uploader",
-				"description": "Drag a mechvibes pack folder straight into the browser and hear it instantly — no code changes.",
+				"description": "Drag a mechvibes pack folder straight into the browser and hear it instantly \u2014 no code changes.",
 				"status": "exploring",
 				"icon": "wifi-off"
 			}
@@ -369,10 +371,13 @@
 		"slug": "fitness-tracker",
 		"meta": {
 			"title": "Fitness That<br /> Understands You",
-			"tagline": "A workout companion built for the gym floor, not the couch. Log your sets, track your PRs, and train with AI-built programs — all in under three taps.",
+			"tagline": "A workout companion built for the gym floor, not the couch. Log your sets, track your PRs, and train with AI-built programs \u2014 all in under three taps.",
 			"role": "Lead Software Engineer",
-			"timeline": "8 weeks · 2026",
-			"platform": ["PWA", "Web"],
+			"timeline": "8 weeks \u00b7 2026",
+			"platform": [
+				"PWA",
+				"Web"
+			],
 			"users": "25+ active lifters",
 			"status": "live",
 			"year": "2026"
@@ -387,11 +392,26 @@
 			"github": "https://github.com/lokesh-dc/fitness-tracker"
 		},
 		"quickFacts": [
-			{ "label": "Role", "value": "Lead Software Engineer" },
-			{ "label": "Timeline", "value": "8 weeks" },
-			{ "label": "Platform", "value": "PWA · Web" },
-			{ "label": "Users", "value": "25+" },
-			{ "label": "Status", "value": "Live" }
+			{
+				"label": "Role",
+				"value": "Lead Software Engineer"
+			},
+			{
+				"label": "Timeline",
+				"value": "8 weeks"
+			},
+			{
+				"label": "Platform",
+				"value": "PWA \u00b7 Web"
+			},
+			{
+				"label": "Users",
+				"value": "25+"
+			},
+			{
+				"label": "Status",
+				"value": "Live"
+			}
 		],
 		"problem": {
 			"headline": "Fitness apps treat lifting like an afterthought.",
@@ -399,7 +419,7 @@
 		},
 		"solution": {
 			"headline": "A lifter-first experience, from setup to cooldown.",
-			"body": "FitTrack strips away everything a lifter doesn't need and optimizes every interaction for the gym environment — one hand, between sets, sometimes with weak signal. It offers three distinct logging modes, timers that keep running even if you switch apps, instant PR detection with zero database scans, and a warm-up generator that never touches the server. It's the tool I wish had existed when I first started lifting.",
+			"body": "FitTrack strips away everything a lifter doesn't need and optimizes every interaction for the gym environment \u2014 one hand, between sets, sometimes with weak signal. It offers three distinct logging modes, timers that keep running even if you switch apps, instant PR detection with zero database scans, and a warm-up generator that never touches the server. It's the tool I wish had existed when I first started lifting.",
 			"image": "/fitness-tracker/hero-mobile.png"
 		},
 		"productHighlights": [
@@ -408,7 +428,7 @@
 				"title": "Live Workout Mode",
 				"description": "Start a session, log your sets, and watch your volume build in real time.",
 				"image": "/fitness-tracker/details.png",
-				"benefit": "Never break your rhythm — log a set in two taps, right during your rest period.",
+				"benefit": "Never break your rhythm \u2014 log a set in two taps, right during your rest period.",
 				"technicalNote": "All three logging modes share a single useSessionStats hook, which derives volume, set count, and estimated time remaining from one unified state machine."
 			},
 			{
@@ -422,9 +442,9 @@
 			{
 				"id": "pr-detection",
 				"title": "PR Detection Engine",
-				"description": "Automatically flags a new personal record — either a heavier weight or more reps at your current max — the instant you complete a set.",
+				"description": "Automatically flags a new personal record \u2014 either a heavier weight or more reps at your current max \u2014 the instant you complete a set.",
 				"image": "/fitness-tracker/details.png",
-				"benefit": "Get instant feedback — no need to remember your old max.",
+				"benefit": "Get instant feedback \u2014 no need to remember your old max.",
 				"technicalNote": "Achieves O(1) lookups through a materialized ExerciseRecords collection. Atomic $max / $set operators guarantee read-after-write consistency."
 			},
 			{
@@ -440,7 +460,7 @@
 				"title": "Consistency Heatmap",
 				"description": "A GitHub-style grid spanning 52 weeks, showing every training day at a glance.",
 				"image": "/fitness-tracker/volume-set.png",
-				"benefit": "One glance tells you whether you're showing up — and streaks keep you motivated to continue.",
+				"benefit": "One glance tells you whether you're showing up \u2014 and streaks keep you motivated to continue.",
 				"technicalNote": "The grid is computed server-side from WorkoutLog timestamps, with sticky day labels and scrollIntoView behavior to jump straight to the current week."
 			},
 			{
@@ -448,7 +468,7 @@
 				"title": "Warm-up Set Generator",
 				"description": "Enter your working weight and get a rep- and percentage-based warm-up scheme in a single tap.",
 				"image": "/fitness-tracker/details.png",
-				"benefit": "Never skip a warm-up again — it's one tap instead of a mental calculation.",
+				"benefit": "Never skip a warm-up again \u2014 it's one tap instead of a mental calculation.",
 				"technicalNote": "Runs entirely client-side with zero database calls. The WarmupSet type is excluded from all write operations at the type level, so it can never be saved by mistake."
 			},
 			{
@@ -462,17 +482,17 @@
 			{
 				"id": "ai-program-generator",
 				"title": "AI Program Generator",
-				"description": "Answer a five-step guided form — goal, frequency, split, drag-and-drop day assignment, duration — and get a full periodized plan back, every exercise pre-matched to the library and reviewed before saving.",
+				"description": "Answer a five-step guided form \u2014 goal, frequency, split, drag-and-drop day assignment, duration \u2014 and get a full periodized plan back, every exercise pre-matched to the library and reviewed before saving.",
 				"image": "/fitness-tracker/details.png",
 				"benefit": "Turn 'I want to train strength four days a week' into a complete, consistent plan in under a minute.",
-				"technicalNote": "The LLM (Groq) returns tagged plain-text lines that a parser reconstructs into days, re-ordered to the user's chosen schedule and validated (day count, muscle tags) before it's ever shown. A fuzzy token matcher maps AI exercise names to library exercises — tolerant of word order ('Seated Calf Raise' vs 'Calf Raise (Seated)'), typos, and equipment prefixes — and one-session-per-day vs stacked days is enforced by comparing session count to training days."
+				"technicalNote": "The LLM (Groq) returns tagged plain-text lines that a parser reconstructs into days, re-ordered to the user's chosen schedule and validated (day count, muscle tags) before it's ever shown. A fuzzy token matcher maps AI exercise names to library exercises \u2014 tolerant of word order ('Seated Calf Raise' vs 'Calf Raise (Seated)'), typos, and equipment prefixes \u2014 and one-session-per-day vs stacked days is enforced by comparing session count to training days."
 			},
 			{
 				"id": "ai-cooldown-guide",
 				"title": "AI Cool-Down Guide",
-				"description": "Right after you finish a session, an AI suggests 3–5 cool-down stretches for the muscles you actually trained, each with a hold time to aim for.",
+				"description": "Right after you finish a session, an AI suggests 3\u20135 cool-down stretches for the muscles you actually trained, each with a hold time to aim for.",
 				"image": "/fitness-tracker/details.png",
-				"benefit": "End every workout with a warm-down that targets what you just trained — no thinking required.",
+				"benefit": "End every workout with a warm-down that targets what you just trained \u2014 no thinking required.",
 				"technicalNote": "The workout-completion celebration POSTs the session's exercises, split, and PRs to /api/workout-summary, where Groq returns the stretches. The result is persisted to the WorkoutLog's aiSummary field so it's generated exactly once, then re-surfaces on the dashboard for today's workout."
 			}
 		],
@@ -487,8 +507,8 @@
 			{
 				"id": "mongo-aggregation",
 				"title": "MongoDB Aggregation Pipelines",
-				"problem": "Dashboard widgets each needed complex, multi-stage computations — weekly volume, 1RM trends, adherence scores, and more.",
-				"solution": "Built one purpose-specific aggregation pipeline per widget ($unwind → $group → $sort → $project), filtering out zero-weight sets directly at the database layer.",
+				"problem": "Dashboard widgets each needed complex, multi-stage computations \u2014 weekly volume, 1RM trends, adherence scores, and more.",
+				"solution": "Built one purpose-specific aggregation pipeline per widget ($unwind \u2192 $group \u2192 $sort \u2192 $project), filtering out zero-weight sets directly at the database layer.",
 				"result": "Analytics load in under 200ms even for users with six or more months of data, with zero computation happening on the client."
 			},
 			{
@@ -496,7 +516,7 @@
 				"title": "Server-first Data Architecture",
 				"problem": "Client-side fetching created request waterfalls, producing a loading spinner for every dashboard section on first load.",
 				"solution": "Moved all dashboard data fetching into a top-level Server Component using Promise.all, with each fetch wrapped in its own try/catch.",
-				"result": "No more client-side waterfalls — every page renders with all its data already in place, and a single failing fetch never blocks the rest of the page."
+				"result": "No more client-side waterfalls \u2014 every page renders with all its data already in place, and a single failing fetch never blocks the rest of the page."
 			},
 			{
 				"id": "custom-hooks",
@@ -522,7 +542,7 @@
 			{
 				"id": "fuzzy-exercise-matching",
 				"title": "Fuzzy Exercise Matching Pipeline",
-				"problem": "AI-generated exercise names rarely match the library exactly — word order differs ('Seated Calf Raise' vs 'Calf Raise (Seated)'), names are mistyped ('Hip Thrust' as 'Hit Thrust'), and custom exercises can sit under non-canonical muscle groups like 'Glutes'.",
+				"problem": "AI-generated exercise names rarely match the library exactly \u2014 word order differs ('Seated Calf Raise' vs 'Calf Raise (Seated)'), names are mistyped ('Hip Thrust' as 'Hit Thrust'), and custom exercises can sit under non-canonical muscle groups like 'Glutes'.",
 				"solution": "Built an order-insensitive token matcher that tolerates single-character typos and treats the AI name as a subset of a library name, running against candidates normalized from every stored muscle group to the same canonical set.",
 				"result": "Commonly mismatched exercises now auto-resolve instead of being flagged as new or sent to manual review."
 			}
@@ -536,7 +556,7 @@
 				},
 				{
 					"label": "Server Actions",
-					"description": "Every mutation — logging a set, creating a plan, updating a timer — runs as a Server Action triggered from a client form. There are no API routes and no client-side fetch calls for writes."
+					"description": "Every mutation \u2014 logging a set, creating a plan, updating a timer \u2014 runs as a Server Action triggered from a client form. There are no API routes and no client-side fetch calls for writes."
 				},
 				{
 					"label": "MongoDB Atlas",
@@ -556,7 +576,7 @@
 			{
 				"id": "pr-lookup-optimization",
 				"challenge": "O(1) PR lookup without a dedicated database",
-				"difficulty": "A naive approach re-scans every past set for a given exercise each time a new set is completed — an O(n) cost that grows linearly with a user's workout history.",
+				"difficulty": "A naive approach re-scans every past set for a given exercise each time a new set is completed \u2014 an O(n) cost that grows linearly with a user's workout history.",
 				"solution": "Introduced a materialized ExerciseRecords collection. Each time a set is completed, a single atomic update uses $max to compare against the stored PR and $set to update it if it's been beaten.",
 				"outcome": "PR detection stays O(1) whether a user has logged 10 sets or 10,000. The same materialized view also feeds the progress charts, so no additional queries are needed."
 			},
@@ -565,26 +585,26 @@
 				"challenge": "Rest timers that survive app switching",
 				"difficulty": "Browsers throttle setTimeout once a tab is backgrounded, and on mobile, switching over to something like Spotify would kill the timer outright.",
 				"solution": "Used the Web Notifications API to schedule an alert for when the timer ends, so the Service Worker can fire it even if the tab is closed. Timer state is also serialized to localStorage on every tick so it can be restored accurately.",
-				"outcome": "Rest timers now keep working reliably even when users switch apps, lock their phone, or close the browser tab entirely — a must-have for real gym use."
+				"outcome": "Rest timers now keep working reliably even when users switch apps, lock their phone, or close the browser tab entirely \u2014 a must-have for real gym use."
 			},
 			{
 				"id": "analytics-aggregation",
 				"challenge": "Aggregating months of workout data into responsive dashboards",
 				"difficulty": "A user training daily for six-plus months accumulates thousands of set records, and computing aggregates on the client would freeze the UI.",
-				"solution": "Moved all aggregation into MongoDB itself. Each dashboard widget runs its own purpose-built pipeline ($match → $group → $sort) directly at the database level, so the server only ever fetches pre-computed arrays.",
-				"outcome": "Dashboards now load pre-computed analytics in under 200ms — the client just maps the data, it never has to compute it."
+				"solution": "Moved all aggregation into MongoDB itself. Each dashboard widget runs its own purpose-built pipeline ($match \u2192 $group \u2192 $sort) directly at the database level, so the server only ever fetches pre-computed arrays.",
+				"outcome": "Dashboards now load pre-computed analytics in under 200ms \u2014 the client just maps the data, it never has to compute it."
 			},
 			{
 				"id": "data-modeling",
 				"challenge": "Three workout modes sharing one schema",
 				"difficulty": "Live, Manual, and Plan modes overlap but also diverge in meaningful ways, and warm-up sets must never be persisted. A single flat schema risked nullable fields scattered everywhere.",
-				"solution": "Modeled sessions as a TypeScript discriminated union — Session = LiveSession | ManualSession | PlannedSession — sharing a common base with mode-specific payloads, and narrowed the type before anything is persisted.",
+				"solution": "Modeled sessions as a TypeScript discriminated union \u2014 Session = LiveSession | ManualSession | PlannedSession \u2014 sharing a common base with mode-specific payloads, and narrowed the type before anything is persisted.",
 				"outcome": "A single WorkoutLog collection now stores all three modes without a single nullable field. TypeScript itself enforces that warm-up sets can never be written, and adding a fourth mode is just a matter of adding a new union variant."
 			},
 			{
 				"id": "ai-output-parsing",
 				"challenge": "Turning free-form LLM output into a validated plan",
-				"difficulty": "A language model returns anything — extra prose, the wrong number of days, off-schedule days, or muscle-group tags that don't belong to the chosen split.",
+				"difficulty": "A language model returns anything \u2014 extra prose, the wrong number of days, off-schedule days, or muscle-group tags that don't belong to the chosen split.",
 				"solution": "The prompt demands tagged lines ([DAY], [RATIONALE], [EXERCISE]) which a parser reconstructs into days, re-orders to the user's chosen weekdays, and validates (day count, muscle tags, per-day assignment) before a plan is ever shown.",
 				"outcome": "Malformed generations surface a clear error and can be retried instead of creating corrupt plans."
 			}
@@ -603,7 +623,7 @@
 			{
 				"metric": "Workout Modes",
 				"value": "3",
-				"sublabel": "Live · Manual · Plan"
+				"sublabel": "Live \u00b7 Manual \u00b7 Plan"
 			},
 			{
 				"metric": "Heatmap Span",
@@ -625,7 +645,7 @@
 			{
 				"decision": "Dark theme by default",
 				"problem": "Gym lighting swings from harsh fluorescents to dim basements, and a light theme causes glare when you're glancing at your phone between sets.",
-				"rationale": "Dark surfaces paired with high-contrast orange accents stay readable in almost any lighting condition. Orange (HSL 24°) was chosen specifically for its visibility against dark backgrounds."
+				"rationale": "Dark surfaces paired with high-contrast orange accents stay readable in almost any lighting condition. Orange (HSL 24\u00b0) was chosen specifically for its visibility against dark backgrounds."
 			},
 			{
 				"decision": "Bottom navigation on mobile",
@@ -639,7 +659,7 @@
 			},
 			{
 				"decision": "Glassmorphism cards",
-				"problem": "Live sessions pack a lot of information onto one screen — timer, current set, volume — and flat cards started to feel cluttered.",
+				"problem": "Live sessions pack a lot of information onto one screen \u2014 timer, current set, volume \u2014 and flat cards started to feel cluttered.",
 				"rationale": "Backdrop-blur cards add depth without relying on distracting borders, letting content float on translucent surfaces while the dark background breathes through underneath."
 			}
 		],
@@ -708,13 +728,13 @@
 			},
 			{
 				"title": "Offline Sync",
-				"description": "Full offline support via IndexedDB — queue sets locally while offline and sync automatically once connectivity returns.",
+				"description": "Full offline support via IndexedDB \u2014 queue sets locally while offline and sync automatically once connectivity returns.",
 				"status": "exploring",
 				"icon": "wifi-off"
 			},
 			{
 				"title": "Apple Watch App",
-				"description": "Start sessions, view your current exercise, and complete sets — all from the wrist.",
+				"description": "Start sessions, view your current exercise, and complete sets \u2014 all from the wrist.",
 				"status": "exploring",
 				"icon": "watch"
 			}
@@ -728,7 +748,7 @@
 			{
 				"lesson": "Three logging modes turned out to be one too many for an initial launch.",
 				"whatWentWell": "Live Mode was clearly the standout feature, while Manual and Plan modes saw much lighter use early on.",
-				"rebuild": "I'd ship with just Live Mode and add the others based on real user requests — building all three up front added about two weeks to the MVP timeline."
+				"rebuild": "I'd ship with just Live Mode and add the others based on real user requests \u2014 building all three up front added about two weeks to the MVP timeline."
 			},
 			{
 				"lesson": "Server Actions quietly eliminated an entire category of bugs.",
@@ -740,26 +760,68 @@
 			{
 				"category": "Framework",
 				"items": [
-					{ "name": "Next.js 16" },
-					{ "name": "TypeScript" },
-					{ "name": "React 19" }
+					{
+						"name": "Next.js 16"
+					},
+					{
+						"name": "TypeScript"
+					},
+					{
+						"name": "React 19"
+					}
 				]
 			},
-			{ "category": "Database", "items": [{ "name": "MongoDB Atlas" }] },
-			{ "category": "AI", "items": [{ "name": "Groq" }] },
-			{ "category": "Auth", "items": [{ "name": "NextAuth.js" }] },
+			{
+				"category": "Database",
+				"items": [
+					{
+						"name": "MongoDB Atlas"
+					}
+				]
+			},
+			{
+				"category": "AI",
+				"items": [
+					{
+						"name": "Groq"
+					}
+				]
+			},
+			{
+				"category": "Auth",
+				"items": [
+					{
+						"name": "NextAuth.js"
+					}
+				]
+			},
 			{
 				"category": "UI",
 				"items": [
-					{ "name": "Tailwind CSS" },
-					{ "name": "Framer Motion" },
-					{ "name": "Recharts" },
-					{ "name": "@dnd-kit" }
+					{
+						"name": "Tailwind CSS"
+					},
+					{
+						"name": "Framer Motion"
+					},
+					{
+						"name": "Recharts"
+					},
+					{
+						"name": "@dnd-kit"
+					}
 				]
 			},
 			{
 				"category": "Infra",
-				"items": [{ "name": "Vercel" }, { "name": "PWA" }]
+				"items": [
+					{
+						"name": "Vercel"
+					},
+					{
+						"name": "PWA"
+					}
+				]
 			}
 		]
 	},
@@ -769,8 +831,10 @@
 			"title": "HookedOn<br /> Movies",
 			"tagline": "A full-stack media discovery platform with SSR/ISR, a TypeScript normalization layer across TMDB's Movie & TV APIs, and sub-second TTFB via parallel server-side data fetching.",
 			"role": "Lead Full-Stack Developer",
-			"timeline": "6 weeks · 2026",
-			"platform": ["Web"],
+			"timeline": "6 weeks \u00b7 2026",
+			"platform": [
+				"Web"
+			],
 			"users": "Public",
 			"status": "live",
 			"year": "2026"
@@ -785,15 +849,30 @@
 			"github": "https://github.com/lokesh-dc/streamXplore"
 		},
 		"quickFacts": [
-			{ "label": "Role", "value": "Lead Full-Stack Developer" },
-			{ "label": "Timeline", "value": "6 weeks" },
-			{ "label": "Platform", "value": "Web" },
-			{ "label": "API", "value": "TMDB" },
-			{ "label": "Status", "value": "Live" }
+			{
+				"label": "Role",
+				"value": "Lead Full-Stack Developer"
+			},
+			{
+				"label": "Timeline",
+				"value": "6 weeks"
+			},
+			{
+				"label": "Platform",
+				"value": "Web"
+			},
+			{
+				"label": "API",
+				"value": "TMDB"
+			},
+			{
+				"label": "Status",
+				"value": "Live"
+			}
 		],
 		"problem": {
 			"headline": "Movie discovery apps suffer from data fragmentation and slow loading.",
-			"body": "Most movie discovery apps fetch from multiple endpoints, leading to inconsistent UI states and slow loading via waterfalls. TMDB's API returns fundamentally different schemas for Movies versus TV Shows — often causing runtime errors if not handled with rigorous type safety. Users bounce before content loads, and developers drown in defensive null-checks."
+			"body": "Most movie discovery apps fetch from multiple endpoints, leading to inconsistent UI states and slow loading via waterfalls. TMDB's API returns fundamentally different schemas for Movies versus TV Shows \u2014 often causing runtime errors if not handled with rigorous type safety. Users bounce before content loads, and developers drown in defensive null-checks."
 		},
 		"solution": {
 			"headline": "A unified type system and parallel fetching architecture.",
@@ -804,10 +883,10 @@
 			{
 				"id": "type-normalization",
 				"title": "TypeScript Data Normalization",
-				"description": "Reconciles inconsistent TMDB Movie vs TV Show field schemas into a single unified interface — eliminating runtime type errors across the entire app.",
+				"description": "Reconciles inconsistent TMDB Movie vs TV Show field schemas into a single unified interface \u2014 eliminating runtime type errors across the entire app.",
 				"image": "/hookedonmovies/details.png",
 				"benefit": "Zero runtime type errors. One interface powers every component regardless of content type.",
-				"technicalNote": "A normalization layer sits between the TMDB API and the app. Movie and TV responses are mapped into a shared TypeScript interface at the fetch boundary. Every downstream component consumes the same shape — no conditional field access, no null guards."
+				"technicalNote": "A normalization layer sits between the TMDB API and the app. Movie and TV responses are mapped into a shared TypeScript interface at the fetch boundary. Every downstream component consumes the same shape \u2014 no conditional field access, no null guards."
 			},
 			{
 				"id": "parallel-fetching",
@@ -820,7 +899,7 @@
 			{
 				"id": "isr-caching",
 				"title": "ISR on Detail Pages",
-				"description": "Incremental Static Regeneration keeps detail pages fresh without per-request SSR cost — ideal for high-traffic titles.",
+				"description": "Incremental Static Regeneration keeps detail pages fresh without per-request SSR cost \u2014 ideal for high-traffic titles.",
 				"image": "/hookedonmovies/thumbnail.png",
 				"benefit": "Content stays current while pages serve from edge cache. High-traffic title pages never hit the origin.",
 				"technicalNote": "Detail pages use Next.js revalidate config. The first request SSRs and caches; subsequent requests serve stale-while-revalidate. Background revalidation keeps content fresh at configurable intervals."
@@ -847,7 +926,7 @@
 				"description": "TMDB's recommendation engine powers a visually rich 'You Might Also Like' section on every detail page.",
 				"image": "/hookedonmovies/thumbnail.png",
 				"benefit": "Discovery doesn't stop at one title. Users naturally fall into a browsing loop.",
-				"technicalNote": "Recommendations are fetched in parallel with the main detail data via Promise.all. The recommendation endpoint accepts the current title's ID and returns a curated list — no custom ML required."
+				"technicalNote": "Recommendations are fetched in parallel with the main detail data via Promise.all. The recommendation endpoint accepts the current title's ID and returns a curated list \u2014 no custom ML required."
 			}
 		],
 		"engineeringHighlights": [
@@ -861,7 +940,7 @@
 			{
 				"id": "parallel-fetch-arch",
 				"title": "Parallel Fetch Architecture",
-				"problem": "Sequential API calls for trending, cast, genres, and recommendations created visible waterfalls — users saw skeleton screens for 2-3 seconds.",
+				"problem": "Sequential API calls for trending, cast, genres, and recommendations created visible waterfalls \u2014 users saw skeleton screens for 2-3 seconds.",
 				"solution": "All independent TMDB calls dispatched via Promise.all inside Server Components. Each fetch independently try/caught to prevent one failure from blocking others.",
 				"result": "TTFB cut by 60%+. Every page paints with all data present. One failing endpoint never breaks the page."
 			},
@@ -869,23 +948,23 @@
 				"id": "ssr-isr-strategy",
 				"title": "SSR + ISR Caching Strategy",
 				"problem": "Trending content changes frequently, but SSR on every request was expensive and slow for high-traffic pages.",
-				"solution": "Trending pages use SSR for fresh content. Detail pages use ISR with configurable revalidation — stale-while-revalidate serves cached content while background revalidation keeps it current.",
+				"solution": "Trending pages use SSR for fresh content. Detail pages use ISR with configurable revalidation \u2014 stale-while-revalidate serves cached content while background revalidation keeps it current.",
 				"result": "Detail pages serve from edge cache in <100ms. Trending pages are always fresh. Origin server sees a fraction of the traffic."
 			},
 			{
 				"id": "seo-system",
 				"title": "Dynamic SEO System",
-				"problem": "Every page needed unique Open Graph tags, Twitter cards, and structured metadata — but content is dynamic and changes over time.",
+				"problem": "Every page needed unique Open Graph tags, Twitter cards, and structured metadata \u2014 but content is dynamic and changes over time.",
 				"solution": "Leveraged Next.js generateMetadata to produce per-page metadata dynamically. Title, description, poster image, and canonical URL all derive from the TMDB response.",
 				"result": "Every page is fully indexable with rich social previews. Google and social platforms get accurate, per-page metadata automatically."
 			}
 		],
 		"architecture": {
-			"caption": "HookedOnMovies follows a server-first Next.js architecture — data fetching happens on the server via TMDB API, and client-side interactivity is limited to UI transitions and trailer playback.",
+			"caption": "HookedOnMovies follows a server-first Next.js architecture \u2014 data fetching happens on the server via TMDB API, and client-side interactivity is limited to UI transitions and trailer playback.",
 			"layers": [
 				{
 					"label": "Next.js Server Components",
-					"description": "Every page renders on the server. Trending data, detail pages, and recommendations are all fetched inside Server Components — no client-side data fetching."
+					"description": "Every page renders on the server. Trending data, detail pages, and recommendations are all fetched inside Server Components \u2014 no client-side data fetching."
 				},
 				{
 					"label": "TMDB API Layer",
@@ -924,13 +1003,13 @@
 				"id": "caching-freshness",
 				"challenge": "Balancing cache freshness with server cost",
 				"difficulty": "Trending content changes hourly, but SSR on every request for high-traffic pages (e.g., popular movies) was expensive and slow.",
-				"solution": "Implemented a split caching strategy: trending pages use SSR for always-fresh content. Detail pages use ISR with stale-while-revalidate — cached content serves instantly while background revalidation keeps it current.",
+				"solution": "Implemented a split caching strategy: trending pages use SSR for always-fresh content. Detail pages use ISR with stale-while-revalidate \u2014 cached content serves instantly while background revalidation keeps it current.",
 				"outcome": "Detail pages serve from edge cache in <100ms. Origin server sees a fraction of the traffic. Content never feels stale."
 			},
 			{
 				"id": "seo-at-scale",
 				"challenge": "Dynamic SEO metadata for thousands of titles",
-				"difficulty": "Every page needed unique Open Graph tags, Twitter cards, and structured data — but content is dynamic and titles change over time.",
+				"difficulty": "Every page needed unique Open Graph tags, Twitter cards, and structured data \u2014 but content is dynamic and titles change over time.",
 				"solution": "Used Next.js generateMetadata to produce per-page metadata dynamically from the TMDB response. Title, description, poster image, and canonical URL all derive from the fetched data.",
 				"outcome": "Every page is fully indexable with rich social previews. Google and social platforms get accurate, per-page metadata with zero manual intervention."
 			}
@@ -970,12 +1049,12 @@
 		"designDecisions": [
 			{
 				"decision": "Cinematic dark theme",
-				"problem": "Movie apps need to feel immersive — light themes clash with poster artwork and break the cinematic atmosphere.",
-				"rationale": "Dark surfaces let movie posters and backdrop images pop. The UI recedes, letting the content be the hero — similar to how Netflix and Letterboxd approach it."
+				"problem": "Movie apps need to feel immersive \u2014 light themes clash with poster artwork and break the cinematic atmosphere.",
+				"rationale": "Dark surfaces let movie posters and backdrop images pop. The UI recedes, letting the content be the hero \u2014 similar to how Netflix and Letterboxd approach it."
 			},
 			{
 				"decision": "Desktop-first layout",
-				"problem": "Media discovery is a browsing-heavy experience — poster grids, detail pages, and trailers all benefit from horizontal space.",
+				"problem": "Media discovery is a browsing-heavy experience \u2014 poster grids, detail pages, and trailers all benefit from horizontal space.",
 				"rationale": "Desktop-first layout maximizes poster visibility and allows side-by-side content layouts. Mobile adapts via responsive breakpoints but the core experience is optimized for larger screens."
 			},
 			{
@@ -985,7 +1064,7 @@
 			},
 			{
 				"decision": "Lazy trailer loading",
-				"problem": "YouTube embeds are heavy — loading them eagerly on every detail page wastes bandwidth and slows initial paint.",
+				"problem": "YouTube embeds are heavy \u2014 loading them eagerly on every detail page wastes bandwidth and slows initial paint.",
 				"rationale": "Trailers load via iframe only when the user clicks play. A static TMDB backdrop serves as the poster frame. This keeps initial page loads fast while still offering rich video content."
 			}
 		],
@@ -1030,7 +1109,7 @@
 			},
 			{
 				"title": "Streaming Availability",
-				"description": "Show which platform (Netflix, Prime, Hotstar) each title is currently available on via JustWatch API — bridging discovery to instant action.",
+				"description": "Show which platform (Netflix, Prime, Hotstar) each title is currently available on via JustWatch API \u2014 bridging discovery to instant action.",
 				"status": "exploring",
 				"icon": "play"
 			},
@@ -1048,7 +1127,7 @@
 				"rebuild": "Build the normalization layer as the very first thing. I wasted a week adding null-checks in components before realizing a single mapper solves it globally."
 			},
 			{
-				"lesson": "Promise.all is not optional — it's an architecture decision.",
+				"lesson": "Promise.all is not optional \u2014 it's an architecture decision.",
 				"whatWentWell": "Parallel fetching cut TTFB by 60%+. The page feels instant because all data arrives in one round-trip.",
 				"rebuild": "Map the dependency graph of every API call before writing any fetch code. Independent calls should always be parallel. This should be a default, not an optimization."
 			},
@@ -1062,37 +1141,68 @@
 			{
 				"category": "Framework",
 				"items": [
-					{ "name": "Next.js" },
-					{ "name": "TypeScript" },
-					{ "name": "React" }
+					{
+						"name": "Next.js"
+					},
+					{
+						"name": "TypeScript"
+					},
+					{
+						"name": "React"
+					}
 				]
 			},
 			{
 				"category": "API",
-				"items": [{ "name": "TMDB API" }, { "name": "YouTube Embed API" }]
+				"items": [
+					{
+						"name": "TMDB API"
+					},
+					{
+						"name": "YouTube Embed API"
+					}
+				]
 			},
 			{
 				"category": "UI",
 				"items": [
-					{ "name": "Framer Motion" },
-					{ "name": "Swiper.js" },
-					{ "name": "Tailwind CSS" }
+					{
+						"name": "Framer Motion"
+					},
+					{
+						"name": "Swiper.js"
+					},
+					{
+						"name": "Tailwind CSS"
+					}
 				]
 			},
 			{
 				"category": "Infra",
 				"items": [
-					{ "name": "Vercel" },
-					{ "name": "ISR" },
-					{ "name": "Edge Cache" }
+					{
+						"name": "Vercel"
+					},
+					{
+						"name": "ISR"
+					},
+					{
+						"name": "Edge Cache"
+					}
 				]
 			},
 			{
 				"category": "SEO",
 				"items": [
-					{ "name": "Open Graph" },
-					{ "name": "Structured Data" },
-					{ "name": "Canonical URLs" }
+					{
+						"name": "Open Graph"
+					},
+					{
+						"name": "Structured Data"
+					},
+					{
+						"name": "Canonical URLs"
+					}
 				]
 			}
 		]
@@ -1103,8 +1213,10 @@
 			"title": "Conversational<br /> Developer Portfolio",
 			"tagline": "A command-driven portfolio built with the Next.js App Router and Framer Motion. Visitors type intent instead of hunting through links, and the site answers like a product, not a resume.",
 			"role": "Full Stack Developer",
-			"timeline": "Ongoing · 2026",
-			"platform": ["Web"],
+			"timeline": "Ongoing \u00b7 2026",
+			"platform": [
+				"Web"
+			],
 			"users": "Recruiters & clients",
 			"status": "live",
 			"year": "2026"
@@ -1119,11 +1231,26 @@
 			"github": "https://github.com/lokesh-dc/portfolio"
 		},
 		"quickFacts": [
-			{ "label": "Role", "value": "Full Stack Developer" },
-			{ "label": "Timeline", "value": "Ongoing" },
-			{ "label": "Platform", "value": "Web" },
-			{ "label": "Audience", "value": "Recruiters & clients" },
-			{ "label": "Status", "value": "Live" }
+			{
+				"label": "Role",
+				"value": "Full Stack Developer"
+			},
+			{
+				"label": "Timeline",
+				"value": "Ongoing"
+			},
+			{
+				"label": "Platform",
+				"value": "Web"
+			},
+			{
+				"label": "Audience",
+				"value": "Recruiters & clients"
+			},
+			{
+				"label": "Status",
+				"value": "Live"
+			}
 		],
 		"problem": {
 			"headline": "Portfolios force recruiters to browse, not to ask.",
@@ -1138,7 +1265,7 @@
 			{
 				"id": "command-palette",
 				"title": "Command Palette Interface",
-				"description": "Slash-command routing maps typed intent to projects, skills, and experience on demand — visitors type what they want instead of navigating a predetermined structure.",
+				"description": "Slash-command routing maps typed intent to projects, skills, and experience on demand \u2014 visitors type what they want instead of navigating a predetermined structure.",
 				"image": "/portfolio/thumbnail.png",
 				"benefit": "Visitors find exactly what they're looking for in seconds, no menu hunting required.",
 				"technicalNote": "Commands are matched client-side against a JSON-driven route table, so adding a new destination never touches the router logic."
@@ -1162,7 +1289,7 @@
 			{
 				"id": "json-content",
 				"title": "JSON-Driven Content",
-				"description": "All portfolio content — projects, experience, and education — lives in decoupled JSON files rather than inside UI components.",
+				"description": "All portfolio content \u2014 projects, experience, and education \u2014 lives in decoupled JSON files rather than inside UI components.",
 				"image": "/portfolio/detail.png",
 				"benefit": "Updating the portfolio is a content edit, never a component change.",
 				"technicalNote": "portfolio-data.json and projects-v2.json are the single source of truth, consumed by both the UI and the chat system prompt."
@@ -1172,7 +1299,7 @@
 				"title": "Server-Rendered Shell",
 				"description": "The page shell is server-rendered and statically generated, with client-side hydration layered on only where interactivity is needed.",
 				"image": "/portfolio/thumbnail.png",
-				"benefit": "Fast first paint with zero layout shift — no client-side data waterfalls.",
+				"benefit": "Fast first paint with zero layout shift \u2014 no client-side data waterfalls.",
 				"technicalNote": "App Router Server Components and static generation keep the initial HTML complete before any JavaScript runs."
 			},
 			{
@@ -1180,7 +1307,7 @@
 				"title": "Guardrailed Chat Output",
 				"description": "The AI assistant is constrained to portfolio facts, and its output is filtered at the stream so code can never be rendered.",
 				"image": "/portfolio/detail.png",
-				"benefit": "Every answer is grounded, safe, and on-brand — even when the model gets creative.",
+				"benefit": "Every answer is grounded, safe, and on-brand \u2014 even when the model gets creative.",
 				"technicalNote": "A CodeFenceFilter buffers trailing backticks across SSE chunks and strips any fenced code before it reaches the client."
 			}
 		],
@@ -1204,7 +1331,7 @@
 				"title": "JSON-Driven Content Architecture",
 				"problem": "Content edits were scattered across components, making updates risky and slow.",
 				"solution": "Moved every project, experience, and education record into structured JSON consumed by both the UI and the chat system prompt.",
-				"result": "The portfolio is now a content pipeline — updates are JSON edits that never touch components."
+				"result": "The portfolio is now a content pipeline \u2014 updates are JSON edits that never touch components."
 			},
 			{
 				"id": "server-first-shell",
@@ -1222,11 +1349,11 @@
 			}
 		],
 		"architecture": {
-			"caption": "The portfolio is server-rendered and statically generated, with interactivity — the command palette and streaming AI chat — layered on as a thin client island.",
+			"caption": "The portfolio is server-rendered and statically generated, with interactivity \u2014 the command palette and streaming AI chat \u2014 layered on as a thin client island.",
 			"layers": [
 				{
 					"label": "Server Components",
-					"description": "Pages and the shell render on the server with static generation. Content is imported directly from JSON files — no client-side data fetching."
+					"description": "Pages and the shell render on the server with static generation. Content is imported directly from JSON files \u2014 no client-side data fetching."
 				},
 				{
 					"label": "Client Interactivity",
@@ -1242,7 +1369,7 @@
 				},
 				{
 					"label": "Deployment",
-					"description": "Statically generated output served from the edge — fast everywhere, with no origin compute for page loads."
+					"description": "Statically generated output served from the edge \u2014 fast everywhere, with no origin compute for page loads."
 				}
 			]
 		},
@@ -1317,12 +1444,12 @@
 			{
 				"decision": "AI chat as the centerpiece",
 				"problem": "A static portfolio can't answer the questions recruiters actually have.",
-				"rationale": "A grounded, guardrailed assistant turns the portfolio into a product that answers questions in real time — demonstrating AI-integrated UX instead of describing it."
+				"rationale": "A grounded, guardrailed assistant turns the portfolio into a product that answers questions in real time \u2014 demonstrating AI-integrated UX instead of describing it."
 			},
 			{
 				"decision": "JSON-driven everything",
 				"problem": "Content scattered through components made every update a code change with risk.",
-				"rationale": "Single-source JSON keeps the UI, the chat prompt, and future tooling reading the same facts — one edit updates the whole site."
+				"rationale": "Single-source JSON keeps the UI, the chat prompt, and future tooling reading the same facts \u2014 one edit updates the whole site."
 			},
 			{
 				"decision": "Dark, minimal surfaces",
@@ -1373,7 +1500,7 @@
 		"lessonsLearned": [
 			{
 				"lesson": "Content decoupling is the highest-leverage architecture decision.",
-				"whatWentWell": "Every content edit is now a JSON change — the UI, the chat prompt, and the site all read the same source of truth.",
+				"whatWentWell": "Every content edit is now a JSON change \u2014 the UI, the chat prompt, and the site all read the same source of truth.",
 				"rebuild": "I'd design the data layer before any component, so the UI is always a projection of content."
 			},
 			{
@@ -1384,37 +1511,474 @@
 			{
 				"lesson": "In-memory rate limiting is enough at portfolio scale.",
 				"whatWentWell": "A sliding-window bucket protected the chat endpoint without adding any database infrastructure.",
-				"rebuild": "Only introduce Redis when real traffic proves in-memory limiting insufficient — premature infrastructure adds cost, not value."
+				"rebuild": "Only introduce Redis when real traffic proves in-memory limiting insufficient \u2014 premature infrastructure adds cost, not value."
 			}
 		],
 		"techStack": [
 			{
 				"category": "Framework",
 				"items": [
-					{ "name": "Next.js" },
-					{ "name": "React" },
-					{ "name": "TypeScript" }
+					{
+						"name": "Next.js"
+					},
+					{
+						"name": "React"
+					},
+					{
+						"name": "TypeScript"
+					}
 				]
 			},
 			{
 				"category": "UI",
 				"items": [
-					{ "name": "Tailwind CSS" },
-					{ "name": "Framer Motion" },
-					{ "name": "Lucide React" }
+					{
+						"name": "Tailwind CSS"
+					},
+					{
+						"name": "Framer Motion"
+					},
+					{
+						"name": "Lucide React"
+					}
 				]
 			},
 			{
 				"category": "AI",
-				"items": [{ "name": "Groq LLM" }, { "name": "Streaming SSE" }]
+				"items": [
+					{
+						"name": "Groq LLM"
+					},
+					{
+						"name": "Streaming SSE"
+					}
+				]
 			},
 			{
 				"category": "Infra",
-				"items": [{ "name": "Vercel" }, { "name": "Static Generation" }]
+				"items": [
+					{
+						"name": "Vercel"
+					},
+					{
+						"name": "Static Generation"
+					}
+				]
 			},
 			{
 				"category": "Content",
-				"items": [{ "name": "JSON-driven" }]
+				"items": [
+					{
+						"name": "JSON-driven"
+					}
+				]
+			}
+		]
+	},
+	"mindrop": {
+		"slug": "mindrop",
+		"meta": {
+			"title": "Mindrop \u2014 Your<br />Second Brain",
+			"tagline": "One box for everything in your head. Expenses, ideas, books, travel \u2014 just type it. Mindrop classifies, embeds, and resurfaces it when you ask in plain English.",
+			"role": "Creator & Full-Stack Engineer",
+			"timeline": "3 weeks \u00b7 2025\u20132026 \u2014 In Development",
+			"platform": [
+				"Web"
+			],
+			"users": "Private beta",
+			"status": "wip",
+			"year": "2026"
+		},
+		"hero": {
+			"mockupType": "both",
+			"alt": "Mindrop feed \u2014 paper-toned timeline grouped by day, input bar, and Ask Mind retrieval panel",
+			"image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=1200&h=750&fit=crop"
+		},
+		"links": {
+			"github": "https://github.com/lokesh-dc/second-brain"
+		},
+		"quickFacts": [
+			{
+				"label": "Role",
+				"value": "Creator \u00b7 Full-Stack Engineer"
+			},
+			{
+				"label": "Timeline",
+				"value": "3 weeks \u00b7 In Dev"
+			},
+			{
+				"label": "Platform",
+				"value": "Web"
+			},
+			{
+				"label": "Stack",
+				"value": "Next.js 16 \u00b7 Supabase"
+			},
+			{
+				"label": "Status",
+				"value": "In Development"
+			}
+		],
+		"problem": {
+			"headline": "Capture is the bottleneck, not storage.",
+			"body": "Most life-logging tools make you choose a category, folder, or tag before you type. That friction kills the habit. Expenses live in one app, ideas in another, books in a third \u2014 and when you finally ask \u201cwhat did I spend on food in April?\u201d you\u2019re grep-ing your own brain. Memory shouldn\u2019t require a filing system."
+		},
+		"solution": {
+			"headline": "Type first. Structure later \u2014 with AI that earns its keep.",
+			"body": "Mindrop is a second brain for the web: one input bar that accepts anything. A Groq classifier splits multi-fact inputs into logical groups (groceries vs electronics), Gemini embeds each item as a 3072-dim vector in pgvector, and an entity graph links people, books, brands, and places. Ask in plain English \u2014 \u201cwhat did I read this week?\u201d or \u201ctotal food spend last month\u201d \u2014 and hybrid search (vector + structured, fused with RRF) returns grounded answers with sum/count/list heuristics. Daily, weekly, and monthly digests narrate your period like a smart friend, not a dashboard.",
+			"image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=750&fit=crop"
+		},
+		"productHighlights": [
+			{
+				"id": "one-box-capture",
+				"title": "One-Box Capture & Auto-Split",
+				"description": "Paste a grocery + electronics list in one line \u2014 Mindrop splits it into two expense items with per-item amounts intact.",
+				"image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&h=600&fit=crop",
+				"benefit": "Zero friction \u2014 no categories, folders, or tags to pick before you type.",
+				"technicalNote": "Groq gpt-oss-20b is prompted to return {items[]} with category, entities, amount, tags, embedding_doc. Multi-category inputs are grouped (groceries vs electronics) with summaries like \u201cBought groceries: milk (50), bread (40)\u201d. Fallback is a single misc item if the LLM fails."
+			},
+			{
+				"id": "hybrid-search",
+				"title": "Hybrid Search (Vector + Structured)",
+				"description": "Every query runs vector similarity and SQL filters in parallel, fused with Reciprocal Rank Fusion (k=60).",
+				"image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop",
+				"benefit": "\u201cHow much on food in April?\u201d finds the right rows even when wording shifts.",
+				"technicalNote": "query_embedding from Gemini (3072 dims) hits match_documents_filtered RPC (cosine, threshold 0.5, top 20) in parallel with a structured Supabase query (category/time/entity filters). Results fused via RRF and sliced to 10."
+			},
+			{
+				"id": "natural-retrieval",
+				"title": "Natural-Language Retrieval + Aggregation",
+				"description": "Ask \u201cwhat did I spend this week?\u201d and get an answer leading with the total, then the breakdown.",
+				"image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+				"benefit": "No query language to learn \u2014 sums, counts, and lists are inferred from intent.",
+				"technicalNote": "parseQuery rewrites the question + extracts category/time/entity/aggregation. generateRetrievalAnswer precomputes sum/count from fused entries, then prompts Groq for a 3-sentence answer with {answer, entry_ids[], type}. Valid IDs are intersected with fused results; fallback renders the precomputed total."
+			},
+			{
+				"id": "digest-narrative",
+				"title": "Digest \u2014 Today / Week / Month",
+				"description": "A warm, 2\u20133 sentence narrative summarizing what you did, spent, and who kept appearing \u2014 refreshed every 24h.",
+				"image": "https://images.unsplash.com/photo-1454165205744-3b78555e5572?w=800&h=600&fit=crop",
+				"benefit": "Your period at a glance, without opening a chart.",
+				"technicalNote": "aggregateData groups by category, sums expenses, finds biggest expense and top entity from entry_entities. Narrative is generated via Groq and upserted to digests(user_id,period) with a <24h freshness check; forceRegenerate bypasses cache."
+			},
+			{
+				"id": "entity-graph",
+				"title": "Entity Graph (Books, People, Brands)",
+				"description": "Every entry links to typed entities \u2014 Atomic Habits (book), Third Wave (brand), Coorg (place) \u2014 via entry_entities.",
+				"image": "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&h=600&fit=crop",
+				"benefit": "Search \u201cKafka\u201d and get every reading entry, not just keyword hits.",
+				"technicalNote": "classifier extracts entities with ilike-deduped upsert (user_id,name,type). match_documents_filtered aggregates entities as jsonb via entry_entities \u2192 entities join, so vector hits carry their graph."
+			},
+			{
+				"id": "frictionless-retrieval-ui",
+				"title": "Feed, Search, Insights \u2014 Built for Speed",
+				"description": "Timeline grouped by day with staggered entrance, search with query parsing, and insights with period switcher \u2014 all server-rendered.",
+				"image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop",
+				"benefit": "Every page paints with data already in place \u2014 no client waterfalls.",
+				"technicalNote": "app/(app)/home is force-dynamic, loads entries via loadEntries() on the server and passes initialEntries to a client EntriesFeed. Animations use Framer Motion with useReducedMotion; day buckets stick to top-0 with backdrop-blur."
+			}
+		],
+		"engineeringHighlights": [
+			{
+				"id": "server-only-ai",
+				"title": "Server-Only Groq + Gemini (No Keys to Browser)",
+				"problem": "Shipping Groq/Gemini keys to the browser would expose secrets and bloat the bundle \u2014 all inference must stay server-side.",
+				"solution": "Moved every AI call behind server actions (actions/entries.ts, actions/search.ts, actions/digest.ts) with server-only imports. Keys live only in .env.local and never ship.",
+				"result": "Zero API keys in the browser bundle; prompts stay centralized on the server while the attack surface shrinks."
+			},
+			{
+				"id": "hybrid-rrf",
+				"title": "Hybrid Search with Reciprocal Rank Fusion",
+				"problem": "Vector search alone misses precise filters (April, \u201cfood\u201d), structured search alone misses semantics (chai \u2248 tea). Either path alone hallucinates or narrows too much.",
+				"solution": "Run both in Promise.all: match_documents_filtered (cosine >0.5, limit 20) + structured entries query (ilike category, gte/lte timestamp, entity ilike). Fuse with RRF K=60, sort, slice 10.",
+				"result": "Recall beats either path alone; one failing path never blocks the other \u2014 each branch is independently try/caught."
+			},
+			{
+				"id": "embedding-pipeline",
+				"title": "3072-d Gemini Embedding Pipeline",
+				"problem": "Embedding dims must exactly match pgvector column, and every entry needs tags + embedding_doc for hybrid retrieval.",
+				"solution": "Classifier emits embedding_doc as \u201c[category] amount currency | items | date\\nSummary: ...\\nTags: ...\u201d \u2014 same string stored in entries.embedding_doc and embedded via gemini-embedding-2 (3072 dims) into entries.embedding vector(3072).",
+				"result": "Vector hits are explainable: the doc string doubles as structured filter text and vector text, keeping the two retrieval paths aligned."
+			},
+			{
+				"id": "rpc-filter",
+				"title": "match_documents_filtered RPC + RLS",
+				"problem": "Original migrations omitted tags, embedding_doc, digests, and the filtered RPC \u2014 hybridSearch had no server-side filter.",
+				"solution": "Consolidated supabase/migrations/0001_full_schema.sql with entries.tags, entries.embedding_doc, digests table, and CREATE OR REPLACE match_documents_filtered returning category_* + entities jsonb aggregated via jsonb_agg. RLS enable + per-user policies on all tables.",
+				"result": "One RPC serves vector + structured filters atomically; RLS guarantees users only see their own entries/entities/digests."
+			},
+			{
+				"id": "proxy-auth-gate",
+				"title": "Proxy Auth Gate (Next 16) With Onboarding State Machine",
+				"problem": "Auth needs to enforce a clear state machine: onboarding \u2192 login \u2192 setup \u2192 app, with an onboarding_complete cookie and Supabase session cookies.",
+				"solution": "proxy.ts (Next 16 rename of middleware) checks Supabase session + onboarding_complete cookie + user_profiles.setup_complete, redirecting to the correct segment.",
+				"result": "No flash of wrong screen; onboarding animation (animated circle + word-staggered motion) gives a polished first-run feel on the web."
+			}
+		],
+		"architecture": {
+			"caption": "Capture is server-first: the browser posts raw text, the server classifies, embeds, and links \u2014 retrieval fuses vector and SQL before any LLM sees the result.",
+			"layers": [
+				{
+					"label": "Input Bar \u2192 Server Action",
+					"description": "EntrySheet/InputBar posts raw_text to actions/entries.ts logEntry(). createClient() validates session, classifyAndSave() runs."
+				},
+				{
+					"label": "Groq Classifier (gpt-oss-20b)",
+					"description": "Prompts for {items[]} with category/entities/amount/tags/embedding_doc. Splits multi-fact inputs; fallback is misc with raw_text."
+				},
+				{
+					"label": "Gemini Embeddings \u2192 pgvector",
+					"description": "generateEmbedding() calls gemini-embedding-2 (3072 dims); vectors stored in entries.embedding vector(3072) alongside tags + embedding_doc."
+				},
+				{
+					"label": "Supabase + RPC Layer",
+					"description": "Tables: entries, categories, entities, entry_entities, user_profiles, digests. RPC match_documents_filtered does cosine search with category/time/entity filters and returns entities jsonb."
+				},
+				{
+					"label": "Hybrid RRF + Retrieval",
+					"description": "hybridSearch fuses vector + structured arrays via 1/(K+rank+1), K=60. generateRetrievalAnswer precomputes sum/count, then prompts Groq for a grounded 3-sentence answer."
+				},
+				{
+					"label": "Proxy Auth + RLS",
+					"description": "proxy.ts gates onboarding/login/setup/app; RLS policies enforce auth.uid() = user_id on every table. Digests cached 24h via upsert on (user_id,period)."
+				}
+			]
+		},
+		"technicalChallenges": [
+			{
+				"id": "multi-fact-split",
+				"challenge": "Splitting one line into multiple structured items without losing per-item cost",
+				"difficulty": "Users paste \u201cspent 50 on milk, 40 on bread, 1000 on keyboard\u201d \u2014 a naive classifier lumps it into one expense with a single amount, destroying granularity.",
+				"solution": "Prompt demands logical grouping: different categories or different expense types become separate items, each with its own summary listing item names + individual costs and amount = group total. embedding_doc carries the same grouping so vector and SQL agree.",
+				"outcome": "Groceries (90) and electronics (1300) become two entries; search \u201cmilk\u201d hits only the grocery item, and sums remain accurate per tag."
+			},
+			{
+				"id": "rrf-fusion-tuning",
+				"challenge": "Fusing two ranked lists that disagree on relevance without double-counting",
+				"difficulty": "Vector top-3 may miss an exact time match that SQL ranks #1; naive interleaving duplicates entries or overweights one signal.",
+				"solution": "RRF: score = \u03a3 1/(K+rank+1) per list, K=60. Entries deduped in a Map, scored from both lists, sorted, sliced to 10. Each list capped at 20, threshold 0.5 for vectors, and structured branch entity-filtered post-fetch.",
+				"outcome": "Queries like \u201cbooks this week\u201d surface correctly even when the embedding paraphrases \u201creading\u201d and the SQL clamps week bounds \u2014 neither list dominates."
+			},
+			{
+				"id": "time-entity-resolution",
+				"challenge": "Grounding \u201cthis week\u201d, \u201cApril\u201d, or \u201cKafka\u201d to real filters before retrieval",
+				"difficulty": "LLM time ranges drift (Monday vs Sunday start, IST vs UTC), and entity names vary (\u201cThird Wave\u201d vs \u201cThird Wave Coffee\u201d).",
+				"solution": "parseQuery prompts Groq for {intent, rewritten_query, category_filter, time_filter{range,from,to}, entity_filter, aggregation} + local resolveTimeFilter() converts relative ranges (today/yesterday/this_week/last_week/this_month/last_month) to ISO via Monday-start week math. Entity/category matches are ILIKE %name% on the server.",
+				"outcome": "Natural language like \u201cwhat did I spend this week\u201d rewrites to \u201cexpenses and money spent\u201d with exact from/to ISO, so match_documents_filtered filters by timestamp without LLM date math errors."
+			},
+			{
+				"id": "embedding-dim-alignment",
+				"challenge": "Keeping Gemini dims and Postgres vector dims in lockstep",
+				"difficulty": "A mismatch (e.g., 768 vs 3072) breaks every insert and every RPC. The original schema file omitted the column entirely.",
+				"solution": "Created 0001_full_schema.sql with entries.embedding vector(3072) + tags text[] + embedding_doc text, and documented gemini-embedding-2 = 3072 in code. RPC signature pins vector(3072) and uses ivfflat guidance only after data exists.",
+				"outcome": "Inserts and similarity search share a single truth; no silent truncation or dimension error at runtime."
+			}
+		],
+		"performance": [
+			{
+				"metric": "Embedding Dim",
+				"value": "3072",
+				"sublabel": "gemini-embedding-2 \u2194 vector(3072)"
+			},
+			{
+				"metric": "RRF K",
+				"value": "60",
+				"sublabel": "Reciprocal Rank Fusion constant"
+			},
+			{
+				"metric": "Match Threshold",
+				"value": "0.5",
+				"sublabel": "Cosine similarity filter"
+			},
+			{
+				"metric": "Top K per Path",
+				"value": "20 \u2192 10",
+				"sublabel": "20 each, fused to 10"
+			},
+			{
+				"metric": "Categories",
+				"value": "8",
+				"sublabel": "expense/read/travel/idea/\u2026"
+			},
+			{
+				"metric": "Digest Cache",
+				"value": "24h",
+				"sublabel": "upsert on (user_id,period)"
+			}
+		],
+		"designDecisions": [
+			{
+				"decision": "Paper & ink, not glass & neon",
+				"problem": "A second brain should feel like paper you keep reaching for, not a dashboard you tolerate.",
+				"rationale": "Mindrop tokens paper #faf9f7 + ink #1a1a1a + brand #7F77DD borrow from journals, not dashboards. DM Serif Display for headings, DM Sans for body, hairline #f1f5f9 and line #e2e8f0 keep chrome quiet so entries read."
+			},
+			{
+				"decision": "Server renders, client animates",
+				"problem": "Client-side fetching would show skeletons on every tab; eager animation hurts reduced-motion users.",
+				"rationale": "Home/search are force-dynamic server components (loadEntries on the server, props to EntriesFeed). Framer Motion only handles entrance + onboarding word-stagger, gated by useReducedMotion."
+			},
+			{
+				"decision": "Prompt contracts versioned in code",
+				"problem": "Prompts can drift when duplicated across features, making evaluation non-deterministic.",
+				"rationale": "Prompts live in lib/ai/* as versioned contracts. Hybrid search + retrieval can be evaluated deterministically across builds without duplication."
+			},
+			{
+				"decision": "Digests as narratives, not charts",
+				"problem": "A personal summary shouldn\u2019t feel like an expense report.",
+				"rationale": "Raw counts + top entity + biggest expense are fed to Groq with a warm-friend prompt: 2\u20133 sentences, no bullets, no markdown \u2014 a friend recapping your week, not a chart."
+			}
+		],
+		"gallery": [
+			{
+				"url": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=1200&h=800&fit=crop",
+				"alt": "Feed timeline \u2014 entries grouped by day with category chips and amounts",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=800&fit=crop",
+				"alt": "One-box input bar \u2014 type anything, Mindrop figures out the rest",
+				"type": "screenshot",
+				"device": "phone"
+			},
+			{
+				"url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop",
+				"alt": "Ask Mind \u2014 hybrid search result with grounded answer + entry_ids",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "https://images.unsplash.com/photo-1454165205744-3b78555e5572?w=1200&h=800&fit=crop",
+				"alt": "Insights \u2014 Today/Week/Month digest narrative + raw counts",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&h=600&fit=crop",
+				"alt": "Onboarding \u2014 animated circle + staggered headline, three slides",
+				"type": "screenshot",
+				"device": "phone"
+			},
+			{
+				"url": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&h=800&fit=crop",
+				"alt": "Category picker + entity chips \u2014 linked books, brands, places",
+				"type": "screenshot",
+				"device": "desktop"
+			}
+		],
+		"roadmap": [
+			{
+				"title": "Category management UI",
+				"description": "The categories tab is currently a placeholder. Build the real picker + CRUD so users can create custom categories beyond the seeded 8.",
+				"status": "planned",
+				"icon": "folder"
+			},
+			{
+				"title": "Optimistic capture + toasts",
+				"description": "Replace the interim \u2018Categorising your thought\u2026\u2019 placeholder with an optimistic entry + Sonner toast + router.refresh() so capture feels instant while Groq/Gemini finish.",
+				"status": "planned",
+				"icon": "zap"
+			},
+			{
+				"title": "Public share & live demo",
+				"description": "Add a demo mode with seeded entries and a public read-only search so recruiters can try Ask Mind without a Supabase account.",
+				"status": "planned",
+				"icon": "sparkles"
+			},
+			{
+				"title": "Offline queue (PWA)",
+				"description": "Queue raw_text locally when offline and flush via classifyAndSave when back online \u2014 the habit shouldn\u2019t break on bad signal.",
+				"status": "exploring",
+				"icon": "wifi-off"
+			}
+		],
+		"lessonsLearned": [
+			{
+				"lesson": "The schema is the missing feature.",
+				"whatWentWell": "Consolidating 0001_full_schema.sql with tags, embedding_doc, digests, and match_documents_filtered unblocked the entire hybrid path in one migration.",
+				"rebuild": "Ship the schema as the first PR. Everything else \u2014 classifier prompts, RRF, digests \u2014 waited on those columns."
+			},
+			{
+				"lesson": "Server-only AI is a posture, not a flag.",
+				"whatWentWell": "Moving Groq/Gemini behind server-only actions removed keys from the bundle and made the proxy auth gate the single choke point.",
+				"rebuild": "Mark every AI module server-only from day one; never let a client import leak a key \u2014 lint for it."
+			},
+			{
+				"lesson": "RRF forgives imperfect ranking.",
+				"whatWentWell": "Neither vector nor SQL had to be perfect; fusion made the top-10 feel right while each path stayed simple.",
+				"rebuild": "Start with RRF early \u2014 don\u2019t over-tune embeddings or SQL; let fusion cover you and iterate on prompts instead."
+			}
+		],
+		"techStack": [
+			{
+				"category": "Framework",
+				"items": [
+					{
+						"name": "Next.js 16"
+					},
+					{
+						"name": "React 19"
+					},
+					{
+						"name": "TypeScript"
+					}
+				]
+			},
+			{
+				"category": "AI",
+				"items": [
+					{
+						"name": "Groq gpt-oss-20b"
+					},
+					{
+						"name": "Gemini Embedding 3072"
+					},
+					{
+						"name": "Framer Motion"
+					}
+				]
+			},
+			{
+				"category": "Data",
+				"items": [
+					{
+						"name": "Supabase"
+					},
+					{
+						"name": "pgvector"
+					},
+					{
+						"name": "Postgres RLS"
+					}
+				]
+			},
+			{
+				"category": "UI",
+				"items": [
+					{
+						"name": "Tailwind v4"
+					},
+					{
+						"name": "DM Serif / DM Sans"
+					},
+					{
+						"name": "Vaul"
+					},
+					{
+						"name": "Sonner"
+					}
+				]
+			},
+			{
+				"category": "Infra",
+				"items": [
+					{
+						"name": "Vercel"
+					},
+					{
+						"name": "Supabase Auth"
+					}
+				]
 			}
 		]
 	}
