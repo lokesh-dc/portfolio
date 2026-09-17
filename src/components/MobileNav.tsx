@@ -3,9 +3,10 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Briefcase, User, Code2 } from "lucide-react";
+import { Home, Briefcase, User, Code2, Search } from "lucide-react";
 import { motion } from "framer-motion";
 import clsx from "clsx";
+import { useChat } from "@/context/ChatContext";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
@@ -16,9 +17,21 @@ const navItems = [
 
 export default function MobileNav() {
   const pathname = usePathname();
+  const { openPalette } = useChat();
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden">
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden flex flex-col items-center">
+      {/* Command palette entry point — the primary way to search on touch */}
+      <motion.button
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.1 }}
+        onClick={openPalette}
+        aria-label="Search the site"
+        className="relative z-10 -mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-stone-950 shadow-[0_12px_28px_rgba(16,185,129,0.45)] border-4 border-white dark:border-stone-950 active:scale-95 transition-transform"
+      >
+        <Search size={19} strokeWidth={2.5} aria-hidden />
+      </motion.button>
       <motion.nav 
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

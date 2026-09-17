@@ -123,7 +123,7 @@ function PalettePanel({ onClose }: { onClose: () => void }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.15 }}
-      className="fixed inset-0 z-[60] flex items-start justify-center px-4 pt-[12vh] bg-stone-950/40 backdrop-blur-sm"
+      className="fixed inset-0 z-[60] flex items-start justify-center px-4 pt-[8vh] sm:pt-[12vh] bg-stone-950/40 backdrop-blur-sm"
       onClick={onClose}
       role="presentation"
     >
@@ -149,7 +149,7 @@ function PalettePanel({ onClose }: { onClose: () => void }) {
             }}
             onKeyDown={onInputKey}
             placeholder='Type a command or search… (try "/projects")'
-            className="flex-1 bg-transparent py-4 text-sm text-stone-900 dark:text-stone-100 placeholder:text-stone-400 focus:outline-none"
+            className="flex-1 bg-transparent py-4 text-base sm:text-sm text-stone-900 dark:text-stone-100 placeholder:text-stone-400 focus:outline-none"
             aria-label="Search commands"
           />
           <kbd className="hidden sm:inline-flex items-center gap-0.5 rounded-md border border-stone-200 dark:border-stone-700 px-1.5 py-0.5 text-[10px] font-semibold text-stone-400">
@@ -248,14 +248,15 @@ function PalettePanel({ onClose }: { onClose: () => void }) {
         </div>
 
         <div className="flex items-center gap-4 border-t border-stone-100 dark:border-stone-800 px-4 py-2.5 text-[11px] text-stone-400">
-          <span className="flex items-center gap-1.5">
+          <span className="hidden sm:flex items-center gap-1.5">
             <kbd className="rounded border border-stone-200 dark:border-stone-700 px-1">↑↓</kbd>
             navigate
           </span>
-          <span className="flex items-center gap-1.5">
+          <span className="hidden sm:flex items-center gap-1.5">
             <kbd className="rounded border border-stone-200 dark:border-stone-700 px-1">↵</kbd>
             select
           </span>
+          <span className="sm:hidden">Tap a result to open</span>
           <span className="ml-auto hidden sm:block">/ for slash commands</span>
         </div>
       </motion.div>

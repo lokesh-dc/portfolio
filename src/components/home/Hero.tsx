@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Search, Sparkles } from "lucide-react";
 import { useChat } from "@/context/ChatContext";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -73,7 +73,7 @@ export default function Hero() {
           </button>
         </motion.div>
 
-        <p className="mt-4 text-xs text-stone-400 dark:text-stone-500">
+        <p className="hidden sm:block mt-4 text-xs text-stone-400 dark:text-stone-500">
           Press{" "}
           <button
             onClick={openPalette}
@@ -87,6 +87,13 @@ export default function Hero() {
           </kbd>{" "}
           for commands
         </p>
+        <button
+          onClick={openPalette}
+          className="sm:hidden mt-4 inline-flex items-center gap-2 rounded-full border border-stone-200 dark:border-stone-700 bg-white/60 dark:bg-stone-800/60 px-4 py-2 text-xs font-medium text-stone-500 dark:text-stone-400"
+        >
+          <Search className="h-3.5 w-3.5" aria-hidden />
+          Tap to search the site
+        </button>
       </motion.div>
 
       <motion.div
