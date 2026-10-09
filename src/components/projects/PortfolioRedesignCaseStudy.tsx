@@ -23,7 +23,7 @@ type Project = {
   links: { live: string; github: string };
   hero: { image: string; alt: string };
   solution: { image: string };
-  productHighlights: { title: string; description: string; technicalNote: string }[];
+  productHighlights: { title: string; description: string; image?: string; technicalNote: string }[];
   roadmap: { title: string; description: string; status: string }[];
   techStack: { category: string; items: { name: string }[] }[];
 };
@@ -235,6 +235,17 @@ export default function PortfolioRedesignCaseStudy() {
                   <p className="mt-3 text-sm text-stone-500 dark:text-stone-500 leading-relaxed md:pl-9">
                     {cleanText(feature.technicalNote)}
                   </p>
+                )}
+                {feature.image && (
+                  <div className="mt-5 overflow-hidden rounded-xl border border-stone-200 dark:border-stone-800">
+                    <Image
+                      className="w-full h-auto"
+                      alt={feature.title}
+                      height={600}
+                      width={1200}
+                      src={feature.image}
+                    />
+                  </div>
                 )}
               </div>
             ))}

@@ -13,6 +13,7 @@ export type Project = {
   solution?: string;
   year?: string;
   role?: string;
+  status?: string;
 };
 
 export type Job = {
@@ -70,6 +71,7 @@ function v2ToListing(slug: string, project: ProjectV2): ProjectListing {
     solution: project.solution?.body,
     year: project.meta?.year,
     role: project.meta?.role,
+    status: project.meta?.status,
   };
 }
 

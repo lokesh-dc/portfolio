@@ -44,6 +44,7 @@ type Project = {
   productHighlights: {
     title: string;
     description: string;
+    image?: string;
     technicalNote: string;
   }[];
   engineeringHighlights: {
@@ -263,6 +264,17 @@ export default function HookedOnMoviesCaseStudy() {
                   </span>
                   {cleanText(feature.technicalNote)}
                 </p>
+                {feature.image && (
+                  <div className="mt-6 overflow-hidden rounded-xl border border-stone-200 dark:border-stone-800">
+                    <Image
+                      className="w-full h-auto"
+                      alt={feature.title}
+                      height={600}
+                      width={1200}
+                      src={feature.image}
+                    />
+                  </div>
+                )}
               </div>
             ))}
           </div>
