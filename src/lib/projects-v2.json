@@ -71,7 +71,7 @@
 				"id": "soundpack-engine",
 				"title": "Soundpack Engine",
 				"description": "Loads real mechvibes-format packs \u2014 both single-sprite and multi-file layouts \u2014 straight out of /public.",
-				"image": "/klicky/top.png",
+				"image": "/klicky/feature-soundpack.png",
 				"benefit": "Drop any community soundpack into the folder and it just works.",
 				"technicalNote": "The loader parses config.json at runtime: v1 'single' packs slice one decoded sprite by [offset, duration] per keycode, while v2 'multi' packs pre-decode every referenced file (expanding {0-4} range tokens) into a buffer cache."
 			},
@@ -79,7 +79,7 @@
 				"id": "physical-key-mapping",
 				"title": "Physical Key Mapping",
 				"description": "Maps every browser KeyboardEvent.code to the Linux evdev keycodes the pack configs use.",
-				"image": "/klicky/mid.png",
+				"image": "/klicky/feature-mapping.png",
 				"benefit": "Keys sound right \u2014 backspace plays the backspace sample, not a generic click.",
 				"technicalNote": "A hand-built CODE_TO_EVDEV table covers 60+ physical keys, and evdevFor() drops anything unmapped onto the pack's generic sound instead of erroring."
 			},
@@ -87,7 +87,7 @@
 				"id": "zero-install-playback",
 				"title": "Zero-Install Playback",
 				"description": "Everything decodes and plays client-side with the Web Audio API \u2014 no audio file is ever re-fetched after load.",
-				"image": "/klicky/bottom.png",
+				"image": "/klicky/feature-playback.png",
 				"benefit": "Open the page, start typing, hear it immediately.",
 				"technicalNote": "Buffers are decoded once and cached; playback runs through a minimal BufferSource \u2192 GainNode chain, and a suspended AudioContext resumes on the first user gesture."
 			},
@@ -95,7 +95,7 @@
 				"id": "global-listening-hook",
 				"title": "Global Listening Hook",
 				"description": "A single useKeyboardSound() hook attaches to window and plays on every keydown \u2014 with key-repeat filtered out.",
-				"image": "/klicky/mobile.png",
+				"image": "/klicky/feature-hook.png",
 				"benefit": "Any page can add real keyboard sounds with four lines of code.",
 				"technicalNote": "The hook exposes playCode(code, phase) and playClick(), supports per-pack volume, and offers an opt-in playOnKeyUp mode for quieter release samples when the pack defines them."
 			},
@@ -103,7 +103,7 @@
 				"id": "live-3d-keyboard",
 				"title": "3D Keyboard Visualizer",
 				"description": "A fully animated QWERTY board with real keycaps \u2014 each press lights the key and sends a light wave across the board.",
-				"image": "/klicky/full.png",
+				"image": "/klicky/feature-visualizer.png",
 				"benefit": "See exactly which physical key fired, with a satisfying ripple that makes the sound feel tactile.",
 				"technicalNote": "The board renders as modular rows of 3D keys (top face, edge, front), each carrying per-key CSS custom properties. A press animates key translateY, then injects a radial 'wave' burst whose RGB color the user can pick."
 			},
@@ -111,7 +111,7 @@
 				"id": "typing-test",
 				"title": "Typing Test & Live Stats",
 				"description": "Type the pangram and watch live WPM and progress as you go, while the board lights up underneath.",
-				"image": "/klicky/mockup.png",
+				"image": "/klicky/feature-typing.png",
 				"benefit": "It doubles as a typing tester \u2014 progress and speed update in real time.",
 				"technicalNote": "A hidden focusable area captures keystrokes, maps them against the pangram, and recomputes WPM and a percentage from elapsed time and correct characters."
 			}
@@ -884,7 +884,7 @@
 				"id": "type-normalization",
 				"title": "TypeScript Data Normalization",
 				"description": "Reconciles inconsistent TMDB Movie vs TV Show field schemas into a single unified interface \u2014 eliminating runtime type errors across the entire app.",
-				"image": "/hookedonmovies/details.png",
+				"image": "/hookedonmovies/feature-normalization.png",
 				"benefit": "Zero runtime type errors. One interface powers every component regardless of content type.",
 				"technicalNote": "A normalization layer sits between the TMDB API and the app. Movie and TV responses are mapped into a shared TypeScript interface at the fetch boundary. Every downstream component consumes the same shape \u2014 no conditional field access, no null guards."
 			},
@@ -892,7 +892,7 @@
 				"id": "parallel-fetching",
 				"title": "Parallel Server-Side Fetching",
 				"description": "Promise.all across multiple TMDB endpoints cuts TTFB significantly versus sequential waterfall requests.",
-				"image": "/hookedonmovies/thumbnail.png",
+				"image": "/hookedonmovies/feature-parallel-fetching.png",
 				"benefit": "Sub-second page loads even when pulling trending, cast, and recommendation data simultaneously.",
 				"technicalNote": "All independent TMDB API calls are dispatched in parallel via Promise.all inside Next.js Server Components. Each fetch is independently try/caught so one failing endpoint never blocks the rest."
 			},
@@ -900,7 +900,7 @@
 				"id": "isr-caching",
 				"title": "ISR on Detail Pages",
 				"description": "Incremental Static Regeneration keeps detail pages fresh without per-request SSR cost \u2014 ideal for high-traffic titles.",
-				"image": "/hookedonmovies/thumbnail.png",
+				"image": "/hookedonmovies/feature-isr.png",
 				"benefit": "Content stays current while pages serve from edge cache. High-traffic title pages never hit the origin.",
 				"technicalNote": "Detail pages use Next.js revalidate config. The first request SSRs and caches; subsequent requests serve stale-while-revalidate. Background revalidation keeps content fresh at configurable intervals."
 			},
@@ -908,7 +908,7 @@
 				"id": "seo-implementation",
 				"title": "Full SEO Implementation",
 				"description": "Dynamic Open Graph tags, structured metadata per page, and canonical URLs for discoverability on search engines.",
-				"image": "/hookedonmovies/details.png",
+				"image": "/hookedonmovies/feature-seo.png",
 				"benefit": "Every page is indexable with rich social previews. Search engines and social platforms get proper metadata.",
 				"technicalNote": "Next.js generateMetadata API produces per-page Open Graph tags, Twitter cards, and structured data. Canonical URLs prevent duplicate indexing. Title, description, and poster image are all dynamic per route."
 			},
@@ -916,7 +916,7 @@
 				"id": "trailer-integration",
 				"title": "Trailer Integration",
 				"description": "Embedded YouTube trailers play directly in the detail view with cinematic backdrop transitions.",
-				"image": "/hookedonmovies/details.png",
+				"image": "/hookedonmovies/feature-trailer.png",
 				"benefit": "Users watch trailers without leaving the page. No context switching to YouTube.",
 				"technicalNote": "YouTube embeds load lazily via iframe only when the user clicks play. Backdrop images from TMDB serve as the poster frame. Framer Motion handles the transition from static image to embedded video."
 			},
@@ -924,7 +924,7 @@
 				"id": "recommendations",
 				"title": "Smart Recommendations",
 				"description": "TMDB's recommendation engine powers a visually rich 'You Might Also Like' section on every detail page.",
-				"image": "/hookedonmovies/thumbnail.png",
+				"image": "/hookedonmovies/feature-recommendations.png",
 				"benefit": "Discovery doesn't stop at one title. Users naturally fall into a browsing loop.",
 				"technicalNote": "Recommendations are fetched in parallel with the main detail data via Promise.all. The recommendation endpoint accepts the current title's ID and returns a curated list \u2014 no custom ML required."
 			}

@@ -11,6 +11,10 @@ import Image from "next/image";
 
 const project = projectsV2Data["fitness-tracker"] as unknown as Project;
 
+const featureImages = new Map(
+  project.productHighlights.map((h) => [h.title, h.image] as const)
+);
+
 const hasGallery = project.gallery.some(
   (item) => item.url !== project.hero.image && item.url !== project.solution.image
 );
@@ -44,6 +48,7 @@ type Project = {
   productHighlights: {
     title: string;
     description: string;
+    image?: string;
     technicalNote: string;
   }[];
   engineeringHighlights: {
@@ -330,6 +335,17 @@ export default function FitTrackCaseStudy() {
                   </span>
                   {feature.technicalNote}
                 </p>
+                {featureImages.get(feature.title) && (
+                  <div className="mt-6 overflow-hidden rounded-xl border border-stone-200 dark:border-stone-800">
+                    <Image
+                      className="w-full h-auto"
+                      alt={feature.title}
+                      height={600}
+                      width={1200}
+                      src={featureImages.get(feature.title)!}
+                    />
+                  </div>
+                )}
               </div>
             ))}
           </div>

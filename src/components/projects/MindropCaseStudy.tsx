@@ -42,6 +42,7 @@ type Project = {
   productHighlights: {
     title: string;
     description: string;
+    image?: string;
     benefit: string;
     technicalNote: string;
   }[];
@@ -251,6 +252,11 @@ export default function MindropCaseStudy() {
                   <span className="font-semibold text-stone-700 dark:text-stone-300">How it works. </span>
                   {cleanText(feature.technicalNote)}
                 </p>
+                {feature.image && (
+                  <div className="mt-6 overflow-hidden rounded-xl border border-stone-200 dark:border-stone-800">
+                    <Image className="w-full h-auto" alt={feature.title} height={600} width={1200} src={feature.image} />
+                  </div>
+                )}
               </div>
             ))}
           </div>
