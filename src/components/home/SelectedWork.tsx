@@ -179,14 +179,13 @@ function FullWidthRow({ project }: { project: Project }) {
 
 export default function SelectedWork() {
   const reduce = useReducedMotion();
-  // Featured order: put Mindrop first to showcase AI/RAG work, then the three polished live projects.
-  // Fallback to natural order if mindrop not present.
-  const featuredSlugs = ["mindrop", "klicky", "fitness-tracker", "hooked-on-movies"];
-  const ordered = featuredSlugs
+  // Featured order: put Mindrop first to showcase AI/RAG work, then the two polished live projects.
+  // Klicky is intentionally kept off the homepage (still live on /projects).
+  const featuredSlugs = ["fitness-tracker", "mindrop", "hooked-on-movies"];
+  const projects = featuredSlugs
     .map((slug) => projectsData.find((p) => p.slug === slug))
-    .filter((p): p is ProjectListing => Boolean(p));
-  const fallback = projectsData.filter((p) => !featuredSlugs.includes(p.slug ?? ""));
-  const projects = [...ordered, ...fallback].slice(0, 4);
+    .filter((p): p is ProjectListing => Boolean(p))
+    .slice(0, 3);
   const [feature, ...rest] = projects;
 
   return (
@@ -205,7 +204,7 @@ export default function SelectedWork() {
           Selected work
         </h2>
         <p className="mt-4 text-[15px] md:text-base font-medium leading-relaxed text-stone-500 dark:text-stone-400">
-          Four projects — picked for what they show about AI, performance,
+          Three projects — picked for what they show about AI, performance,
           and architecture.
         </p>
       </motion.div>
