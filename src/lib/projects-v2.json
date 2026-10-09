@@ -1578,23 +1578,24 @@
 	"mindrop": {
 		"slug": "mindrop",
 		"meta": {
-			"title": "Mindrop \u2014 Your<br />Second Brain",
-			"tagline": "One box for everything in your head. Expenses, ideas, books, travel \u2014 just type it. Mindrop classifies, embeds, and resurfaces it when you ask in plain English.",
+			"title": "Mindrop — Your<br />Second Brain",
+			"tagline": "One box for everything in your head. Expenses, ideas, books, travel — just type it. Mindrop classifies it, remembers the amounts, and answers when you ask.",
 			"role": "Creator & Full-Stack Engineer",
-			"timeline": "3 weeks \u00b7 2025\u20132026 \u2014 In Development",
+			"timeline": "3 weeks · 2025–2026",
 			"platform": [
 				"Web"
 			],
-			"users": "Private beta",
-			"status": "wip",
+			"users": "Live · Free to start",
+			"status": "live",
 			"year": "2026"
 		},
 		"hero": {
 			"mockupType": "both",
-			"alt": "Mindrop feed \u2014 paper-toned timeline grouped by day, input bar, and Ask Mind retrieval panel",
-			"image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=1200&h=750&fit=crop"
+			"alt": "Mindrop homepage hero — one-box capture demo with live classification, month totals, and recall stats",
+			"image": "/mindrop/hero.png"
 		},
 		"links": {
+			"live": "https://drop-a-thought.vercel.app/",
 			"github": "https://github.com/lokesh-dc/second-brain"
 		},
 		"quickFacts": [
@@ -1604,7 +1605,7 @@
 			},
 			{
 				"label": "Timeline",
-				"value": "3 weeks \u00b7 In Dev"
+				"value": "3 weeks"
 			},
 			{
 				"label": "Platform",
@@ -1616,7 +1617,7 @@
 			},
 			{
 				"label": "Status",
-				"value": "In Development"
+				"value": "Live"
 			}
 		],
 		"problem": {
@@ -1626,14 +1627,14 @@
 		"solution": {
 			"headline": "Type first. Structure later \u2014 with AI that earns its keep.",
 			"body": "Mindrop is a second brain for the web: one input bar that accepts anything. A Groq classifier splits multi-fact inputs into logical groups (groceries vs electronics), Gemini embeds each item as a 3072-dim vector in pgvector, and an entity graph links people, books, brands, and places. Ask in plain English \u2014 \u201cwhat did I read this week?\u201d or \u201ctotal food spend last month\u201d \u2014 and hybrid search (vector + structured, fused with RRF) returns grounded answers with sum/count/list heuristics. Daily, weekly, and monthly digests narrate your period like a smart friend, not a dashboard.",
-			"image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=750&fit=crop"
+			"image": "/mindrop/how-it-works.png"
 		},
 		"productHighlights": [
 			{
 				"id": "one-box-capture",
 				"title": "One-Box Capture & Auto-Split",
 				"description": "Paste a grocery + electronics list in one line \u2014 Mindrop splits it into two expense items with per-item amounts intact.",
-				"image": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&h=600&fit=crop",
+				"image": "/mindrop/capture.png",
 				"benefit": "Zero friction \u2014 no categories, folders, or tags to pick before you type.",
 				"technicalNote": "Groq gpt-oss-20b is prompted to return {items[]} with category, entities, amount, tags, embedding_doc. Multi-category inputs are grouped (groceries vs electronics) with summaries like \u201cBought groceries: milk (50), bread (40)\u201d. Fallback is a single misc item if the LLM fails."
 			},
@@ -1641,7 +1642,7 @@
 				"id": "hybrid-search",
 				"title": "Hybrid Search (Vector + Structured)",
 				"description": "Every query runs vector similarity and SQL filters in parallel, fused with Reciprocal Rank Fusion (k=60).",
-				"image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop",
+				"image": "/mindrop/why-mindrop.png",
 				"benefit": "\u201cHow much on food in April?\u201d finds the right rows even when wording shifts.",
 				"technicalNote": "query_embedding from Gemini (3072 dims) hits match_documents_filtered RPC (cosine, threshold 0.5, top 20) in parallel with a structured Supabase query (category/time/entity filters). Results fused via RRF and sliced to 10."
 			},
@@ -1649,7 +1650,7 @@
 				"id": "natural-retrieval",
 				"title": "Natural-Language Retrieval + Aggregation",
 				"description": "Ask \u201cwhat did I spend this week?\u201d and get an answer leading with the total, then the breakdown.",
-				"image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+				"image": "/mindrop/how-it-works.png",
 				"benefit": "No query language to learn \u2014 sums, counts, and lists are inferred from intent.",
 				"technicalNote": "parseQuery rewrites the question + extracts category/time/entity/aggregation. generateRetrievalAnswer precomputes sum/count from fused entries, then prompts Groq for a 3-sentence answer with {answer, entry_ids[], type}. Valid IDs are intersected with fused results; fallback renders the precomputed total."
 			},
@@ -1657,7 +1658,7 @@
 				"id": "digest-narrative",
 				"title": "Digest \u2014 Today / Week / Month",
 				"description": "A warm, 2\u20133 sentence narrative summarizing what you did, spent, and who kept appearing \u2014 refreshed every 24h.",
-				"image": "https://images.unsplash.com/photo-1454165205744-3b78555e5572?w=800&h=600&fit=crop",
+				"image": "/mindrop/digest.png",
 				"benefit": "Your period at a glance, without opening a chart.",
 				"technicalNote": "aggregateData groups by category, sums expenses, finds biggest expense and top entity from entry_entities. Narrative is generated via Groq and upserted to digests(user_id,period) with a <24h freshness check; forceRegenerate bypasses cache."
 			},
@@ -1665,7 +1666,7 @@
 				"id": "entity-graph",
 				"title": "Entity Graph (Books, People, Brands)",
 				"description": "Every entry links to typed entities \u2014 Atomic Habits (book), Third Wave (brand), Coorg (place) \u2014 via entry_entities.",
-				"image": "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&h=600&fit=crop",
+				"image": "/mindrop/features.png",
 				"benefit": "Search \u201cKafka\u201d and get every reading entry, not just keyword hits.",
 				"technicalNote": "classifier extracts entities with ilike-deduped upsert (user_id,name,type). match_documents_filtered aggregates entities as jsonb via entry_entities \u2192 entities join, so vector hits carry their graph."
 			},
@@ -1673,7 +1674,7 @@
 				"id": "frictionless-retrieval-ui",
 				"title": "Feed, Search, Insights \u2014 Built for Speed",
 				"description": "Timeline grouped by day with staggered entrance, search with query parsing, and insights with period switcher \u2014 all server-rendered.",
-				"image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop",
+				"image": "/mindrop/mobile-hero.png",
 				"benefit": "Every page paints with data already in place \u2014 no client waterfalls.",
 				"technicalNote": "app/(app)/home is force-dynamic, loads entries via loadEntries() on the server and passes initialEntries to a client EntriesFeed. Animations use Framer Motion with useReducedMotion; day buckets stick to top-0 with backdrop-blur."
 			}
@@ -1830,64 +1831,70 @@
 		],
 		"gallery": [
 			{
-				"url": "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=1200&h=800&fit=crop",
-				"alt": "Feed timeline \u2014 entries grouped by day with category chips and amounts",
+				"url": "/mindrop/capture.png",
+				"alt": "Capture demo close-up — “spent 80 on chai” becomes a typed expense with amount and tags",
 				"type": "screenshot",
 				"device": "desktop"
 			},
 			{
-				"url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=800&fit=crop",
-				"alt": "One-box input bar \u2014 type anything, Mindrop figures out the rest",
+				"url": "/mindrop/features.png",
+				"alt": "Six capabilities, one flow — the live feature grid on the homepage",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/mindrop/problems.png",
+				"alt": "The problem framing — memory vs system, in four cards",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/mindrop/digest.png",
+				"alt": "Weekly digest teaser — your period narrated back in two warm sentences",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/mindrop/why-mindrop.png",
+				"alt": "Why Mindrop — Notes vs Sheets vs Mindrop on capture, organizing, and recall",
+				"type": "screenshot",
+				"device": "desktop"
+			},
+			{
+				"url": "/mindrop/mobile-hero.png",
+				"alt": "Mobile hero — the same one-box flow on a phone",
 				"type": "screenshot",
 				"device": "phone"
-			},
-			{
-				"url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=800&fit=crop",
-				"alt": "Ask Mind \u2014 hybrid search result with grounded answer + entry_ids",
-				"type": "screenshot",
-				"device": "desktop"
-			},
-			{
-				"url": "https://images.unsplash.com/photo-1454165205744-3b78555e5572?w=1200&h=800&fit=crop",
-				"alt": "Insights \u2014 Today/Week/Month digest narrative + raw counts",
-				"type": "screenshot",
-				"device": "desktop"
-			},
-			{
-				"url": "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800&h=600&fit=crop",
-				"alt": "Onboarding \u2014 animated circle + staggered headline, three slides",
-				"type": "screenshot",
-				"device": "phone"
-			},
-			{
-				"url": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&h=800&fit=crop",
-				"alt": "Category picker + entity chips \u2014 linked books, brands, places",
-				"type": "screenshot",
-				"device": "desktop"
 			}
 		],
 		"roadmap": [
 			{
-				"title": "Category management UI",
-				"description": "The categories tab is currently a placeholder. Build the real picker + CRUD so users can create custom categories beyond the seeded 8.",
-				"status": "planned",
-				"icon": "folder"
-			},
-			{
-				"title": "Optimistic capture + toasts",
-				"description": "Replace the interim \u2018Categorising your thought\u2026\u2019 placeholder with an optimistic entry + Sonner toast + router.refresh() so capture feels instant while Groq/Gemini finish.",
-				"status": "planned",
-				"icon": "zap"
-			},
-			{
-				"title": "Public share & live demo",
-				"description": "Add a demo mode with seeded entries and a public read-only search so recruiters can try Ask Mind without a Supabase account.",
-				"status": "planned",
+				"title": "Live on Vercel",
+				"description": "Public homepage, email-OTP auth, and the full capture → classify → hybrid search → insights loop deployed. Free to start, live to try.",
+				"status": "shipped",
 				"icon": "sparkles"
 			},
 			{
+				"title": "Categories + entity index",
+				"description": "The categories grid, entity detail pages, and linked entries shipped — the placeholder tab is gone.",
+				"status": "shipped",
+				"icon": "sparkles"
+			},
+			{
+				"title": "Instant-feeling capture",
+				"description": "Capture confirms with a Sonner toast + router.refresh() while Groq and Gemini finish — no spinner blocking the habit.",
+				"status": "shipped",
+				"icon": "sparkles"
+			},
+			{
+				"title": "Seeded public demo",
+				"description": "The live site tells the story; next is a no-signup demo with seeded entries so anyone can try Ask Mind without a Supabase account.",
+				"status": "planned",
+				"icon": "message-square"
+			},
+			{
 				"title": "Offline queue (PWA)",
-				"description": "Queue raw_text locally when offline and flush via classifyAndSave when back online \u2014 the habit shouldn\u2019t break on bad signal.",
+				"description": "Queue raw_text locally when offline and flush via classifyAndSave when back online — the habit shouldn’t break on bad signal.",
 				"status": "exploring",
 				"icon": "wifi-off"
 			}

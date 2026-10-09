@@ -205,8 +205,8 @@ export default function SelectedWork() {
           Selected work
         </h2>
         <p className="mt-4 text-[15px] md:text-base font-medium leading-relaxed text-stone-500 dark:text-stone-400">
-          Four projects — one in private beta — picked for what they show about
-          AI, performance, and architecture.
+          Four projects — picked for what they show about AI, performance,
+          and architecture.
         </p>
       </motion.div>
 

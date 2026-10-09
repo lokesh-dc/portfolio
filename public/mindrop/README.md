@@ -1,13 +1,18 @@
-# Mindrop screenshots — replace placeholders
+# Mindrop screenshots — real captures, Oct 2026
 
-Current portfolio entry uses remote Unsplash placeholders (allowed via next.config.ts remotePatterns).
-Drop real captures here and update src/lib/projects-v2.json hero/gallery urls to local paths:
+Captured with Playwright (system Chrome, 1440×900 @2x desktop / 390×844 @2x
+mobile) from the live site https://drop-a-thought.vercel.app/. Regenerate with
+the script kept outside the repo (`mindrop-shot.js`).
 
-- thumbnail.png — 1200x750 — feed timeline grouped by day
-- onboarding.png — onboarding 3-slide motion
-- capture.png — one-box input bar
-- search.png — Ask Mind hybrid search result
-- insights.png — Today/Week/Month digest
-- categories.png — category picker + entity chips
+Referenced from `src/lib/projects-v2.json` (`mindrop` entry):
 
-Recommended: export at 2x, compress with squoosh, keep <400KB each.
+- hero.png — homepage hero (thumbnail + case-study hero)
+- capture.png — capture demo close-up (one-box feature + gallery)
+- features.png — six-capability grid (entity feature + gallery)
+- how-it-works.png — Drop it / Understands / Ask it back (solution banner + retrieval feature)
+- problems.png — problem framing (gallery)
+- digest.png — weekly digest teaser (digest feature + gallery)
+- why-mindrop.png — Notes vs Sheets vs Mindrop (hybrid-search feature + gallery)
+- mobile-hero.png — mobile hero (speed feature + gallery, phone)
+
+Keep each file <400KB.

@@ -87,18 +87,14 @@ export default function MindropCaseStudy() {
         {/* Hero */}
         <header className="pt-4 md:pt-10 space-y-10">
           <div className="space-y-5">
-            <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-amber-600 dark:text-amber-400">
-              <span className="h-1.5 w-1.5 rounded-full bg-amber-600 dark:bg-amber-400 animate-pulse" aria-hidden />
-              In Development — Private Beta
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-emerald-600 dark:text-emerald-400">
+              Live Project
             </p>
             <h1 className="font-sans text-4xl md:text-6xl font-semibold leading-[1.05] tracking-[-0.02em] text-stone-900 dark:text-white">
               <TitleLines title={meta.title} />
             </h1>
             <p className="text-xl md:text-2xl font-light leading-relaxed text-stone-600 dark:text-stone-400">
               {cleanText(meta.tagline)}
-            </p>
-            <p className="text-sm leading-relaxed text-amber-700/80 dark:text-amber-300/70 bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 rounded-xl px-4 py-3">
-              Mindrop is in private beta — capture → classify → embed → hybrid search is live behind auth. Screenshots below are placeholders — they’ll be replaced with real captures as the build stabilizes.
             </p>
           </div>
 
@@ -117,7 +113,7 @@ export default function MindropCaseStudy() {
             </div>
             <div className="bg-white dark:bg-[#0a0a0a] p-5">
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400 dark:text-stone-500">Status</p>
-              <p className="mt-1.5 text-sm font-medium text-amber-600 dark:text-amber-400">{meta.users}</p>
+              <p className="mt-1.5 text-sm font-medium text-stone-900 dark:text-white">{meta.users}</p>
             </div>
           </div>
 
@@ -136,10 +132,19 @@ export default function MindropCaseStudy() {
 
           <div className="flex flex-wrap gap-4">
             <a
-              href={project.links.github}
+              href={project.links.live}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-stone-900 dark:bg-white px-6 py-3 text-sm font-semibold text-white dark:text-stone-900 hover:bg-stone-800 dark:hover:bg-stone-100 transition-colors"
+            >
+              <ExternalLink className="h-4 w-4" />
+              Try it live
+            </a>
+            <a
+              href={project.links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-stone-200 dark:border-stone-800 px-6 py-3 text-sm font-semibold text-stone-700 dark:text-stone-200 hover:border-stone-400 dark:hover:border-stone-600 transition-colors"
             >
               <Github className="h-4 w-4" />
               View source on GitHub
@@ -155,11 +160,6 @@ export default function MindropCaseStudy() {
               src={project.hero.image}
               priority
             />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-stone-900/70 to-transparent p-4 md:p-6">
-              <p className="text-xs md:text-sm font-medium text-white/90">
-                Paper #faf9f7 · Ink #1a1a1a · Brand #7F77DD — the journal, rebuilt for the web.
-              </p>
-            </div>
           </div>
         </header>
 
@@ -350,11 +350,12 @@ export default function MindropCaseStudy() {
                 <div className="flex items-center gap-3">
                   <h3 className="font-sans text-lg font-semibold text-stone-900 dark:text-white">{item.title}</h3>
                   <span
-                    className={`rounded-full px-3 py-0.5 text-[10px] font-semibold uppercase tracking-[0.15em] ${
-                      item.status === "planned"
-                        ? "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400"
-                        : "bg-stone-100 text-stone-500 dark:bg-stone-800 dark:text-stone-400"
-                    }`}
+                    className={`rounded-full px-3 py-0.5 text-[10px] font-semibold uppercase tracking-[0.15em] ${item.status === "shipped"
+                        ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400"
+                        : item.status === "planned"
+                          ? "bg-amber-100 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400"
+                          : "bg-stone-100 text-stone-500 dark:bg-stone-800 dark:text-stone-400"
+                      }`}
                   >
                     {item.status}
                   </span>
@@ -392,8 +393,8 @@ export default function MindropCaseStudy() {
         <ProjectGallery
           num="08"
           label="Gallery"
-          title="Screens from the build (placeholders)"
-          subtitle="These will be replaced with real captures — feed grouped by day, one-box input, Ask Mind answer, Insights digest, onboarding, and category picker. The placeholders keep layout honest while the build stabilizes."
+          title="Screens from the live site"
+          subtitle="Real captures from drop-a-thought.vercel.app — the capture demo, feature grid, problem framing, weekly digest, comparison, and the mobile hero."
           items={project.gallery}
           exclude={[project.hero.image, project.solution.image]}
         />
@@ -401,21 +402,30 @@ export default function MindropCaseStudy() {
         {/* CTA */}
         <section className="rounded-3xl bg-amber-50 dark:bg-amber-500/[0.06] border border-amber-200 dark:border-amber-500/20 p-10 md:p-14 text-center scroll-mt-28">
           <h2 className="font-sans text-3xl md:text-4xl font-semibold tracking-[-0.02em] text-stone-900 dark:text-white">
-            Follow the build
+            Stop losing thoughts
           </h2>
           <p className="mt-4 text-stone-600 dark:text-stone-400 font-light leading-relaxed max-w-md mx-auto">
-            Mindrop is in private beta — hybrid search is live and digests cache for 24h.
-            Track progress on GitHub. A public demo with seeded data is next.
+            Mindrop is live — capture takes seconds and answers come back with numbers.
+            Free to start, 30 seconds to your first drop.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             <a
-              href={project.links.github}
+              href={project.links.live}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-full bg-stone-900 dark:bg-white px-6 py-3 text-sm font-semibold text-white dark:text-stone-900 hover:bg-stone-800 dark:hover:bg-stone-100 transition-colors"
             >
+              <ExternalLink className="h-4 w-4" />
+              Try it live
+            </a>
+            <a
+              href={project.links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-stone-200 dark:border-stone-700 px-6 py-3 text-sm font-semibold text-stone-700 dark:text-stone-200 hover:border-stone-400 dark:hover:border-stone-500 transition-colors"
+            >
               <Github className="h-4 w-4" />
-              Follow on GitHub
+              View source on GitHub
             </a>
           </div>
         </section>
